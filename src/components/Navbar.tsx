@@ -7,8 +7,8 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Services", href: "#services" },
-    { name: "Pricing", href: "#pricing" },
-    { name: "Testimonials", href: "#testimonials" },
+    { name: "Process", href: "#process" },
+    { name: "Why Us", href: "#why-us" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -18,7 +18,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="/" className="font-display text-xl font-bold gradient-text">
-            GrowthLab
+            RR Creator Lab
           </a>
 
           {/* Desktop Navigation */}
@@ -36,8 +36,8 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="hero" size="sm">
-              Get Started
+            <Button variant="hero" size="sm" asChild>
+              <a href="#contact">Get Started</a>
             </Button>
           </div>
 
@@ -69,8 +69,8 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <Button variant="hero" size="sm" className="mt-2">
-                Get Started
+              <Button variant="hero" size="sm" className="mt-2" asChild>
+                <a href="#contact" onClick={() => setIsOpen(false)}>Get Started</a>
               </Button>
             </div>
           </div>
