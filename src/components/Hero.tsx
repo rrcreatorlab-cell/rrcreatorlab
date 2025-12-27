@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, TrendingUp, Users, Zap } from "lucide-react";
+import { ArrowRight, Play, Target, TrendingUp, Sparkles } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -18,30 +18,30 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8 animate-slide-up">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm text-muted-foreground">Trusted by 10,000+ creators worldwide</span>
+            <span className="text-sm text-muted-foreground">Content Growth & Social Media Management Studio</span>
           </div>
 
           {/* Main headline */}
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-            Explode Your
-            <span className="block gradient-text">Social Growth</span>
+            Building Creators.
+            <span className="block gradient-text">Scaling Reach.</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            Premium YouTube & Instagram growth services that deliver real, engaged followers. 
-            Transform your content into a thriving community.
+            Helping creators and brands grow on YouTube and Instagram through strategy, 
+            consistency, and optimized execution.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-slide-up" style={{ animationDelay: "0.3s" }}>
             <Button variant="hero" size="xl">
-              Start Growing Today
+              Get Started
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button variant="glass" size="xl">
               <Play className="mr-2 h-5 w-5" />
-              Watch Demo
+              See Our Work
             </Button>
           </div>
 
@@ -49,24 +49,24 @@ const Hero = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: "0.4s" }}>
             <div className="glass-card rounded-xl p-6 text-center">
               <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mx-auto mb-3">
-                <Users className="h-6 w-6 text-primary" />
+                <Target className="h-6 w-6 text-primary" />
               </div>
-              <div className="text-3xl font-display font-bold gradient-text">50M+</div>
-              <div className="text-sm text-muted-foreground">Followers Delivered</div>
+              <div className="text-3xl font-display font-bold gradient-text">Strategy</div>
+              <div className="text-sm text-muted-foreground">Data-backed growth plans</div>
             </div>
             <div className="glass-card rounded-xl p-6 text-center">
               <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-accent/10 mx-auto mb-3">
                 <TrendingUp className="h-6 w-6 text-accent" />
               </div>
-              <div className="text-3xl font-display font-bold gradient-text">320%</div>
-              <div className="text-sm text-muted-foreground">Avg. Engagement Boost</div>
+              <div className="text-3xl font-display font-bold gradient-text">Growth</div>
+              <div className="text-sm text-muted-foreground">Organic, optimized results</div>
             </div>
             <div className="glass-card rounded-xl p-6 text-center">
               <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mx-auto mb-3">
-                <Zap className="h-6 w-6 text-primary" />
+                <Sparkles className="h-6 w-6 text-primary" />
               </div>
-              <div className="text-3xl font-display font-bold gradient-text">24/7</div>
-              <div className="text-sm text-muted-foreground">Premium Support</div>
+              <div className="text-3xl font-display font-bold gradient-text">Execution</div>
+              <div className="text-sm text-muted-foreground">Clean & consistent delivery</div>
             </div>
           </div>
         </div>

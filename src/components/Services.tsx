@@ -1,46 +1,46 @@
-import { Youtube, Instagram, Users, TrendingUp, Shield, Clock } from "lucide-react";
+import { Target, Youtube, Instagram, Scissors, BarChart3, Calendar } from "lucide-react";
 
 const services = [
   {
+    icon: Target,
+    title: "Content Growth Strategy",
+    description: "Smart planning and research to maximize your content impact and audience reach.",
+    features: ["Niche & audience analysis", "Content ideas & calendars", "Trend & SEO research"],
+    gradient: "from-primary to-blue-400",
+  },
+  {
     icon: Youtube,
-    title: "YouTube Growth",
-    description: "Subscribers, views, and watch time that actually stick. Boost your channel with organic-looking growth.",
-    features: ["Real subscribers", "High retention views", "Custom targeting"],
+    title: "YouTube Management",
+    description: "End-to-end channel management to help your videos reach the right audience.",
+    features: ["Video ideas, titles & descriptions", "Uploading & scheduling", "Thumbnail & SEO guidance", "Community tab support"],
     gradient: "from-red-500 to-orange-500",
   },
   {
     icon: Instagram,
-    title: "Instagram Growth",
-    description: "Followers, likes, and engagement that make your profile stand out in any niche.",
-    features: ["Targeted followers", "Reel views & likes", "Story engagement"],
+    title: "Instagram Management",
+    description: "Strategic content planning and execution to grow your Instagram presence.",
+    features: ["Reels & post strategy", "Caption & hashtag planning", "Posting & engagement support"],
     gradient: "from-pink-500 via-purple-500 to-indigo-500",
   },
   {
-    icon: Users,
-    title: "Community Building",
-    description: "Turn passive followers into an engaged community that interacts with every post.",
-    features: ["Comment management", "DM automation", "Engagement pods"],
-    gradient: "from-primary to-blue-400",
-  },
-  {
-    icon: TrendingUp,
-    title: "Analytics & Strategy",
-    description: "Data-driven insights to optimize your content and maximize your reach potential.",
-    features: ["Growth tracking", "Content analysis", "Competitor insights"],
+    icon: Scissors,
+    title: "Editing Support",
+    description: "Professional video editing to make your content stand out and perform better.",
+    features: ["Reels / Shorts editing", "Basic long-video edits", "Content repurposing"],
     gradient: "from-green-400 to-emerald-500",
   },
   {
-    icon: Shield,
-    title: "Account Safety",
-    description: "We prioritize your account security with gradual, natural-looking growth patterns.",
-    features: ["Safe delivery", "Drip-feed option", "24/7 monitoring"],
+    icon: Calendar,
+    title: "Scheduling & Optimization",
+    description: "Strategic timing and optimization to ensure maximum visibility for your content.",
+    features: ["Optimal posting times", "Cross-platform scheduling", "Performance optimization"],
     gradient: "from-blue-500 to-cyan-400",
   },
   {
-    icon: Clock,
-    title: "Fast Delivery",
-    description: "See results within hours, not weeks. Quick turnaround without compromising quality.",
-    features: ["Instant start", "Express options", "Guaranteed delivery"],
+    icon: BarChart3,
+    title: "Analytics & Tracking",
+    description: "Data-driven insights to understand what works and refine your strategy.",
+    features: ["Performance reports", "Growth tracking", "Monthly reviews"],
     gradient: "from-accent to-pink-500",
   },
 ];
@@ -58,11 +58,11 @@ const Services = () => {
             Our Services
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            Everything You Need to
-            <span className="gradient-text"> Dominate</span>
+            What We
+            <span className="gradient-text"> Do</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Comprehensive growth solutions for YouTube and Instagram creators at every level.
+            Helping creators increase reach, engagement, and visibility through smart content planning and hands-on account management.
           </p>
         </div>
 

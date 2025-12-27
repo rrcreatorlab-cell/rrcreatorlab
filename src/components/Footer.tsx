@@ -1,4 +1,4 @@
-import { Youtube, Instagram, Twitter, Mail } from "lucide-react";
+import { Youtube, Instagram, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -7,23 +7,33 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div className="md:col-span-2">
             <h3 className="font-display text-2xl font-bold gradient-text mb-4">
-              GrowthLab
+              RR Creator Lab
             </h3>
             <p className="text-muted-foreground text-sm max-w-md mb-4">
-              Premium YouTube & Instagram growth services trusted by over 10,000 creators worldwide. 
-              Transform your social presence with real, engaged followers.
+              Building Creators. Scaling Reach. We help creators and brands grow on YouTube and Instagram 
+              through strategy, consistency, and optimized execution.
             </p>
             <div className="flex items-center gap-4">
-              <a href="#" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
+              <a 
+                href="https://youtube.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
                 <Youtube className="h-5 w-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
+              <a 
+                href="https://instagram.com/rrcreatorlab" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
+              <a 
+                href="mailto:rrcreatorlab@gmail.com"
+                className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
                 <Mail className="h-5 w-5" />
               </a>
             </div>
@@ -32,32 +42,34 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">YouTube Subscribers</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">YouTube Views</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Instagram Followers</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Instagram Likes</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Custom Packages</a></li>
+              <li><a href="#services" className="hover:text-primary transition-colors">Content Strategy</a></li>
+              <li><a href="#services" className="hover:text-primary transition-colors">YouTube Management</a></li>
+              <li><a href="#services" className="hover:text-primary transition-colors">Instagram Management</a></li>
+              <li><a href="#services" className="hover:text-primary transition-colors">Video Editing</a></li>
+              <li><a href="#services" className="hover:text-primary transition-colors">Analytics & Tracking</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
+            <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">FAQ</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
+              <li><a href="#services" className="hover:text-primary transition-colors">Services</a></li>
+              <li><a href="#process" className="hover:text-primary transition-colors">How It Works</a></li>
+              <li><a href="#why-us" className="hover:text-primary transition-colors">Why Choose Us</a></li>
+              <li><a href="#clients" className="hover:text-primary transition-colors">Who We Work With</a></li>
+              <li><a href="#contact" className="hover:text-primary transition-colors">Contact</a></li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
-            © 2024 GrowthLab. All rights reserved.
+        <div className="border-t border-border pt-8">
+          <p className="text-sm text-muted-foreground mb-4">
+            © 2024 RR Creator Lab. All rights reserved.
           </p>
-          <p className="text-xs text-muted-foreground">
-            Secure payments powered by Stripe
+          <p className="text-xs text-muted-foreground/70">
+            <strong>Disclaimer:</strong> RR Creator Lab provides content strategy and social media management services only. 
+            Engagement and growth depend on multiple factors including content quality, consistency, and platform algorithms. 
+            No guaranteed results are promised.
           </p>
         </div>
       </div>
