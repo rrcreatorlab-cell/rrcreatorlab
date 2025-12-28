@@ -5,22 +5,23 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const SuccessStories = () => {
-  // Placeholder data - will be replaced with actual channel data
   const successStories = [
     {
-      channelName: "Coming Soon",
-      niche: "Your niche here",
-      thumbnail: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=400&h=225&fit=crop",
+      channelName: "Currency India Official",
+      handle: "@TheCurrencyIndiaofficial420",
+      niche: "Currency & Numismatics",
+      channelUrl: "https://www.youtube.com/@TheCurrencyIndiaofficial420",
+      thumbnail: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=400&h=225&fit=crop",
       beforeStats: {
-        subscribers: "0",
-        views: "0",
+        subscribers: "---",
+        views: "---",
       },
       afterStats: {
-        subscribers: "0",
-        views: "0",
+        subscribers: "4.17K",
+        views: "47 Videos",
       },
-      growth: "0%",
-      testimonial: "Share your YouTube channels and we'll showcase the amazing growth results!",
+      services: ["Content Strategy", "Video Editing", "SEO Optimization"],
+      testimonial: "Share the growth story and we'll add it here!",
     },
   ];
 
@@ -104,10 +105,13 @@ const SuccessStories = () => {
                     </div>
                   </div>
 
-                  {/* Growth Badge */}
-                  <div className="flex items-center gap-2 mb-4">
-                    <TrendingUp className="w-5 h-5 text-accent" />
-                    <span className="text-accent font-bold">{story.growth} Growth</span>
+                  {/* Services Provided */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {story.services.map((service, idx) => (
+                      <span key={idx} className="px-2 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">
+                        {service}
+                      </span>
+                    ))}
                   </div>
 
                   {/* Testimonial */}
