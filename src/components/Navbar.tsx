@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "Pricing", href: "#pricing" },
-    { name: "Process", href: "#process" },
-    { name: "Why Us", href: "#why-us" },
-    { name: "Contact", href: "#contact" },
+    { name: "Services", href: isHomePage ? "#services" : "/#services" },
+    { name: "Pricing", href: isHomePage ? "#pricing" : "/#pricing" },
+    { name: "Success Stories", href: "/success-stories", isPage: true },
+    { name: "Contact", href: isHomePage ? "#contact" : "/#contact" },
   ];
 
   return (
@@ -18,27 +20,37 @@ const Navbar = () => {
       <div className="container px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="/" className="font-display text-xl font-bold gradient-text">
+          <Link to="/" className="font-display text-xl font-bold gradient-text">
             RR Creator Lab
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.isPage ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.name}
+                </a>
+              )
+            )}
           </div>
 
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="hero" size="sm" asChild>
-              <a href="#contact">Get Started</a>
+              <a href={isHomePage ? "#contact" : "/#contact"}>Get Started</a>
             </Button>
           </div>
 
@@ -60,18 +72,29 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border/50">
             <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.isPage ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                )
+              )}
               <Button variant="hero" size="sm" className="mt-2" asChild>
-                <a href="#contact" onClick={() => setIsOpen(false)}>Get Started</a>
+                <a href={isHomePage ? "#contact" : "/#contact"} onClick={() => setIsOpen(false)}>Get Started</a>
               </Button>
             </div>
           </div>
