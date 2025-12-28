@@ -24,6 +24,24 @@ const SuccessStories = () => {
       services: ["Content Strategy", "Video Editing", "SEO Optimization"],
       testimonial: "Share the growth story and we'll add it here!",
     },
+    {
+      channelName: "Sambodhi Mechanical Engineering Coaching",
+      handle: "@smecoching2070",
+      niche: "Education & Engineering",
+      channelUrl: "https://www.youtube.com/@smecoching2070",
+      thumbnail: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=225&fit=crop",
+      beforeStats: {
+        subscribers: "28",
+        views: "3K",
+      },
+      afterStats: {
+        subscribers: "473",
+        views: "1.1K+ Views",
+      },
+      growth: "17x",
+      services: ["Content Strategy", "Shorts Creation", "Channel Optimization"],
+      testimonial: "Share the growth story and we'll add it here!",
+    },
   ];
 
   return (
