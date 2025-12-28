@@ -13,13 +13,14 @@ const SuccessStories = () => {
       channelUrl: "https://www.youtube.com/@TheCurrencyIndiaofficial420",
       thumbnail: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=400&h=225&fit=crop",
       beforeStats: {
-        subscribers: "---",
-        views: "---",
+        subscribers: "8",
+        views: "2K",
       },
       afterStats: {
         subscribers: "4.17K",
         views: "47 Videos",
       },
+      growth: "520x",
       services: ["Content Strategy", "Video Editing", "SEO Optimization"],
       testimonial: "Share the growth story and we'll add it here!",
     },
@@ -103,6 +104,12 @@ const SuccessStories = () => {
                         <span className="text-sm font-medium text-primary">{story.afterStats.views}</span>
                       </div>
                     </div>
+                  </div>
+
+                  {/* Growth Badge */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <TrendingUp className="w-5 h-5 text-accent" />
+                    <span className="text-accent font-bold">{story.growth} Subscriber Growth</span>
                   </div>
 
                   {/* Services Provided */}
