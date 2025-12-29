@@ -1,5 +1,6 @@
 import { Check, Star, Sparkles, Scissors } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Pricing = () => {
   const plans = [
@@ -135,8 +136,9 @@ const Pricing = () => {
               <Button
                 variant={plan.popular ? "default" : "outline"}
                 className="w-full"
+                asChild
               >
-                Get Started
+                <Link to="/lets-connect">Get Started</Link>
               </Button>
             </div>
           ))}

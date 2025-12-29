@@ -50,7 +50,7 @@ const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="hero" size="sm" asChild>
-              <a href={isHomePage ? "#contact" : "/#contact"}>Get Started</a>
+              <Link to="/lets-connect">Get Started</Link>
             </Button>
           </div>
 
@@ -94,7 +94,7 @@ const Navbar = () => {
                 )
               )}
               <Button variant="hero" size="sm" className="mt-2" asChild>
-                <a href={isHomePage ? "#contact" : "/#contact"} onClick={() => setIsOpen(false)}>Get Started</a>
+                <Link to="/lets-connect" onClick={() => setIsOpen(false)}>Get Started</Link>
               </Button>
             </div>
           </div>
