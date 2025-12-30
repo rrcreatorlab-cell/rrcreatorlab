@@ -1,4 +1,4 @@
-import { Star, Quote } from "lucide-react";
+import { Star, StarHalf, Quote } from "lucide-react";
 
 const Testimonials = () => {
   const testimonials = [
@@ -12,7 +12,7 @@ const Testimonials = () => {
     {
       name: "Priya Patel",
       role: "Lifestyle Influencer",
-      rating: 5,
+      rating: 4,
       review: "The team understands exactly what works on Instagram. My reels engagement increased by 300% after working with them. Highly recommended!",
       avatar: "PP",
     },
@@ -26,11 +26,25 @@ const Testimonials = () => {
     {
       name: "Sneha Reddy",
       role: "Food Blogger",
-      rating: 5,
+      rating: 3.5,
       review: "Amazing thumbnails and video edits! My click-through rate improved significantly. The team is responsive and delivers quality work on time.",
       avatar: "SR",
     },
   ];
+
+  const renderStars = (rating: number) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<Star key={i} className="w-5 h-5 fill-primary text-primary" />);
+    }
+    if (hasHalfStar) {
+      stars.push(<StarHalf key="half" className="w-5 h-5 fill-primary text-primary" />);
+    }
+    return stars;
+  };
 
   return (
     <section id="testimonials" className="py-24 relative overflow-hidden">
@@ -71,12 +85,7 @@ const Testimonials = () => {
 
               {/* Rating */}
               <div className="flex gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 fill-primary text-primary"
-                  />
-                ))}
+                {renderStars(testimonial.rating)}
               </div>
 
               {/* Author */}
