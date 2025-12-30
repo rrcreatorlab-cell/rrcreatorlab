@@ -69,6 +69,18 @@ const Pricing = () => {
       unit: "per video",
       note: "Depending on length & complexity",
     },
+    {
+      name: "Channel Audit & Strategy",
+      price: "₹999",
+      unit: "one-time",
+      note: "Complete channel analysis & growth roadmap",
+    },
+    {
+      name: "Thumbnails / Creatives",
+      price: "₹299",
+      unit: "each",
+      note: "Eye-catching designs that drive clicks",
+    },
   ];
 
   return (
@@ -144,16 +156,16 @@ const Pricing = () => {
           ))}
         </div>
 
-        {/* Editing-Only Packages */}
-        <div className="max-w-3xl mx-auto">
+        {/* Additional Packages */}
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium">
               <Scissors className="w-4 h-4" />
-              Editing-Only Packages (Optional)
+              Additional Packages
             </span>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {editingPackages.map((pkg, index) => (
               <div
                 key={index}
