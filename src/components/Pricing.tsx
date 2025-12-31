@@ -1,9 +1,12 @@
-import { Check, Star, Sparkles, Scissors, Video, Film } from "lucide-react";
+import { Check, Star, Sparkles, Scissors, Video, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Pricing = () => {
-  const plans = [
+  const [isYearly, setIsYearly] = useState(false);
+
+  const monthlyPlans = [
     {
       name: "Starter Creator Plan",
       price: "₹2,000 – ₹8,000",
@@ -59,6 +62,55 @@ const Pricing = () => {
     },
   ];
 
+  const yearlyPlans = [
+    {
+      name: "Starter – Yearly",
+      price: "₹20,000 – ₹80,000",
+      period: "/ year",
+      description: "Best for new & small creators",
+      features: [
+        "8–10 shorts/reels per month",
+        "1–2 long-form videos per month",
+        "Strategy, uploads & optimization",
+        "Monthly progress review",
+      ],
+      popular: false,
+      icon: Sparkles,
+    },
+    {
+      name: "Growth – Yearly",
+      price: "₹80,000 – ₹2,00,000",
+      period: "/ year",
+      description: "Full content growth strategy",
+      features: [
+        "12–20 shorts/reels per month",
+        "2–4 long-form videos per month",
+        "Full YouTube + Instagram management",
+        "Monthly analytics & engagement strategy",
+      ],
+      popular: true,
+      icon: Star,
+    },
+    {
+      name: "Premium – Yearly",
+      price: "₹2,50,000 – ₹5,00,000",
+      period: "/ year",
+      description: "For serious creators & brands",
+      features: [
+        "20–25 shorts/reels per month",
+        "4–5 long-form videos per month",
+        "Complete account handling",
+        "Likes & comment moderation",
+        "Community growth",
+        "Detailed monthly + yearly roadmap",
+      ],
+      popular: false,
+      icon: Crown,
+    },
+  ];
+
+  const plans = isYearly ? yearlyPlans : monthlyPlans;
+
   const editingPackages = [
     {
       name: "Shorts/Reels Editing",
@@ -103,9 +155,36 @@ const Pricing = () => {
             Choose Your{" "}
             <span className="gradient-text">Growth Plan</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
             Flexible packages designed for creators at every stage of their journey
           </p>
+          
+          {/* Pricing Toggle */}
+          <div className="flex items-center justify-center gap-4">
+            <span className={`text-sm font-medium transition-colors ${!isYearly ? "text-primary" : "text-muted-foreground"}`}>
+              Monthly
+            </span>
+            <button
+              onClick={() => setIsYearly(!isYearly)}
+              className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${
+                isYearly ? "bg-primary" : "bg-muted"
+              }`}
+            >
+              <span
+                className={`absolute top-1 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-300 ${
+                  isYearly ? "translate-x-8" : "translate-x-1"
+                }`}
+              />
+            </button>
+            <span className={`text-sm font-medium transition-colors ${isYearly ? "text-primary" : "text-muted-foreground"}`}>
+              Yearly
+            </span>
+            {isYearly && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-medium animate-pulse">
+                Save up to 17%
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Pricing Cards */}
