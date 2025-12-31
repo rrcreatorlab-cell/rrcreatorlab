@@ -1,4 +1,4 @@
-import { Check, Star, Sparkles, Scissors } from "lucide-react";
+import { Check, Star, Sparkles, Scissors, Video, Film } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -140,12 +140,19 @@ const Pricing = () => {
               </div>
 
               <ul className="space-y-3 mb-8">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.popular ? "text-primary" : "text-accent"}`} />
-                    <span className="text-sm text-muted-foreground">{feature}</span>
-                  </li>
-                ))}
+                {plan.features.map((feature, featureIndex) => {
+                  const isVideoFeature = feature.toLowerCase().includes('video') || feature.toLowerCase().includes('reel') || feature.toLowerCase().includes('short');
+                  return (
+                    <li key={featureIndex} className="flex items-start gap-3">
+                      {isVideoFeature ? (
+                        <Video className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.popular ? "text-primary" : "text-accent"}`} />
+                      ) : (
+                        <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.popular ? "text-primary" : "text-accent"}`} />
+                      )}
+                      <span className={`text-sm ${isVideoFeature ? "text-foreground font-medium" : "text-muted-foreground"}`}>{feature}</span>
+                    </li>
+                  );
+                })}
               </ul>
 
               <Button
