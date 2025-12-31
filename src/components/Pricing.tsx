@@ -12,6 +12,7 @@ const Pricing = () => {
       features: [
         "Content strategy & ideas",
         "8–10 reels/shorts editing",
+        "1–2 long videos",
         "Uploading & scheduling",
         "Caption + hashtag support",
         "Basic YouTube/Instagram optimization",
@@ -28,6 +29,7 @@ const Pricing = () => {
       features: [
         "Full content growth strategy",
         "12–20 reels/shorts editing",
+        "2–4 long videos",
         "YouTube + Instagram management",
         "Titles, descriptions & hashtags",
         "Uploading & scheduling",
@@ -44,6 +46,7 @@ const Pricing = () => {
       description: "For serious creators & brands",
       features: [
         "End-to-end account management",
+        "20–25 shorts/reels + 4–5 long videos",
         "YouTube + Instagram handled fully",
         "Content planning + execution",
         "Advanced growth strategy",
