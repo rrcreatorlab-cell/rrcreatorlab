@@ -6,7 +6,7 @@ const Pricing = () => {
   const plans = [
     {
       name: "Starter Creator Plan",
-      price: "₹5,000 – ₹8,000",
+      price: "₹2,000 – ₹8,000",
       period: "/ month",
       description: "Best for new & small creators",
       features: [
@@ -22,7 +22,7 @@ const Pricing = () => {
     },
     {
       name: "Growth Plan",
-      price: "₹12,000 – ₹20,000",
+      price: "₹8,000 – ₹20,000",
       period: "/ month",
       description: "Full content growth strategy",
       features: [
