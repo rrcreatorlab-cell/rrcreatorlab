@@ -158,7 +158,7 @@ const SuccessStories = () => {
                 Let's work together to grow your channel and reach your goals.
               </p>
               <Button variant="hero" size="lg" asChild>
-                <Link to="/#contact">Get Started Today</Link>
+                <Link to="/#founder">Meet the Founder</Link>
               </Button>
             </div>
           </div>
