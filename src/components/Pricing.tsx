@@ -161,29 +161,31 @@ const Pricing = () => {
           
           {/* Pricing Toggle */}
           <div className="flex items-center justify-center gap-4">
-            <span className={`text-sm font-medium transition-colors ${!isYearly ? "text-primary" : "text-muted-foreground"}`}>
+            <span className={`text-sm font-medium transition-all duration-300 ${!isYearly ? "text-primary scale-105" : "text-muted-foreground"}`}>
               Monthly
             </span>
             <button
               onClick={() => setIsYearly(!isYearly)}
-              className={`relative w-14 h-7 rounded-full transition-colors duration-300 overflow-hidden ${
-                isYearly ? "bg-primary" : "bg-muted"
+              className={`relative w-14 h-7 rounded-full transition-all duration-300 overflow-hidden hover:shadow-lg ${
+                isYearly ? "bg-primary shadow-primary/30" : "bg-muted"
               }`}
             >
               <span
-                className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-300 ${
-                  isYearly ? "translate-x-7" : "translate-x-0"
+                className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-md transition-all duration-300 ease-out ${
+                  isYearly ? "translate-x-7 scale-110" : "translate-x-0"
                 }`}
               />
             </button>
-            <span className={`text-sm font-medium transition-colors ${isYearly ? "text-primary" : "text-muted-foreground"}`}>
+            <span className={`text-sm font-medium transition-all duration-300 ${isYearly ? "text-primary scale-105" : "text-muted-foreground"}`}>
               Yearly
             </span>
-            {isYearly && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-medium animate-pulse">
-                Save up to 17%
-              </span>
-            )}
+            <span 
+              className={`inline-flex items-center gap-1 px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-medium transition-all duration-500 ${
+                isYearly ? "opacity-100 translate-x-0 scale-100" : "opacity-0 -translate-x-4 scale-90 pointer-events-none"
+              }`}
+            >
+              <span className="animate-pulse">Save up to 17%</span>
+            </span>
           </div>
         </div>
 
@@ -191,16 +193,17 @@ const Pricing = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-20">
           {plans.map((plan, index) => (
             <div
-              key={index}
-              className={`relative rounded-2xl p-8 transition-all duration-300 hover:scale-105 ${
+              key={`${isYearly ? 'yearly' : 'monthly'}-${index}`}
+              className={`relative rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in ${
                 plan.popular
-                  ? "bg-gradient-to-b from-primary/20 to-primary/5 border-2 border-primary shadow-lg shadow-primary/20"
-                  : "glass-card border border-border/50"
+                  ? "bg-gradient-to-b from-primary/20 to-primary/5 border-2 border-primary shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
+                  : "glass-card border border-border/50 hover:border-primary/30 hover:shadow-lg"
               }`}
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-primary text-primary-foreground text-sm font-medium">
+                  <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-primary text-primary-foreground text-sm font-medium animate-pulse">
                     <Star className="w-4 h-4 fill-current" />
                     Most Popular
                   </span>
@@ -208,13 +211,13 @@ const Pricing = () => {
               )}
 
               <div className="mb-6">
-                <plan.icon className={`w-10 h-10 mb-4 ${plan.popular ? "text-primary" : "text-accent"}`} />
+                <plan.icon className={`w-10 h-10 mb-4 transition-transform duration-300 hover:scale-110 hover:rotate-12 ${plan.popular ? "text-primary" : "text-accent"}`} />
                 <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
                 <p className="text-muted-foreground text-sm">{plan.description}</p>
               </div>
 
               <div className="mb-6">
-                <span className="text-3xl font-bold">{plan.price}</span>
+                <span className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">{plan.price}</span>
                 <span className="text-muted-foreground">{plan.period}</span>
               </div>
 
@@ -222,13 +225,17 @@ const Pricing = () => {
                 {plan.features.map((feature, featureIndex) => {
                   const isVideoFeature = feature.toLowerCase().includes('video') || feature.toLowerCase().includes('reel') || feature.toLowerCase().includes('short');
                   return (
-                    <li key={featureIndex} className="flex items-start gap-3">
+                    <li 
+                      key={featureIndex} 
+                      className="flex items-start gap-3 animate-fade-in"
+                      style={{ animationDelay: `${(index * 100) + (featureIndex * 50)}ms` }}
+                    >
                       {isVideoFeature ? (
-                        <Video className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.popular ? "text-primary" : "text-accent"}`} />
+                        <Video className={`w-5 h-5 mt-0.5 flex-shrink-0 transition-transform duration-300 hover:scale-125 ${plan.popular ? "text-primary" : "text-accent"}`} />
                       ) : (
-                        <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.popular ? "text-primary" : "text-accent"}`} />
+                        <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 transition-transform duration-300 hover:scale-125 ${plan.popular ? "text-primary" : "text-accent"}`} />
                       )}
-                      <span className={`text-sm ${isVideoFeature ? "text-foreground font-medium" : "text-muted-foreground"}`}>{feature}</span>
+                      <span className={`text-sm transition-colors duration-300 ${isVideoFeature ? "text-foreground font-medium" : "text-muted-foreground"}`}>{feature}</span>
                     </li>
                   );
                 })}
@@ -236,7 +243,7 @@ const Pricing = () => {
 
               <Button
                 variant={plan.popular ? "default" : "outline"}
-                className="w-full"
+                className="w-full transition-all duration-300 hover:scale-105 hover:shadow-md"
                 asChild
               >
                 <Link to="/lets-connect">Get Started</Link>
@@ -258,7 +265,8 @@ const Pricing = () => {
             {editingPackages.map((pkg, index) => (
               <div
                 key={index}
-                className="glass-card rounded-xl p-6 border border-border/50 hover:border-accent/50 transition-all duration-300"
+                className="glass-card rounded-xl p-6 border border-border/50 hover:border-accent/50 transition-all duration-500 hover:scale-105 hover:-translate-y-1 hover:shadow-lg animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <h4 className="text-lg font-bold mb-2">{pkg.name}</h4>
                 <div className="mb-2">
