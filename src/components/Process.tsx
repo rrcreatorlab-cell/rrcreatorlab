@@ -4,32 +4,26 @@ const steps = [
   {
     number: "01",
     icon: MessageCircle,
-    title: "Understanding Your Goals",
-    description: "We start by learning about your content, audience, and what success looks like for you.",
+    title: "Client Onboarding",
+    description: "Fill out our simple form and share your goals. We learn about your content, audience, and vision for growth.",
   },
   {
     number: "02",
-    icon: Lightbulb,
-    title: "Strategy & Content Planning",
-    description: "We develop a customized growth strategy with content calendars and optimization plans.",
+    icon: BarChart3,
+    title: "Strategy & Analytics Review",
+    description: "We analyze your channel performance and develop a customized growth strategy tailored to your niche.",
   },
   {
     number: "03",
     icon: Rocket,
-    title: "Execution & Management",
-    description: "Our team handles the day-to-day management, posting, and optimization of your channels.",
+    title: "Editing + Uploading",
+    description: "Our team handles professional editing, optimization, and strategic uploading to maximize reach.",
   },
   {
     number: "04",
     icon: FileText,
-    title: "Weekly Updates",
-    description: "Stay informed with regular progress reports and transparent communication.",
-  },
-  {
-    number: "05",
-    icon: BarChart3,
-    title: "Monthly Performance Review",
-    description: "Comprehensive analytics review to refine strategy and maximize results.",
+    title: "Weekly / Monthly Growth Report",
+    description: "Receive detailed performance reports with insights, analytics, and actionable recommendations.",
   },
 ];
 
