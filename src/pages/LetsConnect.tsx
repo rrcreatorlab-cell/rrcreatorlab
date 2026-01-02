@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Phone, Mail, Instagram } from "lucide-react";
+import { ExternalLink, Phone, Mail, Instagram, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -32,6 +33,14 @@ const LetsConnect = () => {
       
       <main className="pt-24 pb-16">
         <div className="container px-4">
+          {/* Back Button */}
+          <Link to="/">
+            <Button variant="ghost" className="mb-8 gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Home
+            </Button>
+          </Link>
+
           {/* Header */}
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-2 rounded-full glass-card text-sm text-primary mb-6">
