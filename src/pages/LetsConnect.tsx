@@ -1,30 +1,31 @@
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Heart, Users, Lightbulb } from "lucide-react";
+import { ExternalLink, Phone, Mail, Instagram } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import founderImage from "@/assets/founder-rishabh.jpeg";
 
 const LetsConnect = () => {
   const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSc7w7_crTXDPXa1Rz_2OOkAX7k_5jq88dEdLr8KiiaICcGh5g/viewform?usp=header";
 
-  const values = [
+  const contactMethods = [
     {
-      icon: Heart,
-      title: "Quality over quantity",
-      description: "Every project is handled with attention to detail."
+      icon: Phone,
+      title: "WhatsApp",
+      value: "+91 9483886270",
+      href: "https://wa.me/919483886270"
     },
     {
-      icon: Users,
-      title: "Client-first approach",
-      description: "We focus on long-term relationships, not short-term results."
+      icon: Mail,
+      title: "Email",
+      value: "rrcreatorlab@gmail.com",
+      href: "mailto:rrcreatorlab@gmail.com"
     },
     {
-      icon: Lightbulb,
-      title: "Continuous learning & innovation",
-      description: "We adapt to trends, tools, and platforms to deliver the best outcomes."
+      icon: Instagram,
+      title: "Instagram",
+      value: "@rrcreatorlab",
+      href: "https://instagram.com/rrcreatorlab"
     }
   ];
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -59,40 +60,30 @@ const LetsConnect = () => {
               </Button>
             </div>
 
-            {/* Meet the Founder Section */}
+            {/* Contact Info Section */}
             <div className="glass-card rounded-2xl p-8 border border-border/50">
-              <div className="flex flex-col items-center text-center">
-                <div className="relative mb-6">
-                  <div className="absolute -inset-2 bg-gradient-to-r from-primary via-blue-500 to-accent rounded-full blur-lg opacity-50" />
-                  <img
-                    src={founderImage}
-                    alt="Rishabh Alevoor - Founder & CEO"
-                    className="relative w-24 h-24 rounded-full object-cover border-2 border-primary/50"
-                  />
-                </div>
-                <h2 className="font-display text-2xl font-bold mb-1">Rishabh Alevoor</h2>
-                <p className="text-primary text-sm mb-4">Founder & CEO, RR Creator Lab</p>
-                <p className="text-muted-foreground text-sm mb-6">
-                  I started RR Creator Lab to help creators and businesses grow with the right strategy, creativity, and consistency.
-                </p>
-
-                {/* Core Values */}
-                <div className="w-full space-y-3">
-                  {values.map((value, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 p-3 rounded-xl bg-background/50 border border-border/50 text-left"
-                    >
-                      <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                        <value.icon className="h-4 w-4 text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-sm">{value.title}</p>
-                        <p className="text-muted-foreground text-xs">{value.description}</p>
-                      </div>
+              <h2 className="font-display text-2xl font-bold mb-4">Reach Out Directly</h2>
+              <p className="text-muted-foreground mb-6">
+                Prefer a quick chat? Connect with us through any of these channels.
+              </p>
+              <div className="space-y-4">
+                {contactMethods.map((method, index) => (
+                  <a
+                    key={index}
+                    href={method.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-background/50 border border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all group"
+                  >
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/30 transition-colors">
+                      <method.icon className="h-5 w-5 text-primary" />
                     </div>
-                  ))}
-                </div>
+                    <div>
+                      <p className="font-medium">{method.title}</p>
+                      <p className="text-muted-foreground text-sm">{method.value}</p>
+                    </div>
+                  </a>
+                ))}
               </div>
             </div>
           </div>

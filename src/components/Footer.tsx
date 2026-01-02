@@ -1,4 +1,4 @@
-import { Youtube, Instagram, Mail } from "lucide-react";
+import { Youtube, Instagram, Mail, Phone } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -13,6 +13,37 @@ const Footer = () => {
               Building Creators. Scaling Reach. We help creators and brands grow on YouTube and Instagram 
               through strategy, consistency, and optimized execution.
             </p>
+            
+            {/* Contact Info */}
+            <div className="space-y-2 mb-4">
+              <a 
+                href="https://wa.me/919483886270" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Phone className="h-4 w-4" />
+                +91 9483886270
+              </a>
+              <a 
+                href="mailto:rrcreatorlab@gmail.com"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Mail className="h-4 w-4" />
+                rrcreatorlab@gmail.com
+              </a>
+              <a 
+                href="https://instagram.com/rrcreatorlab" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Instagram className="h-4 w-4" />
+                @rrcreatorlab
+              </a>
+            </div>
+
+            {/* Social Icons */}
             <div className="flex items-center gap-4">
               <a 
                 href="https://youtube.com" 
