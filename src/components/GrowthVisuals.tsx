@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import growthViewsImage from "@/assets/growth-views.jpg";
 import creatorGrowthImage from "@/assets/creator-growth-phases.webp";
 
@@ -47,6 +49,15 @@ const GrowthVisuals = () => {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="text-center mt-12">
+          <Link to="/lets-connect">
+            <Button variant="gradient" size="xl">
+              Get Started
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
