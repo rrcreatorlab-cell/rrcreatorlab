@@ -24,7 +24,30 @@ const GrowthVisuals = () => {
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
+            
+            {/* Stats Overlay */}
+            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+              <div className="grid grid-cols-2 gap-6 p-6">
+                <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                  <p className="text-3xl md:text-4xl font-bold text-primary">200K+</p>
+                  <p className="text-sm text-muted-foreground">Views Growth</p>
+                </div>
+                <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                  <p className="text-3xl md:text-4xl font-bold text-accent">10x</p>
+                  <p className="text-sm text-muted-foreground">Engagement</p>
+                </div>
+                <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">
+                  <p className="text-3xl md:text-4xl font-bold text-primary">30 Days</p>
+                  <p className="text-sm text-muted-foreground">Avg. Results</p>
+                </div>
+                <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-200">
+                  <p className="text-3xl md:text-4xl font-bold text-accent">500%</p>
+                  <p className="text-sm text-muted-foreground">ROI Increase</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute bottom-0 left-0 right-0 p-6 group-hover:opacity-0 transition-opacity duration-300">
               <h3 className="text-xl font-bold text-foreground mb-2">Explosive View Growth</h3>
               <p className="text-muted-foreground text-sm">
                 Learn the secrets to skyrocket your views from 100 to 200k+
@@ -42,7 +65,30 @@ const GrowthVisuals = () => {
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
+            
+            {/* Stats Overlay */}
+            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+              <div className="grid grid-cols-2 gap-6 p-6">
+                <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                  <p className="text-3xl md:text-4xl font-bold text-primary">4 Phases</p>
+                  <p className="text-sm text-muted-foreground">Growth Journey</p>
+                </div>
+                <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                  <p className="text-3xl md:text-4xl font-bold text-accent">$50K+</p>
+                  <p className="text-sm text-muted-foreground">Revenue Potential</p>
+                </div>
+                <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">
+                  <p className="text-3xl md:text-4xl font-bold text-primary">100K</p>
+                  <p className="text-sm text-muted-foreground">Subscriber Goal</p>
+                </div>
+                <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-200">
+                  <p className="text-3xl md:text-4xl font-bold text-accent">Brand</p>
+                  <p className="text-sm text-muted-foreground">Final Phase</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute bottom-0 left-0 right-0 p-6 group-hover:opacity-0 transition-opacity duration-300">
               <h3 className="text-xl font-bold text-foreground mb-2">Complete Growth Roadmap</h3>
               <p className="text-muted-foreground text-sm">
                 From channel launch to building your brand & monetizing your audience
