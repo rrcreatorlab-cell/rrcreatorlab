@@ -1,4 +1,6 @@
 import { MessageCircle, Lightbulb, Rocket, FileText, BarChart3 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const steps = [
   {
@@ -74,6 +76,15 @@ const Process = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* CTA Button */}
+        <div className="text-center mt-12">
+          <Link to="/lets-connect">
+            <Button variant="gradient" size="xl">
+              Get Started
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
