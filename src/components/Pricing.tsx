@@ -33,7 +33,7 @@ const Pricing = () => {
         "Full content growth strategy",
         "12–20 reels/shorts editing",
         "2–4 long videos",
-        "YouTube + Instagram management",
+        "YouTube or Instagram management",
         "Titles, descriptions & hashtags",
         "Uploading & scheduling",
         "Engagement support (likes/comments strategy)",
