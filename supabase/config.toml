@@ -1,1 +1,4 @@
 project_id = "nryiotsoshkfjbzdxuhe"
+
+[functions.youtube-planner]
+verify_jwt = false
