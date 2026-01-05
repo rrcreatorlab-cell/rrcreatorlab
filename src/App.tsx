@@ -9,6 +9,7 @@ import SuccessStories from "./pages/SuccessStories";
 import LetsConnect from "./pages/LetsConnect";
 import Auth from "./pages/Auth";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import JotFormAgent from "./components/JotFormAgent";
 
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/lets-connect" element={<LetsConnect />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
