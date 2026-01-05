@@ -8,7 +8,7 @@ import Index from "./pages/Index";
 import SuccessStories from "./pages/SuccessStories";
 import LetsConnect from "./pages/LetsConnect";
 import Auth from "./pages/Auth";
-import YouTubePlanner from "./pages/YouTubePlanner";
+
 import NotFound from "./pages/NotFound";
 import JotFormAgent from "./components/JotFormAgent";
 
@@ -27,7 +27,7 @@ const App = () => (
             <Route path="/success-stories" element={<SuccessStories />} />
             <Route path="/lets-connect" element={<LetsConnect />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/youtube-planner" element={<YouTubePlanner />} />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
