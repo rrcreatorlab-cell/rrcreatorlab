@@ -2,21 +2,30 @@ import { useEffect } from 'react';
 
 const JotFormAgent = () => {
   useEffect(() => {
-    // Check if script is already loaded
-    const existingScript = document.querySelector('script[src*="jotfor.ms/agent/embedjs"]');
-    if (existingScript) return;
+    // Create the window object for JotForm config
+    (window as any).AgentInitializer = (window as any).AgentInitializer || {};
+    (window as any).AgentInitializer.init = (window as any).AgentInitializer.init || function(t: any) {
+      const e = !1, n = document.createElement("script");
+      n.id = t.id, n.async = e, n.type = "module", n.src = "https://agent.jotform.com/019b8a9ef4a2706a97010c77b5fad0244ed8/embed.min.js", 
+      n.onload = function() { (window as any).JotFormAgent && (window as any).JotFormAgent.init(t); },
+      document.body.appendChild(n);
+    };
 
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jotfor.ms/agent/embedjs/019b8a9ef4a2706a97010c77b5fad0244ed8/embed.js';
-    script.async = true;
-    document.body.appendChild(script);
+    // Initialize the agent
+    (window as any).AgentInitializer.init({
+      id: "019b8a9ef4a2706a97010c77b5fad0244ed8",
+      formID: "019b8a9ef4a2706a97010c77b5fad0244ed8",
+    });
 
     return () => {
       // Cleanup on unmount
-      const scriptToRemove = document.querySelector('script[src*="jotfor.ms/agent/embedjs"]');
+      const scriptToRemove = document.getElementById('019b8a9ef4a2706a97010c77b5fad0244ed8');
       if (scriptToRemove) {
         scriptToRemove.remove();
       }
+      // Remove any JotForm elements
+      const jotformElements = document.querySelectorAll('[class*="jotform"], [id*="jotform"]');
+      jotformElements.forEach(el => el.remove());
     };
   }, []);
 

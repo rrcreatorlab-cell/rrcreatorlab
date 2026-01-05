@@ -1,84 +1,19 @@
 import { ArrowLeft, Calendar, Clock, User, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
-const blogPosts = [
-  {
-    id: 1,
-    title: "10 Proven Strategies to Grow Your YouTube Channel in 2025",
-    excerpt: "Discover the most effective tactics that successful creators use to grow their audience and increase engagement on YouTube.",
-    category: "Growth",
-    author: "RR Creator Lab",
-    date: "Jan 3, 2025",
-    readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=600&h=400&fit=crop",
-  },
-  {
-    id: 2,
-    title: "How to Create Viral Thumbnails That Get Clicks",
-    excerpt: "Learn the psychology behind high-converting thumbnails and how to design ones that make viewers want to click.",
-    category: "Design",
-    author: "RR Creator Lab",
-    date: "Dec 28, 2024",
-    readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&h=400&fit=crop",
-  },
-  {
-    id: 3,
-    title: "YouTube Algorithm Secrets: What Actually Works",
-    excerpt: "Understand how the YouTube algorithm works and learn actionable tips to get your videos recommended to more viewers.",
-    category: "Algorithm",
-    author: "RR Creator Lab",
-    date: "Dec 20, 2024",
-    readTime: "10 min read",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-  },
-  {
-    id: 4,
-    title: "The Perfect YouTube Posting Schedule for Maximum Views",
-    excerpt: "Find out the best times to post on YouTube and how to create a consistent upload schedule that keeps your audience engaged.",
-    category: "Strategy",
-    author: "RR Creator Lab",
-    date: "Dec 15, 2024",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-  },
-  {
-    id: 5,
-    title: "How to Write YouTube Titles That Rank and Convert",
-    excerpt: "Master the art of writing compelling titles that rank well in search and entice viewers to click on your videos.",
-    category: "SEO",
-    author: "RR Creator Lab",
-    date: "Dec 10, 2024",
-    readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&h=400&fit=crop",
-  },
-  {
-    id: 6,
-    title: "Building a Loyal YouTube Community: A Complete Guide",
-    excerpt: "Learn how to foster engagement, respond to comments effectively, and build a community that supports your channel's growth.",
-    category: "Community",
-    author: "RR Creator Lab",
-    date: "Dec 5, 2024",
-    readTime: "9 min read",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
-  },
-];
-
-const categoryColors: Record<string, string> = {
-  Growth: "bg-green-500/10 text-green-500 border-green-500/20",
-  Design: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-  Algorithm: "bg-blue-500/10 text-blue-500 border-blue-500/20",
-  Strategy: "bg-orange-500/10 text-orange-500 border-orange-500/20",
-  SEO: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
-  Community: "bg-pink-500/10 text-pink-500 border-pink-500/20",
-};
+import { blogPosts, categoryColors } from "@/data/blogPosts";
 
 const Blog = () => {
+  const navigate = useNavigate();
+
+  const handlePostClick = (slug: string) => {
+    navigate(`/blog/${slug}`);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -113,7 +48,10 @@ const Blog = () => {
       {/* Featured Post */}
       <section className="py-8 px-4">
         <div className="container mx-auto">
-          <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300">
+          <Card 
+            className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300 cursor-pointer"
+            onClick={() => handlePostClick(blogPosts[0].slug)}
+          >
             <div className="grid md:grid-cols-2 gap-0">
               <div className="aspect-video md:aspect-auto">
                 <img 
@@ -126,7 +64,7 @@ const Blog = () => {
                 <Badge className={`w-fit mb-4 ${categoryColors[blogPosts[0].category]}`}>
                   {blogPosts[0].category}
                 </Badge>
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 hover:text-primary transition-colors cursor-pointer">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 hover:text-primary transition-colors">
                   {blogPosts[0].title}
                 </h2>
                 <p className="text-muted-foreground mb-6">
@@ -165,6 +103,7 @@ const Blog = () => {
               <Card 
                 key={post.id} 
                 className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer group"
+                onClick={() => handlePostClick(post.slug)}
               >
                 <div className="aspect-video overflow-hidden">
                   <img 
