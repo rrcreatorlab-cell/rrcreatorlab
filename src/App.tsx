@@ -10,6 +10,7 @@ import LetsConnect from "./pages/LetsConnect";
 import Auth from "./pages/Auth";
 import YouTubePlanner from "./pages/YouTubePlanner";
 import NotFound from "./pages/NotFound";
+import JotFormAgent from "./components/JotFormAgent";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
       <AuthProvider>
         <Toaster />
         <Sonner />
+        <JotFormAgent />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
