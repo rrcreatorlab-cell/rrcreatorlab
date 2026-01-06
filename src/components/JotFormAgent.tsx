@@ -2,29 +2,24 @@ import { useEffect } from 'react';
 
 const JotFormAgent = () => {
   useEffect(() => {
-    // Create the window object for JotForm config
-    (window as any).AgentInitializer = (window as any).AgentInitializer || {};
-    (window as any).AgentInitializer.init = (window as any).AgentInitializer.init || function(t: any) {
-      const e = !1, n = document.createElement("script");
-      n.id = t.id, n.async = e, n.type = "module", n.src = "https://agent.jotform.com/019b8a9ef4a2706a97010c77b5fad0244ed8/embed.min.js", 
-      n.onload = function() { (window as any).JotFormAgent && (window as any).JotFormAgent.init(t); },
-      document.body.appendChild(n);
-    };
+    // Check if script already exists
+    const existingScript = document.querySelector('script[src*="cdn.jotfor.ms/agent/embedjs"]');
+    if (existingScript) return;
 
-    // Initialize the agent
-    (window as any).AgentInitializer.init({
-      id: "019b8a9ef4a2706a97010c77b5fad0244ed8",
-      formID: "019b8a9ef4a2706a97010c77b5fad0244ed8",
-    });
+    // Create and append the JotForm agent script
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jotfor.ms/agent/embedjs/019b8a9ef4a2706a97010c77b5fad0244ed8/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
 
     return () => {
       // Cleanup on unmount
-      const scriptToRemove = document.getElementById('019b8a9ef4a2706a97010c77b5fad0244ed8');
+      const scriptToRemove = document.querySelector('script[src*="cdn.jotfor.ms/agent/embedjs"]');
       if (scriptToRemove) {
         scriptToRemove.remove();
       }
       // Remove any JotForm elements
-      const jotformElements = document.querySelectorAll('[class*="jotform"], [id*="jotform"]');
+      const jotformElements = document.querySelectorAll('[class*="jotform"], [id*="jotform"], [class*="JotForm"]');
       jotformElements.forEach(el => el.remove());
     };
   }, []);
