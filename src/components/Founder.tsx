@@ -1,5 +1,6 @@
-import { Heart, Target, TrendingUp } from "lucide-react";
+import { Heart, Target, TrendingUp, Play } from "lucide-react";
 import founderImage from "@/assets/founder-rishabh.jpeg";
+import founderVideo from "@/assets/founder-intro-video.mp4";
 
 const Founder = () => {
   const coreValues = [
@@ -33,16 +34,29 @@ const Founder = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-          {/* Image Section */}
+          {/* Video Section */}
           <div className="relative group">
             <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-            <div className="relative">
-              <img
-                src={founderImage}
-                alt="Rishabh Alevoor - Founder & CEO of RR Creator Lab"
-                className="w-full max-w-md mx-auto rounded-2xl shadow-2xl object-cover aspect-[3/4]"
-              />
-              <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-sm rounded-xl p-4 text-center">
+            <div className="relative space-y-6">
+              {/* Video */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <video
+                  src={founderVideo}
+                  controls
+                  poster={founderImage}
+                  className="w-full max-w-md mx-auto rounded-2xl"
+                  preload="metadata"
+                >
+                  Your browser does not support the video tag.
+                </video>
+                <div className="absolute top-4 left-4 bg-primary/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-2">
+                  <Play className="w-3 h-3 text-primary-foreground" />
+                  <span className="text-xs font-medium text-primary-foreground">Watch Introduction</span>
+                </div>
+              </div>
+              
+              {/* Founder Info Card */}
+              <div className="bg-background/90 backdrop-blur-sm rounded-xl p-4 text-center border border-border/50">
                 <h3 className="text-xl font-bold text-foreground">Rishabh Alevoor</h3>
                 <p className="text-primary font-medium">Founder & CEO, RR Creator Lab</p>
               </div>
