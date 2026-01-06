@@ -24,14 +24,14 @@ const JotFormAgent = () => {
     script.async = true;
     document.body.appendChild(script);
 
-    // Auto-pop out every 4 minutes (240000ms)
+    // Auto-pop out every 2 minutes (120000ms)
     const popOutInterval = setInterval(() => {
       // Try to find and click the JotForm agent button to open it
       const agentButton = document.querySelector('[class*="jfAgent"][class*="button"], [class*="JotFormAgent"] button, [id*="jotform-agent"] button, .jfAgent-wrapper button');
       if (agentButton && agentButton instanceof HTMLElement) {
         agentButton.click();
       }
-    }, 240000); // 4 minutes
+    }, 120000); // 2 minutes
 
     return () => {
       script.remove();
