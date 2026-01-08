@@ -139,8 +139,8 @@ const Pricing = () => {
     {
       name: "YT Complete Teaching",
       price: "₹2,999",
-      unit: "per year",
-      note: "End-to-end YouTube teaching & playbook",
+      unit: "one-time",
+      note: "Webinar + One-to-one sessions",
     },
     {
       name: "Toolkit",
