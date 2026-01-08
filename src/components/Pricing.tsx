@@ -1,10 +1,19 @@
-import { Check, Star, Sparkles, Scissors, Video, Crown } from "lucide-react";
+import { Check, Star, Sparkles, Scissors, Video, Crown, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<number | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
 
   const monthlyPlans = [
     {
@@ -23,6 +32,9 @@ const Pricing = () => {
       ],
       popular: false,
       icon: Sparkles,
+      detailedDescription: "Perfect for creators just starting their journey. We help you build a strong foundation with consistent content and basic optimization to grow your audience organically.",
+      idealFor: ["New YouTubers & Instagram creators", "Those with less than 10K followers", "Creators exploring content creation"],
+      deliverables: ["8-10 professionally edited reels/shorts", "1-2 polished long-form videos", "Weekly strategy calls", "Content calendar planning"],
     },
     {
       name: "Growth Plan",
@@ -41,6 +53,9 @@ const Pricing = () => {
       ],
       popular: true,
       icon: Star,
+      detailedDescription: "Our most popular plan for creators ready to scale. We handle everything from content strategy to execution, helping you grow faster with data-driven decisions.",
+      idealFor: ["Creators with 10K-100K followers", "Those looking to monetize their content", "Serious creators wanting faster growth"],
+      deliverables: ["12-20 reels/shorts with trending formats", "2-4 high-quality long videos", "Complete platform management", "Monthly analytics report with actionable insights"],
     },
     {
       name: "Premium Management Plan",
@@ -58,7 +73,10 @@ const Pricing = () => {
         "Detailed monthly analytics & roadmap",
       ],
       popular: false,
-      icon: Sparkles,
+      icon: Crown,
+      detailedDescription: "The ultimate creator package. We become your dedicated content team, handling everything so you can focus on creating. Perfect for creators who want hands-off growth.",
+      idealFor: ["Full-time creators & influencers", "Brands building their presence", "Creators with 100K+ followers"],
+      deliverables: ["20-25 viral-optimized shorts/reels", "4-5 premium long-form videos", "Dual platform management (YT + IG)", "Community management & engagement", "Quarterly strategy roadmap"],
     },
   ];
 
@@ -76,6 +94,9 @@ const Pricing = () => {
       ],
       popular: false,
       icon: Sparkles,
+      detailedDescription: "Lock in a full year of growth support at a discounted rate. Perfect for creators committed to long-term success with consistent content creation.",
+      idealFor: ["New YouTubers & Instagram creators", "Those with less than 10K followers", "Creators exploring content creation"],
+      deliverables: ["96-120 reels/shorts per year", "12-24 long-form videos per year", "Monthly strategy reviews", "Priority support"],
     },
     {
       name: "Growth – Yearly",
@@ -90,6 +111,9 @@ const Pricing = () => {
       ],
       popular: true,
       icon: Star,
+      detailedDescription: "Save up to 17% with our yearly growth commitment. Get consistent, high-quality content management with predictable costs and guaranteed growth.",
+      idealFor: ["Creators with 10K-100K followers", "Those looking to monetize their content", "Serious creators wanting faster growth"],
+      deliverables: ["144-240 reels/shorts per year", "24-48 long-form videos per year", "12 monthly analytics reports", "Quarterly strategy planning sessions"],
     },
     {
       name: "Premium – Yearly",
@@ -106,6 +130,9 @@ const Pricing = () => {
       ],
       popular: false,
       icon: Crown,
+      detailedDescription: "The ultimate yearly partnership for serious creators. Includes all premium benefits with dedicated account management and priority service.",
+      idealFor: ["Full-time creators & influencers", "Brands building their presence", "Creators with 100K+ followers"],
+      deliverables: ["240-300 shorts/reels per year", "48-60 premium long-form videos", "Dedicated account manager", "Quarterly in-depth strategy sessions", "Annual content audit & roadmap"],
     },
   ];
 
@@ -117,36 +144,54 @@ const Pricing = () => {
       price: "₹300 – ₹500",
       unit: "per reel",
       note: "Bulk pricing available",
+      detailedDescription: "Professional editing for your short-form content with trending effects, transitions, and audio sync.",
+      includes: ["Trendy transitions & effects", "Audio sync & beat matching", "Color grading", "Caption/subtitle addition", "2-3 revisions included"],
+      turnaround: "24-48 hours per reel",
     },
     {
       name: "Long Video Editing (Basic)",
       price: "₹1,000 – ₹3,000",
       unit: "per video",
       note: "Depending on length & complexity",
+      detailedDescription: "Complete editing for YouTube videos including cuts, transitions, graphics, and optimization.",
+      includes: ["Professional cuts & pacing", "Background music & SFX", "Basic motion graphics", "Color correction", "Thumbnail suggestion"],
+      turnaround: "3-5 business days",
     },
     {
       name: "Channel Audit & Strategy",
       price: "₹999",
       unit: "one-time",
       note: "Complete channel analysis & growth roadmap",
+      detailedDescription: "In-depth analysis of your channel with actionable recommendations to accelerate growth.",
+      includes: ["Complete channel review", "Competitor analysis", "Content gap identification", "SEO recommendations", "90-day growth roadmap"],
+      turnaround: "5-7 business days",
     },
     {
       name: "Thumbnails / Creatives",
       price: "₹299",
       unit: "each",
       note: "Eye-catching designs that drive clicks",
+      detailedDescription: "Click-worthy thumbnails designed to boost your CTR and stand out in search results.",
+      includes: ["Custom design", "A/B test variations", "Text overlay optimization", "Brand consistency", "2 revisions included"],
+      turnaround: "24 hours",
     },
     {
       name: "YT Complete Teaching",
       price: "₹2,999",
       unit: "one-time",
       note: "Webinar + One-to-one sessions",
+      detailedDescription: "Learn everything about YouTube growth from scratch with personalized guidance and live sessions.",
+      includes: ["2-hour comprehensive webinar", "1-on-1 strategy call (30 mins)", "Channel setup guidance", "Content planning framework", "Lifetime access to recordings"],
+      turnaround: "Sessions scheduled within 7 days",
     },
     {
       name: "Toolkit",
       price: "₹4,999",
       unit: "per year",
       note: "Templates, systems, and creator resources bundle",
+      detailedDescription: "Everything you need to run your creator business efficiently with proven templates and systems.",
+      includes: ["Content calendar templates", "Script writing frameworks", "Thumbnail templates (Canva/PS)", "Analytics tracking sheets", "Email & collab templates", "Regular updates included"],
+      turnaround: "Instant access upon purchase",
     },
   ];
 
@@ -253,16 +298,86 @@ const Pricing = () => {
                 })}
               </ul>
 
-              <Button
-                variant={plan.popular ? "default" : "outline"}
-                className="w-full transition-all duration-300 hover:scale-105 hover:shadow-md"
-                asChild
-              >
-                <Link to="/lets-connect">Get Started</Link>
-              </Button>
+              <div className="space-y-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-muted-foreground hover:text-primary transition-all duration-300"
+                  onClick={() => setSelectedPlan(index)}
+                >
+                  <Eye className="w-4 h-4 mr-2" />
+                  View Details
+                </Button>
+                <Button
+                  variant={plan.popular ? "default" : "outline"}
+                  className="w-full transition-all duration-300 hover:scale-105 hover:shadow-md"
+                  asChild
+                >
+                  <Link to="/lets-connect">Get Started</Link>
+                </Button>
+              </div>
             </div>
           ))}
         </div>
+
+        {/* Plan Details Dialog */}
+        <Dialog open={selectedPlan !== null} onOpenChange={() => setSelectedPlan(null)}>
+          <DialogContent className="max-w-lg">
+            {selectedPlan !== null && (
+              <>
+                <DialogHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    {(() => {
+                      const PlanIcon = plans[selectedPlan].icon;
+                      return <PlanIcon className="w-8 h-8 text-primary" />;
+                    })()}
+                    <DialogTitle className="text-2xl">{plans[selectedPlan].name}</DialogTitle>
+                  </div>
+                  <DialogDescription className="text-base">
+                    {plans[selectedPlan].detailedDescription}
+                  </DialogDescription>
+                </DialogHeader>
+                
+                <div className="space-y-6 mt-4">
+                  <div>
+                    <div className="text-3xl font-bold text-primary mb-1">
+                      {plans[selectedPlan].price}
+                      <span className="text-lg text-muted-foreground font-normal">{plans[selectedPlan].period}</span>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-3 text-foreground">Ideal For:</h4>
+                    <ul className="space-y-2">
+                      {plans[selectedPlan].idealFor.map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-muted-foreground">
+                          <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-3 text-foreground">What You Get:</h4>
+                    <ul className="space-y-2">
+                      {plans[selectedPlan].deliverables.map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-muted-foreground">
+                          <Star className="w-4 h-4 text-accent flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <Button className="w-full" asChild>
+                    <Link to="/lets-connect">Get Started with {plans[selectedPlan].name}</Link>
+                  </Button>
+                </div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {/* Additional Packages */}
         <div className="max-w-4xl mx-auto">
@@ -273,22 +388,71 @@ const Pricing = () => {
             </span>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {editingPackages.map((pkg, index) => (
               <div
                 key={index}
-                className="glass-card rounded-xl p-6 border border-border/50 hover:border-accent/50 transition-all duration-500 hover:scale-105 hover:-translate-y-1 hover:shadow-lg animate-fade-in"
+                className="glass-card rounded-xl p-6 border border-border/50 hover:border-accent/50 transition-all duration-500 hover:scale-105 hover:-translate-y-1 hover:shadow-lg animate-fade-in cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => setSelectedPackage(index)}
               >
                 <h4 className="text-lg font-bold mb-2">{pkg.name}</h4>
                 <div className="mb-2">
                   <span className="text-2xl font-bold text-accent">{pkg.price}</span>
                   <span className="text-muted-foreground text-sm ml-2">{pkg.unit}</span>
                 </div>
-                <p className="text-muted-foreground text-sm">{pkg.note}</p>
+                <p className="text-muted-foreground text-sm mb-3">{pkg.note}</p>
+                <Button variant="ghost" size="sm" className="w-full text-accent hover:text-accent/80">
+                  <Eye className="w-4 h-4 mr-2" />
+                  View Details
+                </Button>
               </div>
             ))}
           </div>
+
+          {/* Package Details Dialog */}
+          <Dialog open={selectedPackage !== null} onOpenChange={() => setSelectedPackage(null)}>
+            <DialogContent className="max-w-lg">
+              {selectedPackage !== null && (
+                <>
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl">{editingPackages[selectedPackage].name}</DialogTitle>
+                    <DialogDescription className="text-base">
+                      {editingPackages[selectedPackage].detailedDescription}
+                    </DialogDescription>
+                  </DialogHeader>
+                  
+                  <div className="space-y-6 mt-4">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl font-bold text-accent">{editingPackages[selectedPackage].price}</span>
+                      <span className="text-muted-foreground">{editingPackages[selectedPackage].unit}</span>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-semibold mb-3 text-foreground">What's Included:</h4>
+                      <ul className="space-y-2">
+                        {editingPackages[selectedPackage].includes.map((item, i) => (
+                          <li key={i} className="flex items-center gap-2 text-muted-foreground">
+                            <Check className="w-4 h-4 text-accent flex-shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 p-3 rounded-lg bg-accent/10">
+                      <span className="text-sm font-medium text-accent">Turnaround:</span>
+                      <span className="text-sm text-muted-foreground">{editingPackages[selectedPackage].turnaround}</span>
+                    </div>
+                    
+                    <Button className="w-full" asChild>
+                      <Link to="/lets-connect">Get {editingPackages[selectedPackage].name}</Link>
+                    </Button>
+                  </div>
+                </>
+              )}
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </section>
