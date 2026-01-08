@@ -136,6 +136,18 @@ const Pricing = () => {
       unit: "each",
       note: "Eye-catching designs that drive clicks",
     },
+    {
+      name: "YT Complete Teaching",
+      price: "₹2,999",
+      unit: "per year",
+      note: "End-to-end YouTube teaching & playbook",
+    },
+    {
+      name: "Toolkit",
+      price: "₹4,999",
+      unit: "per year",
+      note: "Templates, systems, and creator resources bundle",
+    },
   ];
 
   return (

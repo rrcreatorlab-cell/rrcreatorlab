@@ -99,6 +99,19 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', sans-serif;
   }
+
+  /* JotForm Agent: keep widget visible above the app */
+  .jfAgent-wrapper,
+  [class*="jfAgent"],
+  [class*="JotFormAgent"],
+  [id*="jotform-agent"],
+  iframe[src*="jotfor.ms/agent"],
+  iframe[src*="jotform"] {
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    z-index: 2147483647 !important;
+  }
 }
 
 @layer utilities {
