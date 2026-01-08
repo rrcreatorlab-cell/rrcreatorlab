@@ -11,8 +11,6 @@ import Auth from "./pages/Auth";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
-import JotFormAgent from "./components/JotFormAgent";
-
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -21,7 +19,6 @@ const App = () => (
       <AuthProvider>
         <Toaster />
         <Sonner />
-        <JotFormAgent />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
