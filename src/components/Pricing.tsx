@@ -1,4 +1,4 @@
-import { Check, Star, Sparkles, Scissors, Video, Crown, Eye } from "lucide-react";
+import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -14,6 +14,7 @@ const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<number | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
 
   const monthlyPlans = [
     {
@@ -217,108 +218,312 @@ const Pricing = () => {
           </p>
           
           {/* Pricing Toggle */}
-          <div className="flex items-center justify-center gap-4">
-            <span className={`text-sm font-medium transition-all duration-300 ${!isYearly ? "text-primary scale-105" : "text-muted-foreground"}`}>
-              Monthly
-            </span>
-            <button
-              onClick={() => setIsYearly(!isYearly)}
-              className={`relative w-14 h-7 rounded-full transition-all duration-300 overflow-hidden hover:shadow-lg ${
-                isYearly ? "bg-primary shadow-primary/30" : "bg-muted"
-              }`}
-            >
-              <span
-                className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-md transition-all duration-300 ease-out ${
-                  isYearly ? "translate-x-7 scale-110" : "translate-x-0"
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex items-center gap-4">
+              <span className={`text-sm font-medium transition-all duration-300 ${!isYearly ? "text-primary scale-105" : "text-muted-foreground"}`}>
+                Monthly
+              </span>
+              <button
+                onClick={() => setIsYearly(!isYearly)}
+                className={`relative w-14 h-7 rounded-full transition-all duration-300 overflow-hidden hover:shadow-lg ${
+                  isYearly ? "bg-primary shadow-primary/30" : "bg-muted"
                 }`}
-              />
-            </button>
-            <span className={`text-sm font-medium transition-all duration-300 ${isYearly ? "text-primary scale-105" : "text-muted-foreground"}`}>
-              Yearly
-            </span>
-            <span 
-              className={`inline-flex items-center gap-1 px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-medium transition-all duration-500 ${
-                isYearly ? "opacity-100 translate-x-0 scale-100" : "opacity-0 -translate-x-4 scale-90 pointer-events-none"
-              }`}
-            >
-              <span className="animate-pulse">Save up to 17%</span>
-            </span>
+              >
+                <span
+                  className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-md transition-all duration-300 ease-out ${
+                    isYearly ? "translate-x-7 scale-110" : "translate-x-0"
+                  }`}
+                />
+              </button>
+              <span className={`text-sm font-medium transition-all duration-300 ${isYearly ? "text-primary scale-105" : "text-muted-foreground"}`}>
+                Yearly
+              </span>
+              <span 
+                className={`inline-flex items-center gap-1 px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-medium transition-all duration-500 ${
+                  isYearly ? "opacity-100 translate-x-0 scale-100" : "opacity-0 -translate-x-4 scale-90 pointer-events-none"
+                }`}
+              >
+                <span className="animate-pulse">Save up to 17%</span>
+              </span>
+            </div>
+            
+            {/* View Toggle */}
+            <div className="flex items-center gap-2 p-1 rounded-lg bg-muted/50 border border-border/50">
+              <button
+                onClick={() => setViewMode('cards')}
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                  viewMode === 'cards' 
+                    ? 'bg-background text-primary shadow-sm' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <LayoutGrid className="w-4 h-4" />
+                Cards
+              </button>
+              <button
+                onClick={() => setViewMode('table')}
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                  viewMode === 'table' 
+                    ? 'bg-background text-primary shadow-sm' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Table className="w-4 h-4" />
+                Compare
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
-          {plans.map((plan, index) => (
-            <div
-              key={`${isYearly ? 'yearly' : 'monthly'}-${index}`}
-              className={`relative rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in ${
-                plan.popular
-                  ? "bg-gradient-to-b from-primary/20 to-primary/5 border-2 border-primary shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
-                  : "glass-card border border-border/50 hover:border-primary/30 hover:shadow-lg"
-              }`}
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-primary text-primary-foreground text-sm font-medium animate-pulse">
-                    <Star className="w-4 h-4 fill-current" />
-                    Most Popular
-                  </span>
+        {/* Pricing Cards View */}
+        {viewMode === 'cards' && (
+          <div className="grid md:grid-cols-3 gap-8 mb-20">
+            {plans.map((plan, index) => (
+              <div
+                key={`${isYearly ? 'yearly' : 'monthly'}-${index}`}
+                className={`relative rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in ${
+                  plan.popular
+                    ? "bg-gradient-to-b from-primary/20 to-primary/5 border-2 border-primary shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
+                    : "glass-card border border-border/50 hover:border-primary/30 hover:shadow-lg"
+                }`}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-primary text-primary-foreground text-sm font-medium animate-pulse">
+                      <Star className="w-4 h-4 fill-current" />
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+
+                <div className="mb-6">
+                  <plan.icon className={`w-10 h-10 mb-4 transition-transform duration-300 hover:scale-110 hover:rotate-12 ${plan.popular ? "text-primary" : "text-accent"}`} />
+                  <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+                  <p className="text-muted-foreground text-sm">{plan.description}</p>
                 </div>
-              )}
 
-              <div className="mb-6">
-                <plan.icon className={`w-10 h-10 mb-4 transition-transform duration-300 hover:scale-110 hover:rotate-12 ${plan.popular ? "text-primary" : "text-accent"}`} />
-                <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-                <p className="text-muted-foreground text-sm">{plan.description}</p>
+                <div className="mb-6">
+                  <span className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">{plan.price}</span>
+                  <span className="text-muted-foreground">{plan.period}</span>
+                </div>
+
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((feature, featureIndex) => {
+                    const isVideoFeature = feature.toLowerCase().includes('video') || feature.toLowerCase().includes('reel') || feature.toLowerCase().includes('short');
+                    return (
+                      <li 
+                        key={featureIndex} 
+                        className="flex items-start gap-3 animate-fade-in"
+                        style={{ animationDelay: `${(index * 100) + (featureIndex * 50)}ms` }}
+                      >
+                        {isVideoFeature ? (
+                          <Video className={`w-5 h-5 mt-0.5 flex-shrink-0 transition-transform duration-300 hover:scale-125 ${plan.popular ? "text-primary" : "text-accent"}`} />
+                        ) : (
+                          <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 transition-transform duration-300 hover:scale-125 ${plan.popular ? "text-primary" : "text-accent"}`} />
+                        )}
+                        <span className={`text-sm transition-colors duration-300 ${isVideoFeature ? "text-foreground font-medium" : "text-muted-foreground"}`}>{feature}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                <div className="space-y-3">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full text-muted-foreground hover:text-primary transition-all duration-300"
+                    onClick={() => setSelectedPlan(index)}
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    View Details
+                  </Button>
+                  <Button
+                    variant={plan.popular ? "default" : "outline"}
+                    className="w-full transition-all duration-300 hover:scale-105 hover:shadow-md"
+                    asChild
+                  >
+                    <Link to="/lets-connect">Get Started</Link>
+                  </Button>
+                </div>
               </div>
+            ))}
+          </div>
+        )}
 
-              <div className="mb-6">
-                <span className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">{plan.price}</span>
-                <span className="text-muted-foreground">{plan.period}</span>
-              </div>
-
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((feature, featureIndex) => {
-                  const isVideoFeature = feature.toLowerCase().includes('video') || feature.toLowerCase().includes('reel') || feature.toLowerCase().includes('short');
-                  return (
-                    <li 
-                      key={featureIndex} 
-                      className="flex items-start gap-3 animate-fade-in"
-                      style={{ animationDelay: `${(index * 100) + (featureIndex * 50)}ms` }}
-                    >
-                      {isVideoFeature ? (
-                        <Video className={`w-5 h-5 mt-0.5 flex-shrink-0 transition-transform duration-300 hover:scale-125 ${plan.popular ? "text-primary" : "text-accent"}`} />
-                      ) : (
-                        <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 transition-transform duration-300 hover:scale-125 ${plan.popular ? "text-primary" : "text-accent"}`} />
-                      )}
-                      <span className={`text-sm transition-colors duration-300 ${isVideoFeature ? "text-foreground font-medium" : "text-muted-foreground"}`}>{feature}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <div className="space-y-3">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full text-muted-foreground hover:text-primary transition-all duration-300"
-                  onClick={() => setSelectedPlan(index)}
-                >
-                  <Eye className="w-4 h-4 mr-2" />
-                  View Details
-                </Button>
-                <Button
-                  variant={plan.popular ? "default" : "outline"}
-                  className="w-full transition-all duration-300 hover:scale-105 hover:shadow-md"
-                  asChild
-                >
-                  <Link to="/lets-connect">Get Started</Link>
-                </Button>
-              </div>
+        {/* Comparison Table View */}
+        {viewMode === 'table' && (
+          <div className="mb-20 overflow-x-auto animate-fade-in">
+            <div className="glass-card rounded-2xl border border-border/50 min-w-[800px]">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-border/50">
+                    <th className="text-left p-6 font-semibold text-foreground w-1/4">Features</th>
+                    {plans.map((plan, index) => (
+                      <th 
+                        key={index} 
+                        className={`text-center p-6 ${plan.popular ? 'bg-primary/10' : ''}`}
+                      >
+                        <div className="flex flex-col items-center gap-2">
+                          <plan.icon className={`w-8 h-8 ${plan.popular ? 'text-primary' : 'text-accent'}`} />
+                          <span className="font-bold text-lg">{plan.name.replace(' – Yearly', '').replace(' Creator Plan', '').replace(' Plan', '').replace(' Management', '')}</span>
+                          {plan.popular && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary text-primary-foreground text-xs font-medium">
+                              <Star className="w-3 h-3 fill-current" />
+                              Popular
+                            </span>
+                          )}
+                        </div>
+                      </th>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-border/50 bg-muted/30">
+                    <td className="p-4 font-medium text-muted-foreground">Price</td>
+                    {plans.map((plan, index) => (
+                      <td key={index} className={`text-center p-4 ${plan.popular ? 'bg-primary/5' : ''}`}>
+                        <div className="font-bold text-xl text-foreground">{plan.price}</div>
+                        <div className="text-sm text-muted-foreground">{plan.period}</div>
+                      </td>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Shorts/Reels */}
+                  <tr className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                    <td className="p-4 text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <Video className="w-4 h-4 text-accent" />
+                        Shorts/Reels per month
+                      </div>
+                    </td>
+                    <td className={`text-center p-4 font-medium ${plans[0].popular ? 'bg-primary/5' : ''}`}>8–10</td>
+                    <td className={`text-center p-4 font-medium ${plans[1].popular ? 'bg-primary/5' : ''}`}>12–20</td>
+                    <td className={`text-center p-4 font-medium ${plans[2].popular ? 'bg-primary/5' : ''}`}>20–25</td>
+                  </tr>
+                  {/* Long Videos */}
+                  <tr className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                    <td className="p-4 text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <Video className="w-4 h-4 text-accent" />
+                        Long-form videos per month
+                      </div>
+                    </td>
+                    <td className={`text-center p-4 font-medium ${plans[0].popular ? 'bg-primary/5' : ''}`}>1–2</td>
+                    <td className={`text-center p-4 font-medium ${plans[1].popular ? 'bg-primary/5' : ''}`}>2–4</td>
+                    <td className={`text-center p-4 font-medium ${plans[2].popular ? 'bg-primary/5' : ''}`}>4–5</td>
+                  </tr>
+                  {/* Platform Management */}
+                  <tr className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                    <td className="p-4 text-muted-foreground">Platform management</td>
+                    <td className={`text-center p-4 ${plans[0].popular ? 'bg-primary/5' : ''}`}>
+                      <span className="text-muted-foreground text-sm">Basic optimization</span>
+                    </td>
+                    <td className={`text-center p-4 ${plans[1].popular ? 'bg-primary/5' : ''}`}>
+                      <span className="text-foreground font-medium">YouTube or Instagram</span>
+                    </td>
+                    <td className={`text-center p-4 ${plans[2].popular ? 'bg-primary/5' : ''}`}>
+                      <span className="text-foreground font-medium">YouTube + Instagram</span>
+                    </td>
+                  </tr>
+                  {/* Content Strategy */}
+                  <tr className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                    <td className="p-4 text-muted-foreground">Content strategy</td>
+                    <td className={`text-center p-4 ${plans[0].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-accent mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[1].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-primary mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[2].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-accent mx-auto" />
+                    </td>
+                  </tr>
+                  {/* Uploading & Scheduling */}
+                  <tr className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                    <td className="p-4 text-muted-foreground">Uploading & scheduling</td>
+                    <td className={`text-center p-4 ${plans[0].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-accent mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[1].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-primary mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[2].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-accent mx-auto" />
+                    </td>
+                  </tr>
+                  {/* Engagement Support */}
+                  <tr className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                    <td className="p-4 text-muted-foreground">Engagement support</td>
+                    <td className={`text-center p-4 ${plans[0].popular ? 'bg-primary/5' : ''}`}>
+                      <X className="w-5 h-5 text-muted-foreground/50 mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[1].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-primary mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[2].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-accent mx-auto" />
+                    </td>
+                  </tr>
+                  {/* Comment Moderation */}
+                  <tr className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                    <td className="p-4 text-muted-foreground">Comment moderation</td>
+                    <td className={`text-center p-4 ${plans[0].popular ? 'bg-primary/5' : ''}`}>
+                      <X className="w-5 h-5 text-muted-foreground/50 mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[1].popular ? 'bg-primary/5' : ''}`}>
+                      <X className="w-5 h-5 text-muted-foreground/50 mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[2].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-accent mx-auto" />
+                    </td>
+                  </tr>
+                  {/* Community Building */}
+                  <tr className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                    <td className="p-4 text-muted-foreground">Community building</td>
+                    <td className={`text-center p-4 ${plans[0].popular ? 'bg-primary/5' : ''}`}>
+                      <X className="w-5 h-5 text-muted-foreground/50 mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[1].popular ? 'bg-primary/5' : ''}`}>
+                      <X className="w-5 h-5 text-muted-foreground/50 mx-auto" />
+                    </td>
+                    <td className={`text-center p-4 ${plans[2].popular ? 'bg-primary/5' : ''}`}>
+                      <Check className="w-5 h-5 text-accent mx-auto" />
+                    </td>
+                  </tr>
+                  {/* Reports */}
+                  <tr className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                    <td className="p-4 text-muted-foreground">Performance reports</td>
+                    <td className={`text-center p-4 ${plans[0].popular ? 'bg-primary/5' : ''}`}>
+                      <span className="text-muted-foreground text-sm">Weekly updates</span>
+                    </td>
+                    <td className={`text-center p-4 ${plans[1].popular ? 'bg-primary/5' : ''}`}>
+                      <span className="text-foreground font-medium">Monthly reports</span>
+                    </td>
+                    <td className={`text-center p-4 ${plans[2].popular ? 'bg-primary/5' : ''}`}>
+                      <span className="text-foreground font-medium">Detailed monthly + roadmap</span>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr className="bg-muted/20">
+                    <td className="p-6"></td>
+                    {plans.map((plan, index) => (
+                      <td key={index} className={`text-center p-6 ${plan.popular ? 'bg-primary/10' : ''}`}>
+                        <Button
+                          variant={plan.popular ? "default" : "outline"}
+                          className="transition-all duration-300 hover:scale-105"
+                          asChild
+                        >
+                          <Link to="/lets-connect">Get Started</Link>
+                        </Button>
+                      </td>
+                    ))}
+                  </tr>
+                </tfoot>
+              </table>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
 
         {/* Plan Details Dialog */}
         <Dialog open={selectedPlan !== null} onOpenChange={() => setSelectedPlan(null)}>
