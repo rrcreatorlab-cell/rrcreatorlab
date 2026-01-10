@@ -10,7 +10,7 @@ import WhoWeWorkWith from "@/components/WhoWeWorkWith";
 import Founder from "@/components/Founder";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
-import FallbackContactButton from "@/components/FallbackContactButton";
+import ChatSidebar from "@/components/ChatSidebar";
 
 const Index = () => {
   return (
@@ -27,7 +27,7 @@ const Index = () => {
       <Founder />
       <Testimonials />
       <Footer />
-      <FallbackContactButton />
+      <ChatSidebar />
     </div>
   );
 };
