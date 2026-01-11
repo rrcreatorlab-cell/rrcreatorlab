@@ -187,8 +187,8 @@ const Pricing = () => {
     },
     {
       name: "Toolkit",
-      price: "₹4,999",
-      unit: "per year",
+      price: "₹2,499 / 6 months • ₹3,999 / year",
+      unit: "",
       note: "Templates, systems, and creator resources bundle",
       detailedDescription: "Everything you need to run your creator business efficiently with proven templates and systems.",
       includes: ["Content calendar templates", "Script writing frameworks", "Thumbnail templates (Canva/PS)", "Analytics tracking sheets", "Email & collab templates", "Regular updates included"],
