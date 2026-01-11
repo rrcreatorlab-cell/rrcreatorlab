@@ -1,4 +1,5 @@
-import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, Globe, Bot, Zap } from "lucide-react";
+import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, Globe, Bot, Zap, Youtube, BookOpen, Package, Play } from "lucide-react";
+import levelUpVideo from "@/assets/level-up-creators.mp4";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -175,33 +176,6 @@ const Pricing = () => {
       detailedDescription: "Click-worthy thumbnails designed to boost your CTR and stand out in search results.",
       includes: ["Custom design", "A/B test variations", "Text overlay optimization", "Brand consistency", "2 revisions included"],
       turnaround: "24 hours",
-    },
-    {
-      name: "YT Complete Teaching",
-      price: "₹2,999",
-      unit: "one-time",
-      note: "Webinar + One-to-one sessions",
-      detailedDescription: "Learn everything about YouTube growth from scratch with personalized guidance and live sessions.",
-      includes: ["2-hour comprehensive webinar", "1-on-1 strategy call (30 mins)", "Channel setup guidance", "Content planning framework", "Lifetime access to recordings"],
-      turnaround: "Sessions scheduled within 7 days",
-    },
-    {
-      name: "Toolkit (6 Months)",
-      price: "₹2,499",
-      unit: "for 6 months",
-      note: "Templates, systems, and creator resources bundle",
-      detailedDescription: "Everything you need to run your creator business efficiently with proven templates and systems.",
-      includes: ["Content calendar templates", "Script writing frameworks", "Thumbnail templates (Canva/PS)", "Analytics tracking sheets", "Email & collab templates", "6 months of updates"],
-      turnaround: "Instant access upon purchase",
-    },
-    {
-      name: "Toolkit (Yearly)",
-      price: "₹3,999",
-      unit: "per year",
-      note: "Templates, systems, and creator resources bundle",
-      detailedDescription: "Everything you need to run your creator business efficiently with proven templates and systems. Best value with full year access!",
-      includes: ["Content calendar templates", "Script writing frameworks", "Thumbnail templates (Canva/PS)", "Analytics tracking sheets", "Email & collab templates", "Full year of updates", "Priority support"],
-      turnaround: "Instant access upon purchase",
     },
   ];
 
@@ -667,6 +641,159 @@ const Pricing = () => {
               )}
             </DialogContent>
           </Dialog>
+        </div>
+
+        {/* YT Management Section */}
+        <div className="mt-20 max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 text-red-400 text-sm font-medium mb-4">
+              <Youtube className="w-4 h-4" />
+              YT Management
+            </span>
+            <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              YouTube <span className="text-red-400">Growth Services</span>
+            </h3>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Learn, manage, and scale your YouTube channel with our specialized services
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* YT Complete Teaching */}
+            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-red-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in">
+              <div className="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6">
+                <BookOpen className="w-7 h-7 text-red-400" />
+              </div>
+              <h4 className="text-xl font-bold mb-2">YT Complete Teaching</h4>
+              <div className="mb-4">
+                <span className="text-2xl font-bold text-red-400">₹2,999</span>
+                <span className="text-muted-foreground text-sm ml-2">one-time</span>
+              </div>
+              <p className="text-muted-foreground text-sm mb-4">
+                Webinar + One-to-one sessions for complete YouTube mastery
+              </p>
+              <div className="space-y-2 mb-6">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-red-400 flex-shrink-0" />
+                  <span>2-hour comprehensive webinar</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-red-400 flex-shrink-0" />
+                  <span>1-on-1 strategy call (30 mins)</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-red-400 flex-shrink-0" />
+                  <span>Lifetime access to recordings</span>
+                </div>
+              </div>
+              <Button variant="outline" className="w-full border-red-400/50 text-red-400 hover:bg-red-400 hover:text-white transition-all duration-300" asChild>
+                <Link to="/lets-connect">Get Started</Link>
+              </Button>
+            </div>
+
+            {/* Toolkit 6 Months */}
+            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-orange-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in" style={{ animationDelay: '100ms' }}>
+              <div className="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6">
+                <Package className="w-7 h-7 text-orange-400" />
+              </div>
+              <h4 className="text-xl font-bold mb-2">Toolkit (6 Months)</h4>
+              <div className="mb-4">
+                <span className="text-2xl font-bold text-orange-400">₹2,499</span>
+                <span className="text-muted-foreground text-sm ml-2">for 6 months</span>
+              </div>
+              <p className="text-muted-foreground text-sm mb-4">
+                Templates, systems, and creator resources bundle
+              </p>
+              <div className="space-y-2 mb-6">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                  <span>Content calendar templates</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                  <span>Script writing frameworks</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                  <span>6 months of updates</span>
+                </div>
+              </div>
+              <Button variant="outline" className="w-full border-orange-400/50 text-orange-400 hover:bg-orange-400 hover:text-white transition-all duration-300" asChild>
+                <Link to="/lets-connect">Get Started</Link>
+              </Button>
+            </div>
+
+            {/* Toolkit Yearly - Best Value */}
+            <div className="relative glass-card rounded-2xl p-8 border-2 border-orange-400 bg-gradient-to-b from-orange-500/10 to-orange-500/5 shadow-lg shadow-orange-400/20 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-orange-400/30 transition-all duration-500 animate-fade-in" style={{ animationDelay: '200ms' }}>
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-orange-400 text-white text-sm font-medium">
+                  <Star className="w-4 h-4 fill-current" />
+                  Best Value
+                </span>
+              </div>
+              <div className="w-14 h-14 rounded-2xl bg-orange-500/20 flex items-center justify-center mb-6">
+                <Package className="w-7 h-7 text-orange-400" />
+              </div>
+              <h4 className="text-xl font-bold mb-2">Toolkit (Yearly)</h4>
+              <div className="mb-4">
+                <span className="text-2xl font-bold text-orange-400">₹3,999</span>
+                <span className="text-muted-foreground text-sm ml-2">per year</span>
+              </div>
+              <p className="text-muted-foreground text-sm mb-4">
+                Full year access with priority support included!
+              </p>
+              <div className="space-y-2 mb-6">
+                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
+                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                  <span>Everything in 6-month plan</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
+                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                  <span>Full year of updates</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
+                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                  <span>Priority support</span>
+                </div>
+              </div>
+              <Button className="w-full bg-orange-400 hover:bg-orange-500 text-white transition-all duration-300 hover:scale-105" asChild>
+                <Link to="/lets-connect">Get Started</Link>
+              </Button>
+            </div>
+          </div>
+
+          {/* Video Promo for Toolkit */}
+          <div className="mt-12 max-w-3xl mx-auto">
+            <div className="glass-card rounded-2xl p-6 border border-orange-400/30 bg-gradient-to-r from-orange-500/5 to-red-500/5">
+              <div className="flex flex-col lg:flex-row items-center gap-6">
+                <div className="relative w-full lg:w-1/2 aspect-video rounded-xl overflow-hidden shadow-lg shadow-orange-400/20">
+                  <video
+                    src={levelUpVideo}
+                    className="w-full h-full object-cover"
+                    controls
+                    poster=""
+                    preload="metadata"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                </div>
+                <div className="flex-1 text-center lg:text-left">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-400/10 text-orange-400 text-xs font-medium mb-3">
+                    <Play className="w-3 h-3" />
+                    Toolkit Preview
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Level Up Your Content Game</h4>
+                  <p className="text-muted-foreground text-sm mb-4">
+                    See how our toolkit helps creators streamline their workflow and grow faster
+                  </p>
+                  <Button className="bg-orange-400 hover:bg-orange-500 text-white" asChild>
+                    <Link to="/lets-connect">Get the Toolkit</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* One-Time Services Section */}
