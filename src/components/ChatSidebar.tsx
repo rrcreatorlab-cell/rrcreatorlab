@@ -26,7 +26,7 @@ const ChatSidebar = () => {
   const getSizeClasses = () => {
     switch (sizeMode) {
       case "small":
-        return "bottom-4 right-4 w-[320px] h-[400px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]";
+        return "bottom-4 right-4 w-[340px] h-[480px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]";
       case "medium":
         return "bottom-4 right-4 w-[420px] h-[550px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]";
       case "large":
@@ -62,13 +62,13 @@ const ChatSidebar = () => {
       {!isOpen && (
         <Button
           onClick={() => setIsOpen(true)}
-          className={`fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full shadow-lg ${
+          className={`fixed bottom-6 right-6 z-[9999] h-12 px-4 rounded-full shadow-lg flex items-center gap-2 ${
             showPulse ? "animate-pulse" : ""
           }`}
-          size="icon"
           aria-label="Open chat"
         >
-          <MessageCircle className="w-6 h-6" />
+          <MessageCircle className="w-5 h-5" />
+          <span className="font-medium text-sm">Chat</span>
         </Button>
       )}
 
@@ -80,6 +80,7 @@ const ChatSidebar = () => {
           {/* Header */}
           <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/50 rounded-t-2xl">
             <div className="flex items-center gap-2">
+              <MessageCircle className="w-4 h-4 text-primary" />
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               <span className="font-medium text-sm text-foreground">Chat with Sam</span>
             </div>
