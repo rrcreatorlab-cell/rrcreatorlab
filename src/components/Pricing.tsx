@@ -766,7 +766,7 @@ const Pricing = () => {
           <div className="mt-12 max-w-3xl mx-auto">
             <div className="glass-card rounded-2xl p-6 border border-orange-400/30 bg-gradient-to-r from-orange-500/5 to-red-500/5">
               <div className="flex flex-col lg:flex-row items-center gap-6">
-                <div className="relative w-full lg:w-1/2 aspect-video rounded-xl overflow-hidden shadow-lg shadow-orange-400/20">
+                <div className="relative w-full lg:w-auto aspect-[9/16] max-h-[400px] rounded-xl overflow-hidden shadow-lg shadow-orange-400/20">
                   <video
                     src={levelUpVideo}
                     className="w-full h-full object-cover"
