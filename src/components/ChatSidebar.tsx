@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { MessageCircle, X, Maximize2, Minimize2, Square, Volume2, VolumeX } from "lucide-react";
+import { MessageCircle, X, Maximize2, Minimize2, Square, Volume2, VolumeX, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const JOTFORM_AGENT_ID = "019b8a9ef4a2706a97010c77b5fad0244ed8";
@@ -187,6 +187,19 @@ const ChatSidebar = () => {
           {/* Header */}
           <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/50 rounded-t-2xl">
             <div className="flex items-center gap-2">
+              {/* Back button - prominent for easy access */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 hover:bg-primary/10"
+                onClick={() => {
+                  setIsOpen(false);
+                  setSizeMode("small");
+                }}
+                aria-label="Back to website"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
               <MessageCircle className="w-4 h-4 text-primary" />
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               <span className="font-medium text-sm text-foreground">Chat with Sam</span>
