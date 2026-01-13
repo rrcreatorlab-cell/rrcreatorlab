@@ -28,10 +28,58 @@ const Testimonials = () => {
     review: "",
   });
 
-  // Static testimonials as fallback
+  // Static testimonials as fallback - only approved clients
   const staticTestimonials = [
     {
       id: "static-1",
+      name: "The Currency India Official",
+      role: "Finance YouTuber",
+      rating: 5,
+      review: "RR Creator Lab helped us grow from 8 to 4.17K subscribers! Their strategic approach to content and analytics-driven optimization made all the difference.",
+      created_at: "",
+    },
+    {
+      id: "static-2",
+      name: "Sambodhi Mechanical Engineering Coaching",
+      role: "Educational Creator",
+      rating: 5,
+      review: "Our channel grew from 28 to 473 subscribers with their expert guidance. The team understands educational content perfectly and delivers quality edits.",
+      created_at: "",
+    },
+    {
+      id: "static-3",
+      name: "Shilpa Art House",
+      role: "Art & Craft Creator",
+      rating: 5,
+      review: "Amazing creative team! They enhanced our art content beautifully and helped us reach a wider audience. Highly professional and timely delivery.",
+      created_at: "",
+    },
+    {
+      id: "static-4",
+      name: "Startup Stories",
+      role: "Business Content Creator",
+      rating: 5,
+      review: "The team at RR Creator Lab understands the startup ecosystem perfectly. Our content quality and engagement improved dramatically after partnering with them.",
+      created_at: "",
+    },
+    {
+      id: "static-5",
+      name: "V Filmy Steps",
+      role: "Entertainment YouTuber",
+      rating: 5,
+      review: "Outstanding editing and creative direction! They brought our vision to life with professional quality that rivals top production houses.",
+      created_at: "",
+    },
+    {
+      id: "static-6",
+      name: "Homzyee Property Management",
+      role: "Real Estate Creator",
+      rating: 5,
+      review: "Excellent service for our property showcase videos. The editing quality and turnaround time exceeded our expectations. Great team to work with!",
+      created_at: "",
+    },
+    {
+      id: "static-7",
       name: "Rahul Sharma",
       role: "Tech YouTuber",
       rating: 5,
@@ -39,26 +87,10 @@ const Testimonials = () => {
       created_at: "",
     },
     {
-      id: "static-2",
-      name: "Priya Patel",
-      role: "Lifestyle Influencer",
-      rating: 4,
-      review: "The team understands exactly what works on Instagram. My reels engagement increased by 300% after working with them. Highly recommended!",
-      created_at: "",
-    },
-    {
-      id: "static-3",
-      name: "Amit Kumar",
-      role: "Educational Creator",
-      rating: 5,
-      review: "Professional, reliable, and creative. They handle everything from editing to uploading, letting me focus on creating content. Best decision ever!",
-      created_at: "",
-    },
-    {
-      id: "static-4",
+      id: "static-8",
       name: "Sneha Reddy",
       role: "Food Blogger",
-      rating: 3.5,
+      rating: 5,
       review: "Amazing thumbnails and video edits! My click-through rate improved significantly. The team is responsive and delivers quality work on time.",
       created_at: "",
     },
@@ -258,8 +290,8 @@ const Testimonials = () => {
         )}
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {testimonials.slice(0, 4).map((testimonial) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {testimonials.slice(0, 8).map((testimonial) => (
             <div
               key={testimonial.id}
               className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 group"
