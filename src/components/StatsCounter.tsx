@@ -1,6 +1,6 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useCountUp } from "@/hooks/useCountUp";
-import { TrendingUp, Users, Play, Award } from "lucide-react";
+import { TrendingUp, Users, Award } from "lucide-react";
 
 const stats = [
   {
@@ -18,10 +18,10 @@ const stats = [
     color: "text-green-400",
   },
   {
-    icon: Play,
-    value: 10,
-    suffix: "M+",
-    label: "Views Generated",
+    icon: Users,
+    value: 15,
+    suffix: "K+",
+    label: "Subscribers Brought",
     color: "text-blue-400",
   },
   {
