@@ -2,12 +2,14 @@ import { useEffect, useRef } from "react";
 import AnimatedSection from "./AnimatedSection";
 
 const clients = [
-  { name: "The Currency India", handle: "@thecurrencyindia" },
-  { name: "Sambodhi Engineering", handle: "@sambodhiengineering" },
-  { name: "Tech Creators Hub", handle: "@techcreatorshub" },
-  { name: "Finance Simplified", handle: "@financesimplified" },
+  { name: "The Currency India Official", handle: "@thecurrencyindiaofficial" },
+  { name: "Sambodhi", handle: "@sambodhi" },
+  { name: "Shilpa Art House", handle: "@shilpaarthouse" },
   { name: "Startup Stories", handle: "@startupstories" },
-  { name: "Digital Marketing Pro", handle: "@digitalmarketingpro" },
+  { name: "V Filmy Steps", handle: "@vfilmysteps" },
+  { name: "Homzyee Property Management", handle: "@homzyee" },
+  { name: "Rahul Sharma", handle: "@rahulsharma" },
+  { name: "Sneha Reddy", handle: "@snehareddy" },
 ];
 
 const ClientLogos = () => {
