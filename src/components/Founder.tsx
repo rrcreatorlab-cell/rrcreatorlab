@@ -1,6 +1,7 @@
 import { Heart, Target, TrendingUp, Play } from "lucide-react";
 import founderImage from "@/assets/founder-rishabh.jpeg";
 import founderVideo from "@/assets/founder-intro-video.mp4";
+import AnimatedSection from "./AnimatedSection";
 
 const Founder = () => {
   const coreValues = [
@@ -24,87 +25,91 @@ const Founder = () => {
   return (
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <AnimatedSection className="text-center mb-12">
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
             Meet the Founder
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">
             The Vision Behind <span className="text-primary">RR Creator Lab</span>
           </h2>
-        </div>
+        </AnimatedSection>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
           {/* Video Section */}
-          <div className="relative group">
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-            <div className="relative space-y-6">
-              {/* Video */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <video
-                  src={founderVideo}
-                  controls
-                  poster={founderImage}
-                  className="w-full max-w-md mx-auto rounded-2xl"
-                  preload="metadata"
-                >
-                  Your browser does not support the video tag.
-                </video>
-                <div className="absolute top-4 left-4 bg-primary/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-2">
-                  <Play className="w-3 h-3 text-primary-foreground" />
-                  <span className="text-xs font-medium text-primary-foreground">Watch Introduction</span>
+          <AnimatedSection animation="fade-right" delay={100}>
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+              <div className="relative space-y-6">
+                {/* Video */}
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                  <video
+                    src={founderVideo}
+                    controls
+                    poster={founderImage}
+                    className="w-full max-w-md mx-auto rounded-2xl"
+                    preload="metadata"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                  <div className="absolute top-4 left-4 bg-primary/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-2">
+                    <Play className="w-3 h-3 text-primary-foreground" />
+                    <span className="text-xs font-medium text-primary-foreground">Watch Introduction</span>
+                  </div>
+                </div>
+                
+                {/* Founder Info Card */}
+                <div className="bg-background/90 backdrop-blur-sm rounded-xl p-4 text-center border border-border/50">
+                  <h3 className="text-xl font-bold text-foreground">Rishabh Alevoor</h3>
+                  <p className="text-primary font-medium">Founder & CEO, RR Creator Lab</p>
                 </div>
               </div>
-              
-              {/* Founder Info Card */}
-              <div className="bg-background/90 backdrop-blur-sm rounded-xl p-4 text-center border border-border/50">
-                <h3 className="text-xl font-bold text-foreground">Rishabh Alevoor</h3>
-                <p className="text-primary font-medium">Founder & CEO, RR Creator Lab</p>
-              </div>
             </div>
-          </div>
+          </AnimatedSection>
 
           {/* Content Section */}
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Why I Started RR Creator Lab</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                I noticed that many creators and businesses struggle not because they lack talent, 
-                but because they don't have proper guidance, branding, or digital structure. I wanted 
-                to build a platform that simplifies content creation, branding, and digital growth 
-                while maintaining quality and trust. RR Creator Lab was created to bridge this gap 
-                and provide professional solutions at affordable and transparent pricing.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">How We Will Succeed</h3>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                Our success is built on three core values:
-              </p>
-              
-              <div className="space-y-4">
-                {coreValues.map((value, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-4 p-4 bg-background rounded-xl border border-border/50 hover:border-primary/30 transition-colors duration-300"
-                  >
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <value.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground">{value.title}</h4>
-                      <p className="text-sm text-muted-foreground">{value.description}</p>
-                    </div>
-                  </div>
-                ))}
+          <AnimatedSection animation="fade-left" delay={200}>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">Why I Started RR Creator Lab</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  I noticed that many creators and businesses struggle not because they lack talent, 
+                  but because they don't have proper guidance, branding, or digital structure. I wanted 
+                  to build a platform that simplifies content creation, branding, and digital growth 
+                  while maintaining quality and trust. RR Creator Lab was created to bridge this gap 
+                  and provide professional solutions at affordable and transparent pricing.
+                </p>
               </div>
-            </div>
 
-            <p className="text-muted-foreground leading-relaxed italic border-l-4 border-primary pl-4">
-              With dedication, consistency, and a strong creative mindset, RR Creator Lab aims to 
-              grow into a trusted digital partner for creators and businesses across India and beyond.
-            </p>
-          </div>
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">How We Will Succeed</h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Our success is built on three core values:
+                </p>
+                
+                <div className="space-y-4">
+                  {coreValues.map((value, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-4 p-4 bg-background rounded-xl border border-border/50 hover:border-primary/30 transition-colors duration-300"
+                    >
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <value.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground">{value.title}</h4>
+                        <p className="text-sm text-muted-foreground">{value.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed italic border-l-4 border-primary pl-4">
+                With dedication, consistency, and a strong creative mindset, RR Creator Lab aims to 
+                grow into a trusted digital partner for creators and businesses across India and beyond.
+              </p>
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>

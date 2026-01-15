@@ -1,4 +1,5 @@
 import { Target, Youtube, Instagram, Scissors, BarChart3, Calendar } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
 
 const services = [
   {
@@ -53,7 +54,7 @@ const Services = () => {
       <div className="absolute top-1/4 right-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
 
       <div className="container relative z-10 px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <AnimatedSection className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary mb-4">
             Our Services
           </span>
@@ -64,36 +65,40 @@ const Services = () => {
           <p className="text-muted-foreground text-lg">
             Helping creators increase reach, engagement, and visibility through smart content planning and hands-on account management.
           </p>
-        </div>
+        </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
-            <div
+            <AnimatedSection
               key={service.title}
-              className="group gradient-border p-6 rounded-xl hover:scale-[1.02] transition-all duration-300"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              animation="fade-up"
+              delay={index * 100}
             >
-              <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <service.icon className="h-7 w-7 text-foreground" />
+              <div
+                className="group gradient-border p-6 rounded-xl hover:scale-[1.02] transition-all duration-300 h-full"
+              >
+                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <service.icon className="h-7 w-7 text-foreground" />
+                </div>
+                
+                <h3 className="font-display text-xl font-bold mb-2 group-hover:gradient-text transition-all">
+                  {service.title}
+                </h3>
+                
+                <p className="text-muted-foreground mb-4 text-sm">
+                  {service.description}
+                </p>
+                
+                <ul className="space-y-2">
+                  {service.features.map((feature) => (
+                    <li key={feature} className="flex items-center text-sm text-muted-foreground">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              
-              <h3 className="font-display text-xl font-bold mb-2 group-hover:gradient-text transition-all">
-                {service.title}
-              </h3>
-              
-              <p className="text-muted-foreground mb-4 text-sm">
-                {service.description}
-              </p>
-              
-              <ul className="space-y-2">
-                {service.features.map((feature) => (
-                  <li key={feature} className="flex items-center text-sm text-muted-foreground">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>
