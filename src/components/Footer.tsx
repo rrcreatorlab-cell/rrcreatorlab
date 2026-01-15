@@ -1,10 +1,12 @@
 import { Youtube, Instagram, Mail, Phone } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
 
 const Footer = () => {
   return (
     <footer className="relative border-t border-border py-12">
       <div className="container px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <AnimatedSection>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div className="md:col-span-2">
             <h3 className="font-display text-2xl font-bold gradient-text mb-4">
               RR Creator Lab
@@ -91,18 +93,21 @@ const Footer = () => {
               <li><a href="#contact" className="hover:text-primary transition-colors">Contact</a></li>
             </ul>
           </div>
-        </div>
+          </div>
+        </AnimatedSection>
 
-        <div className="border-t border-border pt-8">
-          <p className="text-sm text-muted-foreground mb-4">
-            © 2024 RR Creator Lab. All rights reserved.
-          </p>
-          <p className="text-xs text-muted-foreground/70">
-            <strong>Disclaimer:</strong> RR Creator Lab provides content strategy and social media management services only. 
-            Engagement and growth depend on multiple factors including content quality, consistency, and platform algorithms. 
-            No guaranteed results are promised.
-          </p>
-        </div>
+        <AnimatedSection delay={200}>
+          <div className="border-t border-border pt-8">
+            <p className="text-sm text-muted-foreground mb-4">
+              © 2024 RR Creator Lab. All rights reserved.
+            </p>
+            <p className="text-xs text-muted-foreground/70">
+              <strong>Disclaimer:</strong> RR Creator Lab provides content strategy and social media management services only. 
+              Engagement and growth depend on multiple factors including content quality, consistency, and platform algorithms. 
+              No guaranteed results are promised.
+            </p>
+          </div>
+        </AnimatedSection>
       </div>
     </footer>
   );

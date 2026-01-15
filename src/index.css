@@ -129,6 +129,10 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
@@ -136,6 +140,11 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* Smooth section transitions */
+  section {
+    scroll-margin-top: 80px;
   }
 
   /* JotForm Agent: keep widget visible above the app */

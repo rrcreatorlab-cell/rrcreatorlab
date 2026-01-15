@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import AnimatedSection from "./AnimatedSection";
 
 interface Testimonial {
   id: string;
@@ -194,7 +195,7 @@ const Testimonials = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <AnimatedSection className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-4">
             Client Reviews
           </span>
@@ -214,7 +215,7 @@ const Testimonials = () => {
           >
             {showForm ? "Close Form" : "Rate Us"}
           </Button>
-        </div>
+        </AnimatedSection>
 
         {/* Rating Form */}
         {showForm && (
@@ -291,35 +292,38 @@ const Testimonials = () => {
 
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {testimonials.slice(0, 8).map((testimonial) => (
-            <div
+          {testimonials.slice(0, 8).map((testimonial, index) => (
+            <AnimatedSection
               key={testimonial.id}
-              className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 group"
+              animation="scale"
+              delay={index * 100}
             >
-              {/* Quote Icon */}
-              <Quote className="w-10 h-10 text-primary/30 mb-4 group-hover:text-primary/50 transition-colors" />
+              <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 group h-full">
+                {/* Quote Icon */}
+                <Quote className="w-10 h-10 text-primary/30 mb-4 group-hover:text-primary/50 transition-colors" />
 
-              {/* Review Text */}
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                "{testimonial.review}"
-              </p>
+                {/* Review Text */}
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  "{testimonial.review}"
+                </p>
 
-              {/* Rating */}
-              <div className="flex gap-1 mb-4">
-                {renderStars(testimonial.rating)}
-              </div>
-
-              {/* Author */}
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold">
-                  {getInitials(testimonial.name)}
+                {/* Rating */}
+                <div className="flex gap-1 mb-4">
+                  {renderStars(testimonial.rating)}
                 </div>
-                <div>
-                  <h4 className="font-bold text-foreground">{testimonial.name}</h4>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+
+                {/* Author */}
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold">
+                    {getInitials(testimonial.name)}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-foreground">{testimonial.name}</h4>
+                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>

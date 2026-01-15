@@ -1,4 +1,5 @@
 import { Heart, BarChart3, CheckCircle, MessageSquare, TrendingUp } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
 
 const reasons = [
   {
@@ -35,7 +36,7 @@ const WhyUs = () => {
 
       <div className="container relative z-10 px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <AnimatedSection animation="fade-right">
             <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary mb-4">
               Why Choose Us
             </span>
@@ -53,23 +54,25 @@ const WhyUs = () => {
                 "We don't just manage accounts—we build communities and help creators thrive."
               </p>
             </div>
-          </div>
+          </AnimatedSection>
 
           <div className="space-y-4">
             {reasons.map((reason, index) => (
-              <div
+              <AnimatedSection
                 key={reason.title}
-                className="flex items-start gap-4 glass-card rounded-xl p-4 hover:scale-[1.01] transition-all duration-300"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                animation="fade-left"
+                delay={index * 100}
               >
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                  <reason.icon className="h-5 w-5 text-foreground" />
+                <div className="flex items-start gap-4 glass-card rounded-xl p-4 hover:scale-[1.01] transition-all duration-300">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                    <reason.icon className="h-5 w-5 text-foreground" />
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold mb-1">{reason.title}</h3>
+                    <p className="text-muted-foreground text-sm">{reason.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-display font-bold mb-1">{reason.title}</h3>
-                  <p className="text-muted-foreground text-sm">{reason.description}</p>
-                </div>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
