@@ -1,18 +1,45 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Target, TrendingUp, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,hsl(175,80%,15%),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,hsl(280,80%,10%),transparent_40%)]" />
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" />
+      {/* Parallax animated background */}
+      <div 
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,hsl(175,80%,15%),transparent_50%)]"
+        style={{ transform: `translateY(${scrollY * 0.3}px)` }}
+      />
+      <div 
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,hsl(280,80%,10%),transparent_40%)]"
+        style={{ transform: `translateY(${scrollY * 0.2}px)` }}
+      />
+      <div 
+        className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse-glow"
+        style={{ transform: `translateY(${scrollY * 0.5}px) translateX(${scrollY * 0.1}px)` }}
+      />
+      <div 
+        className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float"
+        style={{ transform: `translateY(${scrollY * 0.4}px) translateX(${-scrollY * 0.15}px)` }}
+      />
       
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(hsl(220,20%,15%)_1px,transparent_1px),linear-gradient(90deg,hsl(220,20%,15%)_1px,transparent_1px)] bg-[size:60px_60px] opacity-20" />
+      {/* Grid pattern overlay with parallax */}
+      <div 
+        className="absolute inset-0 bg-[linear-gradient(hsl(220,20%,15%)_1px,transparent_1px),linear-gradient(90deg,hsl(220,20%,15%)_1px,transparent_1px)] bg-[size:60px_60px] opacity-20"
+        style={{ transform: `translateY(${scrollY * 0.1}px)` }}
+      />
 
       <div className="container relative z-10 px-4 py-20">
         <div className="max-w-5xl mx-auto text-center">
