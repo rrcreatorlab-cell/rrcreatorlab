@@ -1,13 +1,20 @@
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Phone, Mail, Instagram, ArrowLeft } from "lucide-react";
+import { ExternalLink, Phone, Mail, Instagram, ArrowLeft, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const LetsConnect = () => {
   const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSc7w7_crTXDPXa1Rz_2OOkAX7k_5jq88dEdLr8KiiaICcGh5g/viewform?usp=header";
+  const topmateUrl = "https://topmate.io/rishabh269/";
 
   const contactMethods = [
+    {
+      icon: Calendar,
+      title: "Book a Meeting",
+      value: "Free Consultation on Topmate",
+      href: topmateUrl
+    },
     {
       icon: Phone,
       title: "WhatsApp",
