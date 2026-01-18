@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Target, TrendingUp, Sparkles } from "lucide-react";
+import { ArrowRight, Play, Target, TrendingUp, Sparkles, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -64,15 +64,15 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-slide-up" style={{ animationDelay: "0.3s" }}>
             <Button variant="hero" size="xl" asChild>
+              <a href="https://topmate.io/rishabh269/" target="_blank" rel="noopener noreferrer">
+                <Calendar className="mr-2 h-5 w-5" />
+                Book Free Consultation
+              </a>
+            </Button>
+            <Button variant="glass" size="xl" asChild>
               <Link to="/lets-connect">
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-            <Button variant="glass" size="xl" asChild>
-              <Link to="/success-stories">
-                <Play className="mr-2 h-5 w-5" />
-                See Our Work
               </Link>
             </Button>
           </div>
