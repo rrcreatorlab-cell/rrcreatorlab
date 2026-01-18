@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import FloatingBookButton from "@/components/FloatingBookButton";
 import Index from "./pages/Index";
 import SuccessStories from "./pages/SuccessStories";
 import LetsConnect from "./pages/LetsConnect";
@@ -21,6 +22,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <FloatingBookButton />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/success-stories" element={<SuccessStories />} />
