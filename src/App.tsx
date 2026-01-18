@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import FloatingBookButton from "@/components/FloatingBookButton";
+import ScrollProgress from "@/components/ScrollProgress";
+import BackToTop from "@/components/BackToTop";
+import SocialProofToast from "@/components/SocialProofToast";
+import CursorGlow from "@/components/CursorGlow";
 import Index from "./pages/Index";
 import SuccessStories from "./pages/SuccessStories";
 import LetsConnect from "./pages/LetsConnect";
@@ -22,7 +26,11 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollProgress />
+          <CursorGlow />
           <FloatingBookButton />
+          <BackToTop />
+          <SocialProofToast />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/success-stories" element={<SuccessStories />} />
