@@ -1,11 +1,27 @@
 import { useState, useEffect } from "react";
-import { Star, StarHalf, Quote, Send } from "lucide-react";
+import { Star, StarHalf, Quote, Send, MessageSquarePlus, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import AnimatedSection from "./AnimatedSection";
+import { z } from "zod";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+// Validation schema
+const testimonialSchema = z.object({
+  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
+  role: z.string().trim().min(2, "Role must be at least 2 characters").max(100, "Role must be less than 100 characters"),
+  rating: z.number().min(1).max(5),
+  review: z.string().trim().min(20, "Review must be at least 20 characters").max(500, "Review must be less than 500 characters"),
+});
 
 interface Testimonial {
   id: string;
@@ -16,12 +32,20 @@ interface Testimonial {
   created_at: string;
 }
 
+interface FormErrors {
+  name?: string;
+  role?: string;
+  review?: string;
+}
+
 const Testimonials = () => {
   const { toast } = useToast();
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
   const [formData, setFormData] = useState({
     name: "",
     role: "",
@@ -121,15 +145,29 @@ const Testimonials = () => {
     }
   };
 
+  const validateForm = (): boolean => {
+    try {
+      testimonialSchema.parse(formData);
+      setErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: FormErrors = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            newErrors[err.path[0] as keyof FormErrors] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+      return false;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name.trim() || !formData.role.trim() || !formData.review.trim()) {
-      toast({
-        title: "Missing fields",
-        description: "Please fill in all fields",
-        variant: "destructive",
-      });
+    if (!validateForm()) {
       return;
     }
 
@@ -144,13 +182,14 @@ const Testimonials = () => {
 
       if (error) throw error;
 
-      toast({
-        title: "Thank you!",
-        description: "Your review has been submitted and will appear after approval.",
-      });
-
+      setSubmitted(true);
       setFormData({ name: "", role: "", rating: 5, review: "" });
-      setShowForm(false);
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        setSubmitted(false);
+        setShowDialog(false);
+      }, 3000);
     } catch (error) {
       console.error("Error submitting testimonial:", error);
       toast({
@@ -207,88 +246,142 @@ const Testimonials = () => {
             Join hundreds of satisfied creators who have grown their channels with us
           </p>
           
-          {/* Rate Us Button */}
-          <Button
-            onClick={() => setShowForm(!showForm)}
-            variant="outline"
-            className="border-primary/50 hover:bg-primary/10"
-          >
-            {showForm ? "Close Form" : "Rate Us"}
-          </Button>
-        </AnimatedSection>
-
-        {/* Rating Form */}
-        {showForm && (
-          <div className="max-w-xl mx-auto mb-16">
-            <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-8 border border-border/50">
-              <h3 className="text-xl font-bold mb-6 text-center">Share Your Experience</h3>
+          {/* Share Your Experience Button */}
+          <Dialog open={showDialog} onOpenChange={setShowDialog}>
+            <DialogTrigger asChild>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
+              >
+                <MessageSquarePlus className="w-5 h-5 mr-2" />
+                Share Your Experience
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-lg">
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-display text-center">
+                  {submitted ? "Thank You!" : "Share Your Experience"}
+                </DialogTitle>
+              </DialogHeader>
               
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Your Name</label>
-                  <Input
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="John Doe"
-                    maxLength={100}
-                  />
-                </div>
-                
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Your Role/Profession</label>
-                  <Input
-                    value={formData.role}
-                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                    placeholder="YouTuber, Blogger, etc."
-                    maxLength={100}
-                  />
-                </div>
-                
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Rating</label>
-                  <div className="flex gap-2">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, rating: star })}
-                        className="transition-transform hover:scale-110"
-                      >
-                        <Star
-                          className={`w-8 h-8 ${
-                            star <= formData.rating
-                              ? "fill-primary text-primary"
-                              : "text-muted-foreground"
-                          }`}
-                        />
-                      </button>
-                    ))}
+              {submitted ? (
+                <div className="flex flex-col items-center justify-center py-8 space-y-4">
+                  <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center animate-pulse">
+                    <CheckCircle2 className="w-10 h-10 text-primary" />
                   </div>
+                  <p className="text-center text-muted-foreground">
+                    Your review has been submitted successfully!<br />
+                    It will appear after approval.
+                  </p>
                 </div>
-                
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Your Review</label>
-                  <Textarea
-                    value={formData.review}
-                    onChange={(e) => setFormData({ ...formData, review: e.target.value })}
-                    placeholder="Share your experience working with us..."
-                    rows={4}
-                    maxLength={500}
-                  />
-                </div>
-                
-                <Button type="submit" className="w-full" disabled={submitting}>
-                  {submitting ? "Submitting..." : (
-                    <>
-                      <Send className="w-4 h-4 mr-2" />
-                      Submit Review
-                    </>
-                  )}
-                </Button>
-              </div>
-            </form>
-          </div>
-        )}
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5 mt-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Your Name *</label>
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => {
+                        setFormData({ ...formData, name: e.target.value });
+                        if (errors.name) setErrors({ ...errors, name: undefined });
+                      }}
+                      placeholder="John Doe"
+                      maxLength={100}
+                      className={errors.name ? "border-destructive" : ""}
+                    />
+                    {errors.name && (
+                      <p className="text-sm text-destructive">{errors.name}</p>
+                    )}
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Your Role/Profession *</label>
+                    <Input
+                      value={formData.role}
+                      onChange={(e) => {
+                        setFormData({ ...formData, role: e.target.value });
+                        if (errors.role) setErrors({ ...errors, role: undefined });
+                      }}
+                      placeholder="YouTuber, Blogger, etc."
+                      maxLength={100}
+                      className={errors.role ? "border-destructive" : ""}
+                    />
+                    {errors.role && (
+                      <p className="text-sm text-destructive">{errors.role}</p>
+                    )}
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Rating</label>
+                    <div className="flex gap-2">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setFormData({ ...formData, rating: star })}
+                          className="transition-all hover:scale-125 focus:outline-none focus:ring-2 focus:ring-primary rounded"
+                        >
+                          <Star
+                            className={`w-8 h-8 transition-colors ${
+                              star <= formData.rating
+                                ? "fill-primary text-primary"
+                                : "text-muted-foreground hover:text-primary/50"
+                            }`}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Your Review *</label>
+                    <Textarea
+                      value={formData.review}
+                      onChange={(e) => {
+                        setFormData({ ...formData, review: e.target.value });
+                        if (errors.review) setErrors({ ...errors, review: undefined });
+                      }}
+                      placeholder="Share your experience working with us... (minimum 20 characters)"
+                      rows={4}
+                      maxLength={500}
+                      className={errors.review ? "border-destructive" : ""}
+                    />
+                    <div className="flex justify-between text-xs text-muted-foreground">
+                      {errors.review ? (
+                        <p className="text-destructive">{errors.review}</p>
+                      ) : (
+                        <span>Minimum 20 characters</span>
+                      )}
+                      <span>{formData.review.length}/500</span>
+                    </div>
+                  </div>
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90" 
+                    disabled={submitting}
+                    size="lg"
+                  >
+                    {submitting ? (
+                      <span className="flex items-center">
+                        <span className="animate-spin mr-2">⏳</span>
+                        Submitting...
+                      </span>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Submit Review
+                      </>
+                    )}
+                  </Button>
+                  
+                  <p className="text-xs text-center text-muted-foreground">
+                    Your review will be visible after approval by our team.
+                  </p>
+                </form>
+              )}
+            </DialogContent>
+          </Dialog>
+        </AnimatedSection>
 
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
