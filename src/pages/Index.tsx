@@ -9,6 +9,7 @@ import Pricing from "@/components/Pricing";
 import Process from "@/components/Process";
 import WhyUs from "@/components/WhyUs";
 import WhoWeWorkWith from "@/components/WhoWeWorkWith";
+import Team from "@/components/Team";
 import Founder from "@/components/Founder";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
@@ -31,6 +32,7 @@ const Index = () => {
       <Process />
       <WhyUs />
       <WhoWeWorkWith />
+      <Team />
       <Founder />
       <Testimonials />
       <FAQ />
