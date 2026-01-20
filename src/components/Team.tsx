@@ -28,7 +28,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "2",
-    name: "Priya Sharma",
+    name: "Devin",
     role: "Head of Video Editing",
     bio: "Creative editor with expertise in storytelling. Transforms raw footage into compelling narratives that captivate audiences.",
     image: "/placeholder.svg",
@@ -38,20 +38,9 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "3",
-    name: "Arjun Mehta",
-    role: "Growth Strategist",
-    bio: "Data-driven strategist specializing in YouTube algorithm optimization. Helped clients achieve 10M+ combined views.",
-    image: "/placeholder.svg",
-    socials: {
-      linkedin: "#",
-      twitter: "#",
-    },
-  },
-  {
-    id: "4",
-    name: "Sneha Reddy",
-    role: "Thumbnail Designer",
-    bio: "Visual artist crafting click-worthy thumbnails. Expert in color psychology and viewer attention patterns.",
+    name: "Ashik",
+    role: "Instagram Growth Strategist",
+    bio: "Expert in Instagram algorithm and engagement strategies. Helps creators build authentic communities and maximize their reach.",
     image: "/placeholder.svg",
     socials: {
       instagram: "#",
