@@ -1,23 +1,26 @@
 import { useEffect, useRef } from "react";
 import AnimatedSection from "./AnimatedSection";
-
-const clients = [
-  { name: "The Currency India Official", handle: "@thecurrencyindiaofficial" },
-  { name: "Sambodhi", handle: "@sambodhi" },
-  { name: "Shilpa Art House", handle: "@shilpaarthouse" },
-  { name: "Startup Stories", handle: "@startupstories" },
-  { name: "V Filmy Steps", handle: "@vfilmysteps" },
-  { name: "Homzyee Property Management", handle: "@homzyee" },
-  { name: "Rahul Sharma", handle: "@rahulsharma" },
-  { name: "Sneha Reddy", handle: "@snehareddy" },
-];
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const ClientLogos = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const { data: clients = [] } = useQuery({
+    queryKey: ["client_logos"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("client_logos")
+        .select("*")
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data;
+    },
+  });
+
   useEffect(() => {
     const scroll = scrollRef.current;
-    if (!scroll) return;
+    if (!scroll || clients.length === 0) return;
 
     let animationId: number;
     let scrollPosition = 0;
@@ -47,7 +50,7 @@ const ClientLogos = () => {
       scroll.removeEventListener("mouseenter", handleMouseEnter);
       scroll.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, []);
+  }, [clients]);
 
   return (
     <section className="py-12 relative overflow-hidden border-y border-border/30">
