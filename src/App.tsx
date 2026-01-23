@@ -15,8 +15,13 @@ import LetsConnect from "./pages/LetsConnect";
 import Auth from "./pages/Auth";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import AdminDashboard from "./pages/AdminDashboard";
 import AdminTestimonials from "./pages/AdminTestimonials";
+import AdminFaqs from "./pages/AdminFaqs";
+import AdminStats from "./pages/AdminStats";
+import AdminClients from "./pages/AdminClients";
 import NotFound from "./pages/NotFound";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -38,7 +43,11 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/testimonials" element={<AdminTestimonials />} />
+            <Route path="/admin/faqs" element={<AdminFaqs />} />
+            <Route path="/admin/stats" element={<AdminStats />} />
+            <Route path="/admin/clients" element={<AdminClients />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
