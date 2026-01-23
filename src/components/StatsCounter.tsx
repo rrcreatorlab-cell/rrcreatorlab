@@ -1,37 +1,21 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useCountUp } from "@/hooks/useCountUp";
-import { TrendingUp, Users, Award } from "lucide-react";
+import { TrendingUp, Users, Award, Eye, Heart, Star, Zap, Target, Trophy, Sparkles, LucideIcon } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
-const stats = [
-  {
-    icon: Users,
-    value: 50,
-    suffix: "+",
-    label: "Creators Helped",
-    color: "text-primary",
-  },
-  {
-    icon: TrendingUp,
-    value: 500,
-    suffix: "%",
-    label: "Avg. Growth Rate",
-    color: "text-green-400",
-  },
-  {
-    icon: Users,
-    value: 15,
-    suffix: "K+",
-    label: "Subscribers Brought",
-    color: "text-blue-400",
-  },
-  {
-    icon: Award,
-    value: 95,
-    suffix: "%",
-    label: "Client Satisfaction",
-    color: "text-accent",
-  },
-];
+const iconMap: Record<string, LucideIcon> = {
+  users: Users,
+  trending_up: TrendingUp,
+  award: Award,
+  eye: Eye,
+  heart: Heart,
+  star: Star,
+  zap: Zap,
+  target: Target,
+  trophy: Trophy,
+  sparkles: Sparkles,
+};
 
 const StatItem = ({
   icon: Icon,
@@ -78,6 +62,18 @@ const StatItem = ({
 const StatsCounter = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
+  const { data: stats = [] } = useQuery({
+    queryKey: ["stats"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("stats")
+        .select("*")
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data;
+    },
+  });
+
   return (
     <section ref={ref} className="py-16 relative overflow-hidden">
       {/* Background glow */}
@@ -96,8 +92,12 @@ const StatsCounter = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
           {stats.map((stat, index) => (
             <StatItem
-              key={stat.label}
-              {...stat}
+              key={stat.id}
+              icon={iconMap[stat.icon] || Users}
+              value={stat.value}
+              suffix={stat.suffix}
+              label={stat.label}
+              color={stat.color}
               isVisible={isVisible}
               delay={index * 100}
             />
