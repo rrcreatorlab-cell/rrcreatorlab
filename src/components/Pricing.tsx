@@ -820,11 +820,11 @@ const Pricing = () => {
               <h4 className="text-xl font-bold mb-2">Website Creation</h4>
               <div className="mb-4">
                 <div className="text-sm text-muted-foreground mb-1">Basic</div>
-                <span className="text-2xl font-bold text-primary">₹2,000 – ₹3,000</span>
+                <span className="text-2xl font-bold text-primary">₹8,000 – ₹10,000</span>
               </div>
               <div className="mb-4">
                 <div className="text-sm text-muted-foreground mb-1">Standard</div>
-                <span className="text-2xl font-bold text-primary">₹3,000 – ₹5,000</span>
+                <span className="text-2xl font-bold text-primary">₹10,000 – ₹12,000</span>
               </div>
               <p className="text-muted-foreground text-sm mb-6">
                 Simple, mobile-friendly website with contact button.
@@ -889,7 +889,7 @@ const Pricing = () => {
               </div>
               <h4 className="text-xl font-bold mb-2">Website + AI Assistant</h4>
               <div className="mb-4">
-                <span className="text-2xl font-bold text-primary">₹3,999 – ₹4,999</span>
+                <span className="text-2xl font-bold text-primary">₹12,999 – ₹15,999</span>
                 <span className="text-muted-foreground text-sm ml-2">one-time</span>
               </div>
               <p className="text-muted-foreground text-sm mb-6">

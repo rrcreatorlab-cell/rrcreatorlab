@@ -5,7 +5,6 @@ import StatsCounter from "@/components/StatsCounter";
 import GrowthShowcase from "@/components/GrowthShowcase";
 import GrowthVisuals from "@/components/GrowthVisuals";
 import Services from "@/components/Services";
-import Portfolio from "@/components/Portfolio";
 import Pricing from "@/components/Pricing";
 import Process from "@/components/Process";
 import WhyUs from "@/components/WhyUs";
@@ -30,7 +29,6 @@ const Index = () => {
       <GrowthShowcase />
       <GrowthVisuals />
       <Services />
-      <Portfolio />
       <Pricing />
       <Process />
       <WhyUs />

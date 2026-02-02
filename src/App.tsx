@@ -15,6 +15,7 @@ import LetsConnect from "./pages/LetsConnect";
 import Auth from "./pages/Auth";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Portfolio from "./pages/Portfolio";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminFaqs from "./pages/AdminFaqs";
@@ -41,8 +42,9 @@ const App = () => (
             <Route path="/success-stories" element={<SuccessStories />} />
             <Route path="/lets-connect" element={<LetsConnect />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/blog" element={<Blog />} />
+          <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/testimonials" element={<AdminTestimonials />} />
             <Route path="/admin/faqs" element={<AdminFaqs />} />
