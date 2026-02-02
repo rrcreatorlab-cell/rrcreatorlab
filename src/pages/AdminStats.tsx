@@ -157,7 +157,7 @@ const AdminStats = () => {
   };
 
   return (
-    <AdminLayout title="Manage Stats">
+    <AdminLayout title="Impact Stats">
       <div className="flex justify-end mb-6">
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>

@@ -20,10 +20,16 @@ interface AdminLayoutProps {
 
 const navItems = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Hero Section", href: "/admin/hero", icon: LayoutDashboard },
+  { name: "Services", href: "/admin/services", icon: LayoutDashboard },
+  { name: "Pricing Plans", href: "/admin/pricing", icon: LayoutDashboard },
+  { name: "One-Time Services", href: "/admin/one-time-services", icon: LayoutDashboard },
+  { name: "Impact Stats", href: "/admin/impact", icon: BarChart3 },
+  { name: "Process Steps", href: "/admin/process", icon: LayoutDashboard },
+  { name: "Team", href: "/admin/team", icon: Users },
   { name: "Testimonials", href: "/admin/testimonials", icon: MessageSquare },
   { name: "FAQs", href: "/admin/faqs", icon: HelpCircle },
-  { name: "Stats", href: "/admin/stats", icon: BarChart3 },
-  { name: "Client Logos", href: "/admin/clients", icon: Users },
+  { name: "Trusted Creators", href: "/admin/clients", icon: Users },
 ];
 
 const AdminLayout = ({ children, title }: AdminLayoutProps) => {

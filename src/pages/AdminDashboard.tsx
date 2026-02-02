@@ -3,9 +3,27 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageSquare, HelpCircle, BarChart3, Users, ArrowRight } from "lucide-react";
+import { 
+  MessageSquare, 
+  HelpCircle, 
+  BarChart3, 
+  Users, 
+  ArrowRight,
+  Layout,
+  Briefcase,
+  CreditCard,
+  Zap,
+  ListOrdered,
+  UserCircle
+} from "lucide-react";
 
 interface DashboardStats {
+  hero: number;
+  services: number;
+  pricingPlans: number;
+  oneTimeServices: number;
+  processSteps: number;
+  team: number;
   testimonials: number;
   pendingTestimonials: number;
   faqs: number;
@@ -15,6 +33,12 @@ interface DashboardStats {
 
 const AdminDashboard = () => {
   const [dashboardStats, setDashboardStats] = useState<DashboardStats>({
+    hero: 0,
+    services: 0,
+    pricingPlans: 0,
+    oneTimeServices: 0,
+    processSteps: 0,
+    team: 0,
     testimonials: 0,
     pendingTestimonials: 0,
     faqs: 0,
@@ -26,15 +50,39 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [testimonialsRes, pendingRes, faqsRes, statsRes, clientsRes] = await Promise.all([
-          supabase.from("testimonials").select("id", { count: "exact" }),
-          supabase.from("testimonials").select("id", { count: "exact" }).eq("approved", false),
-          supabase.from("faqs").select("id", { count: "exact" }),
-          supabase.from("stats").select("id", { count: "exact" }),
-          supabase.from("client_logos").select("id", { count: "exact" }),
+        const [
+          heroRes,
+          servicesRes,
+          pricingRes,
+          oneTimeRes,
+          processRes,
+          teamRes,
+          testimonialsRes, 
+          pendingRes, 
+          faqsRes, 
+          statsRes, 
+          clientsRes
+        ] = await Promise.all([
+          supabase.from("hero_section").select("id", { count: "exact", head: true }),
+          supabase.from("services").select("id", { count: "exact", head: true }),
+          supabase.from("pricing_plans").select("id", { count: "exact", head: true }),
+          supabase.from("one_time_services").select("id", { count: "exact", head: true }),
+          supabase.from("process_steps").select("id", { count: "exact", head: true }),
+          supabase.from("team").select("id", { count: "exact", head: true }),
+          supabase.from("testimonials").select("id", { count: "exact", head: true }),
+          supabase.from("testimonials").select("id", { count: "exact", head: true }).eq("featured", false),
+          supabase.from("faqs").select("id", { count: "exact", head: true }),
+          supabase.from("stats").select("id", { count: "exact", head: true }),
+          supabase.from("client_logos").select("id", { count: "exact", head: true }),
         ]);
 
         setDashboardStats({
+          hero: heroRes.count || 0,
+          services: servicesRes.count || 0,
+          pricingPlans: pricingRes.count || 0,
+          oneTimeServices: oneTimeRes.count || 0,
+          processSteps: processRes.count || 0,
+          team: teamRes.count || 0,
           testimonials: testimonialsRes.count || 0,
           pendingTestimonials: pendingRes.count || 0,
           faqs: faqsRes.count || 0,
@@ -53,12 +101,68 @@ const AdminDashboard = () => {
 
   const cards = [
     {
+      title: "Hero Section",
+      value: dashboardStats.hero > 0 ? "Configured" : "Not Set",
+      subtitle: "Main landing section",
+      icon: Layout,
+      href: "/admin/hero",
+      color: "text-primary",
+    },
+    {
+      title: "Services",
+      value: dashboardStats.services,
+      subtitle: "Service offerings",
+      icon: Briefcase,
+      href: "/admin/services",
+      color: "text-blue-500",
+    },
+    {
+      title: "Pricing Plans",
+      value: dashboardStats.pricingPlans,
+      subtitle: "Monthly/yearly plans",
+      icon: CreditCard,
+      href: "/admin/pricing",
+      color: "text-green-500",
+    },
+    {
+      title: "One-Time Services",
+      value: dashboardStats.oneTimeServices,
+      subtitle: "Quick setup solutions",
+      icon: Zap,
+      href: "/admin/one-time-services",
+      color: "text-yellow-500",
+    },
+    {
+      title: "Impact Stats",
+      value: dashboardStats.stats,
+      subtitle: "Impact metrics",
+      icon: BarChart3,
+      href: "/admin/impact",
+      color: "text-purple-500",
+    },
+    {
+      title: "Process Steps",
+      value: dashboardStats.processSteps,
+      subtitle: "How it works",
+      icon: ListOrdered,
+      href: "/admin/process",
+      color: "text-cyan-500",
+    },
+    {
+      title: "Team Members",
+      value: dashboardStats.team,
+      subtitle: "Your team",
+      icon: UserCircle,
+      href: "/admin/team",
+      color: "text-pink-500",
+    },
+    {
       title: "Testimonials",
       value: dashboardStats.testimonials,
-      subtitle: `${dashboardStats.pendingTestimonials} pending approval`,
+      subtitle: `${dashboardStats.pendingTestimonials} pending`,
       icon: MessageSquare,
       href: "/admin/testimonials",
-      color: "text-blue-500",
+      color: "text-indigo-500",
     },
     {
       title: "FAQs",
@@ -66,20 +170,12 @@ const AdminDashboard = () => {
       subtitle: "Questions & answers",
       icon: HelpCircle,
       href: "/admin/faqs",
-      color: "text-green-500",
+      color: "text-emerald-500",
     },
     {
-      title: "Stats",
-      value: dashboardStats.stats,
-      subtitle: "Impact metrics",
-      icon: BarChart3,
-      href: "/admin/stats",
-      color: "text-purple-500",
-    },
-    {
-      title: "Client Logos",
+      title: "Trusted Creators",
       value: dashboardStats.clients,
-      subtitle: "Featured clients",
+      subtitle: "Featured creators",
       icon: Users,
       href: "/admin/clients",
       color: "text-orange-500",
@@ -93,10 +189,10 @@ const AdminDashboard = () => {
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {cards.map((card) => (
             <Link key={card.title} to={card.href}>
-              <Card className="hover:border-primary/50 transition-colors cursor-pointer">
+              <Card className="hover:border-primary/50 transition-colors cursor-pointer h-full">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {card.title}
@@ -104,7 +200,7 @@ const AdminDashboard = () => {
                   <card.icon className={`h-5 w-5 ${card.color}`} />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">{card.value}</div>
+                  <div className="text-2xl font-bold">{card.value}</div>
                   <p className="text-xs text-muted-foreground mt-1">{card.subtitle}</p>
                   <div className="flex items-center gap-1 text-xs text-primary mt-3">
                     Manage <ArrowRight className="h-3 w-3" />

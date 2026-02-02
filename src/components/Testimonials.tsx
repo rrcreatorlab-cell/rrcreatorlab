@@ -130,6 +130,7 @@ const Testimonials = () => {
       const { data, error } = await supabase
         .from("testimonials")
         .select("*")
+        .eq("featured", true)
         .order("created_at", { ascending: false });
 
       if (error) throw error;

@@ -38,7 +38,9 @@ interface Testimonial {
   role: string;
   rating: number;
   review: string;
-  approved: boolean;
+  featured: boolean;
+  company: string;
+  image_url: string;
   created_at: string;
 }
 
@@ -55,7 +57,9 @@ const AdminTestimonials = () => {
     role: "",
     rating: 5,
     review: "",
-    approved: true,
+    featured: true,
+    company: "",
+    image_url: "",
   });
 
   useEffect(() => {
@@ -100,13 +104,15 @@ const AdminTestimonials = () => {
         role: formData.role.trim(),
         rating: formData.rating,
         review: formData.review.trim(),
-        approved: formData.approved,
+        featured: formData.featured,
+        company: formData.company.trim(),
+        image_url: formData.image_url.trim(),
       });
 
       if (error) throw error;
 
       toast({ title: "Success", description: "Testimonial added successfully." });
-      setFormData({ name: "", role: "", rating: 5, review: "", approved: true });
+      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "" });
       setIsAddDialogOpen(false);
       fetchAllTestimonials();
     } catch (error) {
@@ -132,7 +138,9 @@ const AdminTestimonials = () => {
           role: formData.role.trim(),
           rating: formData.rating,
           review: formData.review.trim(),
-          approved: formData.approved,
+          featured: formData.featured,
+          company: formData.company.trim(),
+          image_url: formData.image_url.trim(),
         })
         .eq("id", id);
 
@@ -140,7 +148,7 @@ const AdminTestimonials = () => {
 
       toast({ title: "Success", description: "Testimonial updated successfully." });
       setEditingId(null);
-      setFormData({ name: "", role: "", rating: 5, review: "", approved: true });
+      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "" });
       fetchAllTestimonials();
     } catch (error) {
       console.error("Error updating testimonial:", error);
@@ -164,18 +172,18 @@ const AdminTestimonials = () => {
     }
   };
 
-  const handleToggleApproval = async (id: string, currentApproved: boolean) => {
+  const handleToggleFeatured = async (id: string, currentFeatured: boolean) => {
     try {
       const { error } = await supabase
         .from("testimonials")
-        .update({ approved: !currentApproved })
+        .update({ featured: !currentFeatured })
         .eq("id", id);
 
       if (error) throw error;
-      toast({ title: "Updated", description: `Testimonial ${!currentApproved ? "approved" : "hidden"}.` });
+      toast({ title: "Updated", description: `Testimonial ${!currentFeatured ? "featured" : "hidden"}.` });
       fetchAllTestimonials();
     } catch (error) {
-      console.error("Error toggling approval:", error);
+      console.error("Error toggling featured:", error);
       toast({ title: "Error", description: "Failed to update testimonial.", variant: "destructive" });
     }
   };
@@ -187,13 +195,15 @@ const AdminTestimonials = () => {
       role: testimonial.role,
       rating: testimonial.rating,
       review: testimonial.review,
-      approved: testimonial.approved,
+      featured: testimonial.featured,
+      company: testimonial.company || "",
+      image_url: testimonial.image_url || "",
     });
   };
 
   const cancelEdit = () => {
     setEditingId(null);
-    setFormData({ name: "", role: "", rating: 5, review: "", approved: true });
+    setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "" });
   };
 
   const renderStars = (rating: number, interactive = false, onSelect?: (star: number) => void) => (
@@ -278,10 +288,10 @@ const AdminTestimonials = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Switch
-                  checked={formData.approved}
-                  onCheckedChange={(checked) => setFormData({ ...formData, approved: checked })}
+                  checked={formData.featured}
+                  onCheckedChange={(checked) => setFormData({ ...formData, featured: checked })}
                 />
-                <Label>Approved (visible on site)</Label>
+                <Label>Featured (visible on site)</Label>
               </div>
               <Button onClick={handleAdd} disabled={submitting} className="w-full">
                 {submitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
@@ -305,7 +315,7 @@ const AdminTestimonials = () => {
                 <TableHead>Role</TableHead>
                 <TableHead>Rating</TableHead>
                 <TableHead className="hidden md:table-cell max-w-xs">Review</TableHead>
-                <TableHead>Approved</TableHead>
+                <TableHead>Featured</TableHead>
                 <TableHead className="w-24">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -347,8 +357,8 @@ const AdminTestimonials = () => {
                         </TableCell>
                         <TableCell>
                           <Switch
-                            checked={formData.approved}
-                            onCheckedChange={(checked) => setFormData({ ...formData, approved: checked })}
+                            checked={formData.featured}
+                            onCheckedChange={(checked) => setFormData({ ...formData, featured: checked })}
                           />
                         </TableCell>
                         <TableCell>
@@ -372,8 +382,8 @@ const AdminTestimonials = () => {
                         </TableCell>
                         <TableCell>
                           <Switch
-                            checked={testimonial.approved}
-                            onCheckedChange={() => handleToggleApproval(testimonial.id, testimonial.approved)}
+                            checked={testimonial.featured}
+                            onCheckedChange={() => handleToggleFeatured(testimonial.id, testimonial.featured)}
                           />
                         </TableCell>
                         <TableCell>
