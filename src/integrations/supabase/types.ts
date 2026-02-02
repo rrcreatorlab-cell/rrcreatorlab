@@ -16,26 +16,32 @@ export type Database = {
     Tables: {
       client_logos: {
         Row: {
+          active: boolean
           created_at: string
           display_order: number
           handle: string
           id: string
+          logo_url: string
           name: string
           updated_at: string
         }
         Insert: {
+          active?: boolean
           created_at?: string
           display_order?: number
           handle: string
           id?: string
+          logo_url?: string
           name: string
           updated_at?: string
         }
         Update: {
+          active?: boolean
           created_at?: string
           display_order?: number
           handle?: string
           id?: string
+          logo_url?: string
           name?: string
           updated_at?: string
         }
@@ -64,6 +70,189 @@ export type Database = {
           display_order?: number
           id?: string
           question?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      hero_section: {
+        Row: {
+          badge_text: string
+          created_at: string
+          heading_line_1: string
+          heading_line_2: string
+          id: string
+          primary_cta_text: string
+          secondary_cta_text: string
+          subtitle: string
+          updated_at: string
+        }
+        Insert: {
+          badge_text?: string
+          created_at?: string
+          heading_line_1?: string
+          heading_line_2?: string
+          id?: string
+          primary_cta_text?: string
+          secondary_cta_text?: string
+          subtitle?: string
+          updated_at?: string
+        }
+        Update: {
+          badge_text?: string
+          created_at?: string
+          heading_line_1?: string
+          heading_line_2?: string
+          id?: string
+          primary_cta_text?: string
+          secondary_cta_text?: string
+          subtitle?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      one_time_services: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string
+          display_order: number
+          highlight: boolean
+          id: string
+          name: string
+          price_max: number
+          price_min: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          display_order?: number
+          highlight?: boolean
+          id?: string
+          name: string
+          price_max: number
+          price_min: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          display_order?: number
+          highlight?: boolean
+          id?: string
+          name?: string
+          price_max?: number
+          price_min?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pricing_plans: {
+        Row: {
+          active: boolean
+          created_at: string
+          display_order: number
+          duration: string
+          features: string
+          id: string
+          name: string
+          popular: boolean
+          price_max: number
+          price_min: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          display_order?: number
+          duration?: string
+          features?: string
+          id?: string
+          name: string
+          popular?: boolean
+          price_max: number
+          price_min: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          display_order?: number
+          duration?: string
+          features?: string
+          id?: string
+          name?: string
+          popular?: boolean
+          price_max?: number
+          price_min?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      process_steps: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          step_description: string
+          step_number: number
+          step_title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          step_description: string
+          step_number: number
+          step_title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          step_description?: string
+          step_number?: number
+          step_title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string
+          display_order: number
+          features: string
+          icon: string
+          id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description: string
+          display_order?: number
+          features?: string
+          icon?: string
+          id?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          display_order?: number
+          features?: string
+          icon?: string
+          id?: string
+          title?: string
           updated_at?: string
         }
         Relationships: []
@@ -104,29 +293,74 @@ export type Database = {
         }
         Relationships: []
       }
+      team: {
+        Row: {
+          active: boolean
+          bio: string
+          created_at: string
+          display_order: number
+          id: string
+          image_url: string
+          name: string
+          role: string
+          socials: Json
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          bio?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string
+          name: string
+          role: string
+          socials?: Json
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          bio?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string
+          name?: string
+          role?: string
+          socials?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       testimonials: {
         Row: {
-          approved: boolean
+          company: string
           created_at: string
+          featured: boolean
           id: string
+          image_url: string
           name: string
           rating: number
           review: string
           role: string
         }
         Insert: {
-          approved?: boolean
+          company?: string
           created_at?: string
+          featured?: boolean
           id?: string
+          image_url?: string
           name: string
           rating: number
           review: string
           role: string
         }
         Update: {
-          approved?: boolean
+          company?: string
           created_at?: string
+          featured?: boolean
           id?: string
+          image_url?: string
           name?: string
           rating?: number
           review?: string

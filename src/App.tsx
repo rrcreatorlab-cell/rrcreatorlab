@@ -17,6 +17,12 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Portfolio from "./pages/Portfolio";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminHero from "./pages/AdminHero";
+import AdminServices from "./pages/AdminServices";
+import AdminPricing from "./pages/AdminPricing";
+import AdminOneTimeServices from "./pages/AdminOneTimeServices";
+import AdminProcess from "./pages/AdminProcess";
+import AdminTeam from "./pages/AdminTeam";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminFaqs from "./pages/AdminFaqs";
 import AdminStats from "./pages/AdminStats";
@@ -46,9 +52,15 @@ const App = () => (
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/hero" element={<AdminHero />} />
+            <Route path="/admin/services" element={<AdminServices />} />
+            <Route path="/admin/pricing" element={<AdminPricing />} />
+            <Route path="/admin/one-time-services" element={<AdminOneTimeServices />} />
+            <Route path="/admin/impact" element={<AdminStats />} />
+            <Route path="/admin/process" element={<AdminProcess />} />
+            <Route path="/admin/team" element={<AdminTeam />} />
             <Route path="/admin/testimonials" element={<AdminTestimonials />} />
             <Route path="/admin/faqs" element={<AdminFaqs />} />
-            <Route path="/admin/stats" element={<AdminStats />} />
             <Route path="/admin/clients" element={<AdminClients />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
