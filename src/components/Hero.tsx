@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Target, TrendingUp, Sparkles, Calendar } from "lucide-react";
+import { ArrowRight, Play, Target, TrendingUp, Sparkles, Calendar, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAdminCheck } from "@/hooks/useAdminCheck";
 import { useEffect, useState } from "react";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
+  const { isAdmin } = useAdminCheck();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +19,16 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Admin Link - Top Right */}
+      {isAdmin && (
+        <Link 
+          to="/admin" 
+          className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-lg glass-card text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <Settings className="h-4 w-4" />
+          Admin
+        </Link>
+      )}
       {/* Parallax animated background */}
       <div 
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,hsl(175,80%,15%),transparent_50%)]"
