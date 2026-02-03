@@ -22,7 +22,7 @@ const Auth = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/youtube-planner");
+      navigate("/");
     }
   }, [user, navigate]);
 
@@ -95,7 +95,7 @@ const Auth = () => {
         } else {
           toast({
             title: "Account created!",
-            description: "You can now access the YouTube Planner.",
+            description: "Please check your email to verify your account.",
           });
         }
       }
@@ -117,8 +117,8 @@ const Auth = () => {
               </h1>
               <p className="text-muted-foreground">
                 {isLogin
-                  ? "Sign in to access the YouTube Planner"
-                  : "Sign up to unlock the YouTube Planner tool"}
+                  ? "Sign in to access your account"
+                  : "Sign up to get started"}
               </p>
             </div>
 
