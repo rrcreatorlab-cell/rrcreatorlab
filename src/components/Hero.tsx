@@ -19,11 +19,11 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Admin Link - Top Right */}
+      {/* Admin Link - Below Navbar */}
       {isAdmin && (
         <Link 
           to="/admin" 
-          className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-lg glass-card text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="fixed top-20 right-6 z-50 flex items-center gap-2 px-4 py-2 rounded-lg glass-card text-sm text-muted-foreground hover:text-foreground hover:border-primary/50 border border-border/50 transition-all shadow-lg"
         >
           <Settings className="h-4 w-4" />
           Admin
