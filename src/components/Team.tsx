@@ -150,7 +150,7 @@ const Team = () => {
               Want to join our creative team?
             </p>
             <a
-              href="mailto:careers@rrcreatorlab.com"
+              href="mailto:rrcreatorlab@gmail.com?subject=Portfolio%20Submission%20-%20Joining%20RR%20Creator%20Lab"
               className="text-primary hover:text-accent transition-colors font-medium"
             >
               Send us your portfolio →
