@@ -19,16 +19,6 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Admin Link - Below Navbar */}
-      {isAdmin && (
-        <Link 
-          to="/admin" 
-          className="fixed top-20 right-6 z-50 flex items-center gap-2 px-4 py-2 rounded-lg glass-card text-sm text-muted-foreground hover:text-foreground hover:border-primary/50 border border-border/50 transition-all shadow-lg"
-        >
-          <Settings className="h-4 w-4" />
-          Admin
-        </Link>
-      )}
       {/* Parallax animated background */}
       <div 
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,hsl(175,80%,15%),transparent_50%)]"
@@ -87,6 +77,14 @@ const Hero = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
+            {isAdmin && (
+              <Button variant="glass" size="xl" asChild>
+                <Link to="/admin">
+                  <Settings className="mr-2 h-5 w-5" />
+                  Admin
+                </Link>
+              </Button>
+            )}
           </div>
 
           {/* Stats */}
