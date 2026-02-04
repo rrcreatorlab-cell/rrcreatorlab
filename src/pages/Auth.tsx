@@ -5,14 +5,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
-import { Eye, EyeOff, Mail, Lock, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Loader2, KeyRound } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const SIGNUP_CODE = "Rishi@123";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signupCode, setSignupCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -46,6 +49,16 @@ const Auth = () => {
       toast({
         title: "Password too short",
         description: "Password must be at least 6 characters.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate signup code for new registrations
+    if (!isLogin && signupCode !== SIGNUP_CODE) {
+      toast({
+        title: "Invalid signup code",
+        description: "Please enter a valid signup code to create an account.",
         variant: "destructive",
       });
       return;
@@ -169,6 +182,30 @@ const Auth = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Signup Code Field - Only shown for signup */}
+              {!isLogin && (
+                <div className="space-y-2">
+                  <Label htmlFor="signupCode" className="text-foreground">
+                    Signup Code
+                  </Label>
+                  <div className="relative">
+                    <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="signupCode"
+                      type="text"
+                      placeholder="Enter signup code"
+                      value={signupCode}
+                      onChange={(e) => setSignupCode(e.target.value)}
+                      className="pl-10 bg-secondary border-border"
+                      required
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Contact admin to get the signup code
+                  </p>
+                </div>
+              )}
 
               <Button
                 type="submit"
