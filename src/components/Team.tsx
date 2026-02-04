@@ -151,6 +151,12 @@ const Team = () => {
             </p>
             <a
               href="mailto:rrcreatorlab@gmail.com?subject=Portfolio%20Submission%20-%20Joining%20RR%20Creator%20Lab"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.preventDefault();
+                window.open('mailto:rrcreatorlab@gmail.com?subject=Portfolio%20Submission%20-%20Joining%20RR%20Creator%20Lab', '_blank');
+              }}
               className="text-primary hover:text-accent transition-colors font-medium"
             >
               Send us your portfolio →
