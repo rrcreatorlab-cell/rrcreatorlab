@@ -1,4 +1,4 @@
-import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, Globe, Bot, Zap, Youtube, BookOpen, Package, Play } from "lucide-react";
+import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, Globe, Bot, Zap, Youtube, BookOpen, Package, Play, BarChart3 } from "lucide-react";
 import levelUpVideo from "@/assets/level-up-creators.mp4";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -811,7 +811,7 @@ const Pricing = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Website Creation */}
             <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in">
               <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
@@ -910,6 +910,62 @@ const Pricing = () => {
                 </div>
               </div>
               <Button className="w-full transition-all duration-300 hover:scale-105" asChild>
+                <Link to="/lets-connect">Get Started</Link>
+              </Button>
+            </div>
+
+            {/* Creation of Inventory */}
+            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in" style={{ animationDelay: '300ms' }}>
+              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6">
+                <Package className="w-7 h-7 text-emerald-400" />
+              </div>
+              <h4 className="text-xl font-bold mb-2">Creation of Inventory</h4>
+              <div className="mb-4">
+                <span className="text-2xl font-bold text-emerald-400">₹8,000 – ₹12,000</span>
+                <span className="text-muted-foreground text-sm ml-2">one-time</span>
+              </div>
+              <p className="text-muted-foreground text-sm mb-6">
+                Complete inventory setup for your business or brand.
+              </p>
+              <div className="space-y-2 mb-6">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  <span>One-time setup</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  <span>Custom inventory structure</span>
+                </div>
+              </div>
+              <Button variant="outline" className="w-full hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all duration-300" asChild>
+                <Link to="/lets-connect">Get Started</Link>
+              </Button>
+            </div>
+
+            {/* Inventory Management */}
+            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-cyan-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in" style={{ animationDelay: '400ms' }}>
+              <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-6">
+                <BarChart3 className="w-7 h-7 text-cyan-400" />
+              </div>
+              <h4 className="text-xl font-bold mb-2">Inventory Management</h4>
+              <div className="mb-4">
+                <span className="text-2xl font-bold text-cyan-400">₹2,000 – ₹6,000</span>
+                <span className="text-muted-foreground text-sm ml-2">per year</span>
+              </div>
+              <p className="text-muted-foreground text-sm mb-6">
+                Ongoing inventory tracking and management support.
+              </p>
+              <div className="space-y-2 mb-6">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                  <span>Yearly subscription</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                  <span>Regular updates & support</span>
+                </div>
+              </div>
+              <Button variant="outline" className="w-full hover:bg-cyan-500 hover:text-white hover:border-cyan-500 transition-all duration-300" asChild>
                 <Link to="/lets-connect">Get Started</Link>
               </Button>
             </div>
