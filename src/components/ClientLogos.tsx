@@ -73,7 +73,6 @@ const ClientLogos = () => {
             className="flex-shrink-0 px-8 py-4 glass-card rounded-xl hover:bg-secondary/50 transition-colors cursor-default"
           >
             <div className="text-foreground font-semibold">{client.name}</div>
-            <div className="text-muted-foreground text-sm">{client.handle}</div>
           </div>
         ))}
       </div>
