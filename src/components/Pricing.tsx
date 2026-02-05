@@ -1,8 +1,10 @@
-import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, Globe, Bot, Zap, Youtube, BookOpen, Package, Play, BarChart3 } from "lucide-react";
+import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, Globe, Bot, Zap, Youtube, BookOpen, Package, Play, BarChart3, LucideIcon } from "lucide-react";
 import levelUpVideo from "@/assets/level-up-creators.mp4";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
   DialogContent,
@@ -11,134 +13,200 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
+const iconMap: Record<string, LucideIcon> = {
+  sparkles: Sparkles,
+  star: Star,
+  crown: Crown,
+  globe: Globe,
+  bot: Bot,
+  package: Package,
+  bar_chart: BarChart3,
+  zap: Zap,
+};
+
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<number | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
 
-  const monthlyPlans = [
-    {
-      name: "Starter Creator Plan",
-      price: "₹2,000 – ₹8,000",
-      period: "/ month",
-      description: "Best for new & small creators",
-      features: [
-        "Content strategy & ideas",
-        "8–10 reels/shorts editing",
-        "1–2 long videos",
-        "Uploading & scheduling",
-        "Caption + hashtag support",
-        "Basic YouTube/Instagram optimization",
-        "Weekly update",
-      ],
-      popular: false,
-      icon: Sparkles,
-      detailedDescription: "Perfect for creators just starting their journey. We help you build a strong foundation with consistent content and basic optimization to grow your audience organically.",
-      idealFor: ["New YouTubers & Instagram creators", "Those with less than 10K followers", "Creators exploring content creation"],
-      deliverables: ["8-10 professionally edited reels/shorts", "1-2 polished long-form videos", "Weekly strategy calls", "Content calendar planning"],
+  // Fetch pricing plans from database
+  const { data: dbPricingPlans = [] } = useQuery({
+    queryKey: ["pricing_plans"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("pricing_plans")
+        .select("*")
+        .eq("active", true)
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data;
     },
-    {
-      name: "Growth Plan",
-      price: "₹8,000 – ₹20,000",
-      period: "/ month",
-      description: "Full content growth strategy",
-      features: [
-        "Full content growth strategy",
-        "12–20 reels/shorts editing",
-        "2–4 long videos",
-        "YouTube or Instagram management",
-        "Titles, descriptions & hashtags",
-        "Uploading & scheduling",
-        "Engagement support (likes/comments strategy)",
-        "Monthly performance report",
-      ],
-      popular: true,
-      icon: Star,
-      detailedDescription: "Our most popular plan for creators ready to scale. We handle everything from content strategy to execution, helping you grow faster with data-driven decisions.",
-      idealFor: ["Creators with 10K-100K followers", "Those looking to monetize their content", "Serious creators wanting faster growth"],
-      deliverables: ["12-20 reels/shorts with trending formats", "2-4 high-quality long videos", "Complete platform management", "Monthly analytics report with actionable insights"],
-    },
-    {
-      name: "Premium Management Plan",
-      price: "₹25,000 – ₹50,000",
-      period: "/ month",
-      description: "For serious creators & brands",
-      features: [
-        "End-to-end account management",
-        "20–25 shorts/reels + 4–5 long videos",
-        "YouTube + Instagram handled fully",
-        "Content planning + execution",
-        "Advanced growth strategy",
-        "Comment moderation (basic)",
-        "Community building support",
-        "Detailed monthly analytics & roadmap",
-      ],
-      popular: false,
-      icon: Crown,
-      detailedDescription: "The ultimate creator package. We become your dedicated content team, handling everything so you can focus on creating. Perfect for creators who want hands-off growth.",
-      idealFor: ["Full-time creators & influencers", "Brands building their presence", "Creators with 100K+ followers"],
-      deliverables: ["20-25 viral-optimized shorts/reels", "4-5 premium long-form videos", "Dual platform management (YT + IG)", "Community management & engagement", "Quarterly strategy roadmap"],
-    },
-  ];
+  });
 
-  const yearlyPlans = [
-    {
-      name: "Starter – Yearly",
-      price: "₹20,000 – ₹80,000",
-      period: "/ year",
-      description: "Best for new & small creators",
-      features: [
-        "8–10 shorts/reels per month",
-        "1–2 long-form videos per month",
-        "Strategy, uploads & optimization",
-        "Monthly progress review",
-      ],
-      popular: false,
-      icon: Sparkles,
-      detailedDescription: "Lock in a full year of growth support at a discounted rate. Perfect for creators committed to long-term success with consistent content creation.",
-      idealFor: ["New YouTubers & Instagram creators", "Those with less than 10K followers", "Creators exploring content creation"],
-      deliverables: ["96-120 reels/shorts per year", "12-24 long-form videos per year", "Monthly strategy reviews", "Priority support"],
+  // Fetch one-time services from database
+  const { data: dbOneTimeServices = [] } = useQuery({
+    queryKey: ["one_time_services"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("one_time_services")
+        .select("*")
+        .eq("active", true)
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data;
     },
-    {
-      name: "Growth – Yearly",
-      price: "₹80,000 – ₹2,00,000",
-      period: "/ year",
-      description: "Full content growth strategy",
-      features: [
-        "12–20 shorts/reels per month",
-        "2–4 long-form videos per month",
-        "Full YouTube + Instagram management",
-        "Monthly analytics & engagement strategy",
-      ],
-      popular: true,
-      icon: Star,
-      detailedDescription: "Save up to 17% with our yearly growth commitment. Get consistent, high-quality content management with predictable costs and guaranteed growth.",
-      idealFor: ["Creators with 10K-100K followers", "Those looking to monetize their content", "Serious creators wanting faster growth"],
-      deliverables: ["144-240 reels/shorts per year", "24-48 long-form videos per year", "12 monthly analytics reports", "Quarterly strategy planning sessions"],
-    },
-    {
-      name: "Premium – Yearly",
-      price: "₹2,50,000 – ₹5,00,000",
-      period: "/ year",
-      description: "For serious creators & brands",
-      features: [
-        "20–25 shorts/reels per month",
-        "4–5 long-form videos per month",
-        "Complete account handling",
-        "Likes & comment moderation",
-        "Community growth",
-        "Detailed monthly + yearly roadmap",
-      ],
-      popular: false,
-      icon: Crown,
-      detailedDescription: "The ultimate yearly partnership for serious creators. Includes all premium benefits with dedicated account management and priority service.",
-      idealFor: ["Full-time creators & influencers", "Brands building their presence", "Creators with 100K+ followers"],
-      deliverables: ["240-300 shorts/reels per year", "48-60 premium long-form videos", "Dedicated account manager", "Quarterly in-depth strategy sessions", "Annual content audit & roadmap"],
-    },
-  ];
+  });
+
+  // Transform database plans into display format
+  const monthlyDbPlans = dbPricingPlans.filter(p => p.duration === 'Monthly');
+  const yearlyDbPlans = dbPricingPlans.filter(p => p.duration === 'Yearly');
+
+  const formatPrice = (min: number, max: number) => {
+    if (min >= 100000) {
+      return `₹${(min / 100000).toFixed(0)},00,000 – ₹${(max / 100000).toFixed(0)},00,000`;
+    }
+    return `₹${min.toLocaleString('en-IN')} – ₹${max.toLocaleString('en-IN')}`;
+  };
+
+  const getIconForPlan = (index: number): LucideIcon => {
+    const icons = [Sparkles, Star, Crown];
+    return icons[index] || Sparkles;
+  };
+
+  const transformPlans = (plans: typeof dbPricingPlans, isYearlyPlan: boolean) => {
+    return plans.map((plan, index) => ({
+      name: plan.name,
+      price: formatPrice(plan.price_min, plan.price_max),
+      period: isYearlyPlan ? "/ year" : "/ month",
+      description: plan.features?.split('\n')[0] || "Growth plan",
+      features: plan.features?.split('\n').filter(f => f.trim()) || [],
+      popular: plan.popular,
+      icon: getIconForPlan(index),
+      detailedDescription: `Complete ${plan.name} package for creators.`,
+      idealFor: ["Growing creators", "Content enthusiasts", "Brand builders"],
+      deliverables: plan.features?.split('\n').filter(f => f.trim()).slice(0, 4) || [],
+    }));
+  };
+
+  const monthlyPlans = monthlyDbPlans.length > 0 
+    ? transformPlans(monthlyDbPlans, false)
+    : [
+        {
+          name: "Starter Creator Plan",
+          price: "₹2,000 – ₹8,000",
+          period: "/ month",
+          description: "Best for new & small creators",
+          features: [
+            "Content strategy & ideas",
+            "8–10 reels/shorts editing",
+            "1–2 long videos",
+            "Uploading & scheduling",
+            "Caption + hashtag support",
+            "Basic YouTube/Instagram optimization",
+            "Weekly update",
+          ],
+          popular: false,
+          icon: Sparkles,
+          detailedDescription: "Perfect for creators just starting their journey.",
+          idealFor: ["New YouTubers & Instagram creators", "Those with less than 10K followers"],
+          deliverables: ["8-10 professionally edited reels/shorts", "1-2 polished long-form videos"],
+        },
+        {
+          name: "Growth Plan",
+          price: "₹8,000 – ₹20,000",
+          period: "/ month",
+          description: "Full content growth strategy",
+          features: [
+            "Full content growth strategy",
+            "12–20 reels/shorts editing",
+            "2–4 long videos",
+            "YouTube or Instagram management",
+            "Monthly performance report",
+          ],
+          popular: true,
+          icon: Star,
+          detailedDescription: "Our most popular plan for creators ready to scale.",
+          idealFor: ["Creators with 10K-100K followers"],
+          deliverables: ["12-20 reels/shorts", "2-4 long videos"],
+        },
+        {
+          name: "Premium Management Plan",
+          price: "₹25,000 – ₹50,000",
+          period: "/ month",
+          description: "For serious creators & brands",
+          features: [
+            "End-to-end account management",
+            "20–25 shorts/reels + 4–5 long videos",
+            "YouTube + Instagram handled fully",
+            "Community building support",
+          ],
+          popular: false,
+          icon: Crown,
+          detailedDescription: "The ultimate creator package.",
+          idealFor: ["Full-time creators & influencers"],
+          deliverables: ["20-25 shorts/reels", "4-5 premium long-form videos"],
+        },
+      ];
+
+  const yearlyPlans = yearlyDbPlans.length > 0
+    ? transformPlans(yearlyDbPlans, true)
+    : [
+        {
+          name: "Starter – Yearly",
+          price: "₹20,000 – ₹80,000",
+          period: "/ year",
+          description: "Best for new & small creators",
+          features: ["8–10 shorts/reels per month", "1–2 long-form videos per month"],
+          popular: false,
+          icon: Sparkles,
+          detailedDescription: "Lock in a full year of growth support.",
+          idealFor: ["New YouTubers & Instagram creators"],
+          deliverables: ["96-120 reels/shorts per year"],
+        },
+        {
+          name: "Growth – Yearly",
+          price: "₹80,000 – ₹2,00,000",
+          period: "/ year",
+          description: "Full content growth strategy",
+          features: ["12–20 shorts/reels per month", "2–4 long-form videos per month"],
+          popular: true,
+          icon: Star,
+          detailedDescription: "Save up to 17% with yearly commitment.",
+          idealFor: ["Creators with 10K-100K followers"],
+          deliverables: ["144-240 reels/shorts per year"],
+        },
+        {
+          name: "Premium – Yearly",
+          price: "₹2,50,000 – ₹5,00,000",
+          period: "/ year",
+          description: "For serious creators & brands",
+          features: ["20–25 shorts/reels per month", "4–5 long-form videos per month"],
+          popular: false,
+          icon: Crown,
+          detailedDescription: "The ultimate yearly partnership.",
+          idealFor: ["Full-time creators & influencers"],
+          deliverables: ["240-300 shorts/reels per year"],
+        },
+      ];
 
   const plans = isYearly ? yearlyPlans : monthlyPlans;
+
+  // Transform one-time services from database
+  const oneTimeServices = dbOneTimeServices.length > 0
+    ? dbOneTimeServices.map((service, index) => {
+        const iconOptions: LucideIcon[] = [Globe, Bot, Zap, Package, BarChart3];
+        const colorOptions = ["primary", "accent", "primary", "emerald-400", "cyan-400"];
+        return {
+          name: service.name,
+          price: formatPrice(service.price_min, service.price_max),
+          description: service.description || "",
+          highlight: service.highlight,
+          icon: iconOptions[index % iconOptions.length],
+          color: colorOptions[index % colorOptions.length],
+        };
+      })
+    : [];
 
   const editingPackages = [
     {
@@ -146,8 +214,8 @@ const Pricing = () => {
       price: "₹300 – ₹500",
       unit: "per reel",
       note: "Bulk pricing available",
-      detailedDescription: "Professional editing for your short-form content with trending effects, transitions, and audio sync.",
-      includes: ["Trendy transitions & effects", "Audio sync & beat matching", "Color grading", "Caption/subtitle addition", "2-3 revisions included"],
+      detailedDescription: "Professional editing for your short-form content.",
+      includes: ["Trendy transitions & effects", "Audio sync & beat matching", "Color grading"],
       turnaround: "24-48 hours per reel",
     },
     {
@@ -155,8 +223,8 @@ const Pricing = () => {
       price: "₹1,000 – ₹3,000",
       unit: "per video",
       note: "Depending on length & complexity",
-      detailedDescription: "Complete editing for YouTube videos including cuts, transitions, graphics, and optimization.",
-      includes: ["Professional cuts & pacing", "Background music & SFX", "Basic motion graphics", "Color correction", "Thumbnail suggestion"],
+      detailedDescription: "Complete editing for YouTube videos.",
+      includes: ["Professional cuts & pacing", "Background music & SFX", "Basic motion graphics"],
       turnaround: "3-5 business days",
     },
     {
@@ -164,8 +232,8 @@ const Pricing = () => {
       price: "₹999",
       unit: "one-time",
       note: "Complete channel analysis & growth roadmap",
-      detailedDescription: "In-depth analysis of your channel with actionable recommendations to accelerate growth.",
-      includes: ["Complete channel review", "Competitor analysis", "Content gap identification", "SEO recommendations", "90-day growth roadmap"],
+      detailedDescription: "In-depth analysis of your channel.",
+      includes: ["Complete channel review", "Competitor analysis", "90-day growth roadmap"],
       turnaround: "5-7 business days",
     },
     {
@@ -173,8 +241,8 @@ const Pricing = () => {
       price: "₹299",
       unit: "each",
       note: "Eye-catching designs that drive clicks",
-      detailedDescription: "Click-worthy thumbnails designed to boost your CTR and stand out in search results.",
-      includes: ["Custom design", "A/B test variations", "Text overlay optimization", "Brand consistency", "2 revisions included"],
+      detailedDescription: "Click-worthy thumbnails.",
+      includes: ["Custom design", "A/B test variations", "2 revisions included"],
       turnaround: "24 hours",
     },
   ];
