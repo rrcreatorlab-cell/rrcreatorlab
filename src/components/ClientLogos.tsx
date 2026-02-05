@@ -67,8 +67,7 @@ const ClientLogos = () => {
         className="flex gap-8 overflow-hidden whitespace-nowrap"
         style={{ scrollBehavior: "auto" }}
       >
-        {/* Double the items for seamless loop */}
-        {[...clients, ...clients].map((client, index) => (
+        {clients.map((client, index) => (
           <div
             key={`${client.name}-${index}`}
             className="flex-shrink-0 px-8 py-4 glass-card rounded-xl hover:bg-secondary/50 transition-colors cursor-default"
