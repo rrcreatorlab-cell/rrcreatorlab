@@ -48,7 +48,7 @@ const Footer = () => {
             {/* Social Icons */}
             <div className="flex items-center gap-4">
               <a 
-                href="https://youtube.com" 
+                href="https://www.youtube.com/channel/UCxGilWT_xkmxY89X0XnNM2g/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
