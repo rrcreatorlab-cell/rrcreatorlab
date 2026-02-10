@@ -1,5 +1,6 @@
 import { Heart, BarChart3, CheckCircle, MessageSquare, TrendingUp } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import { useParallax } from "@/hooks/useParallax";
 
 const reasons = [
   {
@@ -30,9 +31,10 @@ const reasons = [
 ];
 
 const WhyUs = () => {
+  const { scrollY } = useParallax();
   return (
     <section className="relative py-24 overflow-hidden" id="why-us">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * -0.06}px)` }} />
 
       <div className="container relative z-10 px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">

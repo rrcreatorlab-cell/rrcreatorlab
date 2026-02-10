@@ -1,5 +1,6 @@
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import { useParallax } from "@/hooks/useParallax";
 
 interface TeamMember {
   id: string;
@@ -49,12 +50,13 @@ const teamMembers: TeamMember[] = [
 ];
 
 const Team = () => {
+  const { scrollY } = useParallax();
   return (
     <section id="team" className="py-24 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/5 to-background" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * 0.06}px)` }} />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * -0.08}px)` }} />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}

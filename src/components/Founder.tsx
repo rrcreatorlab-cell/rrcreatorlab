@@ -2,6 +2,7 @@ import { Heart, Target, TrendingUp, Play } from "lucide-react";
 import founderImage from "@/assets/founder-rishabh.jpeg";
 import founderVideo from "@/assets/founder-intro-video.mp4";
 import AnimatedSection from "./AnimatedSection";
+import { useParallax } from "@/hooks/useParallax";
 
 const Founder = () => {
   const coreValues = [
@@ -22,9 +23,14 @@ const Founder = () => {
     },
   ];
 
+  const { scrollY } = useParallax();
+
   return (
-    <section className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-muted/30 relative overflow-hidden">
+      {/* Parallax background elements */}
+      <div className="absolute top-0 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * 0.06}px)` }} />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * -0.08}px)` }} />
+      <div className="container mx-auto px-4 relative z-10">
         <AnimatedSection className="text-center mb-12">
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
             Meet the Founder

@@ -1,4 +1,5 @@
 import { Users, Lightbulb, GraduationCap, Briefcase } from "lucide-react";
+import { useParallax } from "@/hooks/useParallax";
 
 const audiences = [
   {
@@ -24,9 +25,10 @@ const audiences = [
 ];
 
 const WhoWeWorkWith = () => {
+  const { scrollY } = useParallax();
   return (
     <section className="relative py-24 overflow-hidden" id="clients">
-      <div className="absolute bottom-0 left-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2" />
+      <div className="absolute bottom-0 left-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" style={{ transform: `translateX(-50%) translateY(${scrollY * -0.06}px)` }} />
 
       <div className="container relative z-10 px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">

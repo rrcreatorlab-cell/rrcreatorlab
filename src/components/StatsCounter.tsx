@@ -1,5 +1,6 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useCountUp } from "@/hooks/useCountUp";
+import { useParallax } from "@/hooks/useParallax";
 import { TrendingUp, Users, Award, Eye, Heart, Star, Zap, Target, Trophy, Sparkles, LucideIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -61,6 +62,7 @@ const StatItem = ({
 
 const StatsCounter = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { scrollY } = useParallax();
 
   const { data: stats = [] } = useQuery({
     queryKey: ["stats"],
@@ -77,7 +79,7 @@ const StatsCounter = () => {
   return (
     <section ref={ref} className="py-16 relative overflow-hidden">
       {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" style={{ transform: `translateY(${scrollY * 0.04}px)` }} />
       
       <div className="container px-4 relative">
         <div className="text-center mb-12">

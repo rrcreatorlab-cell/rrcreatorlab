@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import AnimatedSection from "./AnimatedSection";
+import { useParallax } from "@/hooks/useParallax";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -20,11 +21,12 @@ const FAQ = () => {
       return data;
     },
   });
+  const { scrollY } = useParallax();
   return (
-    <section id="faq" className="py-20 relative">
+    <section id="faq" className="py-20 relative overflow-hidden">
       {/* Background elements */}
-      <div className="absolute top-1/4 left-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 left-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * 0.07}px)` }} />
+      <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * -0.05}px)` }} />
 
       <div className="container px-4 relative">
         <AnimatedSection className="text-center mb-12">
