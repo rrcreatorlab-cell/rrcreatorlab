@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Mail, Sparkles, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import AnimatedSection from "./AnimatedSection";
+import { useParallax } from "@/hooks/useParallax";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -38,10 +39,12 @@ const Newsletter = () => {
     });
   };
 
+  const { scrollY } = useParallax();
+
   return (
     <section className="py-16 relative overflow-hidden">
       {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10" style={{ transform: `translateY(${scrollY * 0.04}px)` }} />
       
       {/* Animated particles */}
       <div className="absolute inset-0 overflow-hidden">

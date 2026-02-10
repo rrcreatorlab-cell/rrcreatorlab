@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import AnimatedSection from "./AnimatedSection";
+import { useParallax } from "@/hooks/useParallax";
 import { z } from "zod";
 import {
   Dialog,
@@ -226,12 +227,14 @@ const Testimonials = () => {
       .slice(0, 2);
   };
 
+  const { scrollY } = useParallax();
+
   return (
     <section id="testimonials" className="py-24 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/5 to-background" />
-      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * -0.07}px)` }} />
+      <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * 0.05}px)` }} />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}

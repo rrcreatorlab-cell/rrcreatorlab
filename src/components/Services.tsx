@@ -1,5 +1,6 @@
 import { Target, Youtube, Instagram, Scissors, BarChart3, Calendar } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import { useParallax } from "@/hooks/useParallax";
 
 const services = [
   {
@@ -47,11 +48,12 @@ const services = [
 ];
 
 const Services = () => {
+  const { scrollY } = useParallax();
   return (
     <section className="relative py-24 overflow-hidden" id="services">
       {/* Background elements */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
-      <div className="absolute top-1/4 right-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" style={{ transform: `translateY(${scrollY * 0.08}px)` }} />
+      <div className="absolute top-1/4 right-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * -0.06}px)` }} />
 
       <div className="container relative z-10 px-4">
         <AnimatedSection className="text-center max-w-3xl mx-auto mb-16">

@@ -1,6 +1,7 @@
 import { Calendar, Clock, Video, CheckCircle2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "./AnimatedSection";
+import { useParallax } from "@/hooks/useParallax";
 
 const benefits = [
   "30-minute free strategy call",
@@ -11,10 +12,11 @@ const benefits = [
 
 const BookingSection = () => {
   const bookingUrl = "https://topmate.io/rishabh269/";
+  const { scrollY } = useParallax();
 
   return (
     <section className="relative py-24 overflow-hidden" id="booking">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-accent/5" />
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-accent/5" style={{ transform: `translateY(${scrollY * 0.05}px)` }} />
       
       <div className="container relative z-10 px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">

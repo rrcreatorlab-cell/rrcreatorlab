@@ -2,6 +2,7 @@ import { MessageCircle, Lightbulb, Rocket, FileText, BarChart3 } from "lucide-re
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "./AnimatedSection";
+import { useParallax } from "@/hooks/useParallax";
 
 const steps = [
   {
@@ -31,9 +32,10 @@ const steps = [
 ];
 
 const Process = () => {
+  const { scrollY } = useParallax();
   return (
     <section className="relative py-24 overflow-hidden" id="process">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,hsl(175,80%,10%),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,hsl(175,80%,10%),transparent_60%)]" style={{ transform: `translateY(${scrollY * 0.05}px)` }} />
 
       <div className="container relative z-10 px-4">
         <AnimatedSection className="text-center max-w-3xl mx-auto mb-16">
