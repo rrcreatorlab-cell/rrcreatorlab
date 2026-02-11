@@ -75,19 +75,28 @@ const Pricing = () => {
     return icons[index] || Sparkles;
   };
 
+  const parseFeatures = (features: string | null): string[] => {
+    if (!features) return [];
+    // Support both pipe-separated and newline-separated features
+    return features.split(/[|\n]/).map(f => f.trim()).filter(f => f.length > 0);
+  };
+
   const transformPlans = (plans: typeof dbPricingPlans, isYearlyPlan: boolean) => {
-    return plans.map((plan, index) => ({
-      name: plan.name,
-      price: formatPrice(plan.price_min, plan.price_max),
-      period: isYearlyPlan ? "/ year" : "/ month",
-      description: plan.features?.split('\n')[0] || "Growth plan",
-      features: plan.features?.split('\n').filter(f => f.trim()) || [],
-      popular: plan.popular,
-      icon: getIconForPlan(index),
-      detailedDescription: `Complete ${plan.name} package for creators.`,
-      idealFor: ["Growing creators", "Content enthusiasts", "Brand builders"],
-      deliverables: plan.features?.split('\n').filter(f => f.trim()).slice(0, 4) || [],
-    }));
+    return plans.map((plan, index) => {
+      const featuresList = parseFeatures(plan.features);
+      return {
+        name: plan.name,
+        price: formatPrice(plan.price_min, plan.price_max),
+        period: isYearlyPlan ? "/ year" : "/ month",
+        description: featuresList[0] || "Growth plan",
+        features: featuresList,
+        popular: plan.popular,
+        icon: getIconForPlan(index),
+        detailedDescription: `Complete ${plan.name} package for creators.`,
+        idealFor: ["Growing creators", "Content enthusiasts", "Brand builders"],
+        deliverables: featuresList.slice(0, 4),
+      };
+    });
   };
 
   const monthlyPlans = monthlyDbPlans.length > 0 
