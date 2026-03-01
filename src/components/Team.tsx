@@ -1,56 +1,39 @@
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { useParallax } from "@/hooks/useParallax";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 interface TeamMember {
   id: string;
   name: string;
   role: string;
   bio: string;
-  image: string;
-  socials?: {
+  image_url: string;
+  socials: {
     instagram?: string;
     linkedin?: string;
     twitter?: string;
   };
+  active: boolean;
+  display_order: number;
 }
-
-const teamMembers: TeamMember[] = [
-  {
-    id: "1",
-    name: "Rishabh Alevoor",
-    role: "Founder & CEO",
-    bio: "Visionary leader with 5+ years in content strategy. Passionate about helping creators scale their digital presence and build sustainable growth.",
-    image: "/placeholder.svg",
-    socials: {
-      instagram: "#",
-      linkedin: "#",
-    },
-  },
-  {
-    id: "2",
-    name: "Devin",
-    role: "Head of Video Editing",
-    bio: "Creative editor with expertise in storytelling. Transforms raw footage into compelling narratives that captivate audiences.",
-    image: "/placeholder.svg",
-    socials: {
-      instagram: "#",
-    },
-  },
-  {
-    id: "3",
-    name: "Ashik",
-    role: "Instagram Growth Strategist",
-    bio: "Expert in Instagram algorithm and engagement strategies. Helps creators build authentic communities and maximize their reach.",
-    image: "/placeholder.svg",
-    socials: {
-      instagram: "#",
-    },
-  },
-];
 
 const Team = () => {
   const { scrollY } = useParallax();
+
+  const { data: teamMembers = [] } = useQuery({
+    queryKey: ["team"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("team")
+        .select("*")
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data as TeamMember[];
+    },
+  });
+
   return (
     <section id="team" className="py-24 relative overflow-hidden">
       {/* Background Elements */}
@@ -86,11 +69,19 @@ const Team = () => {
                   {/* Image Container */}
                   <div className="relative mx-auto mb-6">
                     <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300">
-                      <div className="w-full h-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
-                        <span className="text-3xl font-bold text-primary">
-                          {member.name.split(' ').map(n => n[0]).join('')}
-                        </span>
-                      </div>
+                      {member.image_url ? (
+                        <img
+                          src={member.image_url}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
+                          <span className="text-3xl font-bold text-primary">
+                            {member.name.split(' ').map(n => n[0]).join('')}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     {/* Glow Effect */}
                     <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
@@ -110,27 +101,33 @@ const Team = () => {
                   {/* Social Links */}
                   {member.socials && (
                     <div className="flex justify-center gap-3 mt-6 pt-4 border-t border-border/30">
-                      {member.socials.instagram && (
+                      {member.socials.instagram && member.socials.instagram !== "#" && (
                         <a
                           href={member.socials.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                           aria-label={`${member.name}'s Instagram`}
                         >
                           <Instagram className="w-4 h-4" />
                         </a>
                       )}
-                      {member.socials.linkedin && (
+                      {member.socials.linkedin && member.socials.linkedin !== "#" && (
                         <a
                           href={member.socials.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                           aria-label={`${member.name}'s LinkedIn`}
                         >
                           <Linkedin className="w-4 h-4" />
                         </a>
                       )}
-                      {member.socials.twitter && (
+                      {member.socials.twitter && member.socials.twitter !== "#" && (
                         <a
                           href={member.socials.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                           aria-label={`${member.name}'s Twitter`}
                         >
