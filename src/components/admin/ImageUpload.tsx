@@ -17,7 +17,7 @@ const ImageUpload = ({
   value,
   onChange,
   folder = "general",
-  minSizeMB = 0.1,
+  minSizeMB = 0,
   maxSizeMB = 50,
 }: ImageUploadProps) => {
   const [uploading, setUploading] = useState(false);
@@ -29,15 +29,6 @@ const ImageUpload = ({
     if (!file) return;
 
     const sizeMB = file.size / (1024 * 1024);
-
-    if (sizeMB < minSizeMB) {
-      toast({
-        title: "File too small",
-        description: `Minimum size is ${minSizeMB} MB. Your file is ${sizeMB.toFixed(2)} MB.`,
-        variant: "destructive",
-      });
-      return;
-    }
 
     if (sizeMB > maxSizeMB) {
       toast({
@@ -140,7 +131,7 @@ const ImageUpload = ({
           {uploading ? "Uploading..." : value ? "Change Image" : "Upload Image"}
         </Button>
         <span className="text-xs text-muted-foreground">
-          {minSizeMB}-{maxSizeMB} MB
+          Max {maxSizeMB} MB, images only
         </span>
       </div>
     </div>
