@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 interface TeamMember {
   id: string;
@@ -172,8 +173,14 @@ const AdminTeam = () => {
                   <Textarea value={formData.bio} onChange={(e) => setFormData({ ...formData, bio: e.target.value })} rows={3} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Image URL</Label>
-                  <Input value={formData.image_url} onChange={(e) => setFormData({ ...formData, image_url: e.target.value })} placeholder="https://..." />
+                  <Label>Image</Label>
+                  <ImageUpload
+                    value={formData.image_url}
+                    onChange={(url) => setFormData({ ...formData, image_url: url })}
+                    folder="team"
+                    minSizeMB={0.1}
+                    maxSizeMB={50}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label>Social Links</Label>

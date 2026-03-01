@@ -31,6 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 interface Testimonial {
   id: string;
@@ -292,6 +293,16 @@ const AdminTestimonials = () => {
                   onCheckedChange={(checked) => setFormData({ ...formData, featured: checked })}
                 />
                 <Label>Featured (visible on site)</Label>
+              </div>
+              <div>
+                <Label>Photo</Label>
+                <ImageUpload
+                  value={formData.image_url}
+                  onChange={(url) => setFormData({ ...formData, image_url: url })}
+                  folder="testimonials"
+                  minSizeMB={0.1}
+                  maxSizeMB={50}
+                />
               </div>
               <Button onClick={handleAdd} disabled={submitting} className="w-full">
                 {submitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
