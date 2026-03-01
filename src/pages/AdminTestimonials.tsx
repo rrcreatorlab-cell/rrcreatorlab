@@ -300,7 +300,7 @@ const AdminTestimonials = () => {
                   value={formData.image_url}
                   onChange={(url) => setFormData({ ...formData, image_url: url })}
                   folder="testimonials"
-                  minSizeMB={0.1}
+                  minSizeMB={0}
                   maxSizeMB={50}
                 />
               </div>
