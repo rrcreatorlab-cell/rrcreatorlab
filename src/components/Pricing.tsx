@@ -892,163 +892,60 @@ const Pricing = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Website Creation */}
-            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-                <Globe className="w-7 h-7 text-primary" />
-              </div>
-              <h4 className="text-xl font-bold mb-2">Website Creation</h4>
-              <div className="mb-4">
-                <div className="text-sm text-muted-foreground mb-1">Basic</div>
-                <span className="text-2xl font-bold text-primary">₹8,000 – ₹10,000</span>
-              </div>
-              <div className="mb-4">
-                <div className="text-sm text-muted-foreground mb-1">Standard</div>
-                <span className="text-2xl font-bold text-primary">₹10,000 – ₹12,000</span>
-              </div>
-              <p className="text-muted-foreground text-sm mb-6">
-                Simple, mobile-friendly website with contact button.
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span>One-time setup</span>
+            {oneTimeServices.map((service, index) => {
+              const ServiceIcon = service.icon;
+              const isHighlight = service.highlight;
+              return (
+                <div
+                  key={index}
+                  className={`relative glass-card rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in ${
+                    isHighlight
+                      ? "border-2 border-primary bg-gradient-to-b from-primary/10 to-primary/5 shadow-lg shadow-primary/20 hover:shadow-primary/30"
+                      : "border border-border/50 hover:border-primary/50"
+                  }`}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {isHighlight && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                      <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-primary text-primary-foreground text-sm font-medium">
+                        <Star className="w-4 h-4 fill-current" />
+                        Best Value
+                      </span>
+                    </div>
+                  )}
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${
+                    isHighlight ? "bg-primary/20" : "bg-primary/10"
+                  }`}>
+                    <ServiceIcon className={`w-7 h-7 text-primary`} />
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">{service.name}</h4>
+                  <div className="mb-4">
+                    <span className={`text-2xl font-bold text-primary`}>{service.price}</span>
+                    <span className="text-muted-foreground text-sm ml-2">one-time</span>
+                  </div>
+                  <p className="text-muted-foreground text-sm mb-6">
+                    {service.description}
+                  </p>
+                  <div className="space-y-2 mb-6">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Check className={`w-4 h-4 text-primary flex-shrink-0`} />
+                      <span>One-time setup</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Check className={`w-4 h-4 text-primary flex-shrink-0`} />
+                      <span>No monthly charges</span>
+                    </div>
+                  </div>
+                  <Button
+                    variant={isHighlight ? "default" : "outline"}
+                    className="w-full transition-all duration-300 hover:scale-105"
+                    asChild
+                  >
+                    <Link to="/lets-connect">Get Started</Link>
+                  </Button>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span>No monthly charges</span>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground transition-all duration-300" asChild>
-                <Link to="/lets-connect">Get Started</Link>
-              </Button>
-            </div>
-
-            {/* AI Chat Agent */}
-            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-accent/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in" style={{ animationDelay: '100ms' }}>
-              <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-6">
-                <Bot className="w-7 h-7 text-accent" />
-              </div>
-              <h4 className="text-xl font-bold mb-2">AI Chat Agent</h4>
-              <p className="text-xs text-muted-foreground mb-3">(Client-Only)</p>
-              <div className="mb-4">
-                <span className="text-2xl font-bold text-accent">₹2,000 – ₹3,000</span>
-                <span className="text-muted-foreground text-sm ml-2">one-time</span>
-              </div>
-              <p className="text-muted-foreground text-sm mb-6">
-                Private AI assistant for content ideas, scripts & growth help.
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-accent flex-shrink-0" />
-                  <span>One-time setup</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-accent flex-shrink-0" />
-                  <span>No monthly charges</span>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground transition-all duration-300" asChild>
-                <Link to="/lets-connect">Get Started</Link>
-              </Button>
-            </div>
-
-            {/* Website + AI Assistant Combo */}
-            <div className="relative glass-card rounded-2xl p-8 border-2 border-primary bg-gradient-to-b from-primary/10 to-primary/5 shadow-lg shadow-primary/20 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/30 transition-all duration-500 animate-fade-in" style={{ animationDelay: '200ms' }}>
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-primary text-primary-foreground text-sm font-medium">
-                  <Star className="w-4 h-4 fill-current" />
-                  Best Value
-                </span>
-              </div>
-              <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center mb-6">
-                <div className="relative">
-                  <Globe className="w-6 h-6 text-primary" />
-                  <Bot className="w-4 h-4 text-primary absolute -bottom-1 -right-1" />
-                </div>
-              </div>
-              <h4 className="text-xl font-bold mb-2">Website + AI Assistant</h4>
-              <div className="mb-4">
-                <span className="text-2xl font-bold text-primary">₹12,999 – ₹15,999</span>
-                <span className="text-muted-foreground text-sm ml-2">one-time</span>
-              </div>
-              <p className="text-muted-foreground text-sm mb-6">
-                Website + private AI chat agent in one package.
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
-                  <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span>One-time setup</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
-                  <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span>No monthly charges</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
-                  <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span>Made for creators & brands</span>
-                </div>
-              </div>
-              <Button className="w-full transition-all duration-300 hover:scale-105" asChild>
-                <Link to="/lets-connect">Get Started</Link>
-              </Button>
-            </div>
-
-            {/* Creation of Inventory */}
-            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in" style={{ animationDelay: '300ms' }}>
-              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6">
-                <Package className="w-7 h-7 text-emerald-400" />
-              </div>
-              <h4 className="text-xl font-bold mb-2">Creation of Inventory</h4>
-              <div className="mb-4">
-                <span className="text-2xl font-bold text-emerald-400">₹8,000 – ₹12,000</span>
-                <span className="text-muted-foreground text-sm ml-2">one-time</span>
-              </div>
-              <p className="text-muted-foreground text-sm mb-6">
-                Complete inventory setup for your business or brand.
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                  <span>One-time setup</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                  <span>Custom inventory structure</span>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all duration-300" asChild>
-                <Link to="/lets-connect">Get Started</Link>
-              </Button>
-            </div>
-
-            {/* Inventory Management */}
-            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-cyan-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in" style={{ animationDelay: '400ms' }}>
-              <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-6">
-                <BarChart3 className="w-7 h-7 text-cyan-400" />
-              </div>
-              <h4 className="text-xl font-bold mb-2">Inventory Management</h4>
-              <div className="mb-4">
-                <span className="text-2xl font-bold text-cyan-400">₹2,000 – ₹6,000</span>
-                <span className="text-muted-foreground text-sm ml-2">per year</span>
-              </div>
-              <p className="text-muted-foreground text-sm mb-6">
-                Ongoing inventory tracking and management support.
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                  <span>Yearly subscription</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                  <span>Regular updates & support</span>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full hover:bg-cyan-500 hover:text-white hover:border-cyan-500 transition-all duration-300" asChild>
-                <Link to="/lets-connect">Get Started</Link>
-              </Button>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>
