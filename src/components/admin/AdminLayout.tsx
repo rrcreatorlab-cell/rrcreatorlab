@@ -10,7 +10,8 @@ import {
   BarChart3, 
   Users, 
   LogOut,
-  ChevronLeft
+  ChevronLeft,
+  Image
 } from "lucide-react";
 
 interface AdminLayoutProps {
@@ -30,6 +31,7 @@ const navItems = [
   { name: "Testimonials", href: "/admin/testimonials", icon: MessageSquare },
   { name: "FAQs", href: "/admin/faqs", icon: HelpCircle },
   { name: "Trusted Creators", href: "/admin/clients", icon: Users },
+  { name: "Portfolio", href: "/admin/portfolio", icon: Image },
 ];
 
 const AdminLayout = ({ children, title }: AdminLayoutProps) => {
