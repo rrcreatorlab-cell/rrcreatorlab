@@ -1,54 +1,61 @@
-import { Target, Youtube, Instagram, Scissors, BarChart3, Calendar } from "lucide-react";
+import { Target, Youtube, Instagram, Scissors, BarChart3, Calendar, Sparkles, TrendingUp, LucideIcon } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { useParallax } from "@/hooks/useParallax";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
-const services = [
-  {
-    icon: Target,
-    title: "Content Growth Strategy",
-    description: "Smart planning and research to maximize your content impact and audience reach.",
-    features: ["Niche & audience analysis", "Content ideas & calendars", "Trend & SEO research"],
-    gradient: "from-primary to-blue-400",
-  },
-  {
-    icon: Youtube,
-    title: "YouTube Management",
-    description: "End-to-end channel management to help your videos reach the right audience.",
-    features: ["Video ideas, titles & descriptions", "Uploading & scheduling", "Thumbnail & SEO guidance", "Community tab support"],
-    gradient: "from-red-500 to-orange-500",
-  },
-  {
-    icon: Instagram,
-    title: "Instagram Management",
-    description: "Strategic content planning and execution to grow your Instagram presence.",
-    features: ["Reels & post strategy", "Caption & hashtag planning", "Posting & engagement support"],
-    gradient: "from-pink-500 via-purple-500 to-indigo-500",
-  },
-  {
-    icon: Scissors,
-    title: "Editing Support",
-    description: "Professional video editing to make your content stand out and perform better.",
-    features: ["Reels / Shorts editing", "Basic long-video edits", "Content repurposing"],
-    gradient: "from-green-400 to-emerald-500",
-  },
-  {
-    icon: Calendar,
-    title: "Scheduling & Optimization",
-    description: "Strategic timing and optimization to ensure maximum visibility for your content.",
-    features: ["Optimal posting times", "Cross-platform scheduling", "Performance optimization"],
-    gradient: "from-blue-500 to-cyan-400",
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics & Tracking",
-    description: "Data-driven insights to understand what works and refine your strategy.",
-    features: ["Performance reports", "Growth tracking", "Monthly reviews"],
-    gradient: "from-accent to-pink-500",
-  },
+const iconMap: Record<string, LucideIcon> = {
+  Target,
+  Youtube,
+  Instagram,
+  Scissors,
+  BarChart3,
+  Calendar,
+  Sparkles,
+  TrendingUp,
+};
+
+const gradients = [
+  "from-primary to-blue-400",
+  "from-red-500 to-orange-500",
+  "from-pink-500 via-purple-500 to-indigo-500",
+  "from-green-400 to-emerald-500",
+  "from-blue-500 to-cyan-400",
+  "from-accent to-pink-500",
+  "from-yellow-400 to-orange-500",
+  "from-teal-400 to-blue-500",
+  "from-violet-500 to-purple-500",
+  "from-rose-400 to-red-500",
+  "from-lime-400 to-green-500",
+  "from-sky-400 to-indigo-500",
 ];
+
+interface ServiceRow {
+  id: string;
+  title: string;
+  description: string;
+  features: string;
+  icon: string;
+  active: boolean;
+  display_order: number;
+}
 
 const Services = () => {
   const { scrollY } = useParallax();
+
+  const { data: services = [] } = useQuery({
+    queryKey: ["services-public"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("services")
+        .select("*")
+        .eq("active", true)
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data as ServiceRow[];
+    },
+  });
+
   return (
     <section className="relative py-24 overflow-hidden" id="services">
       {/* Background elements */}
@@ -70,38 +77,45 @@ const Services = () => {
         </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <AnimatedSection
-              key={service.title}
-              animation="fade-up"
-              delay={index * 100}
-            >
-              <div
-                className="group gradient-border p-6 rounded-xl hover:scale-[1.02] transition-all duration-300 h-full"
+          {services.map((service, index) => {
+            const IconComponent = iconMap[service.icon] || Sparkles;
+            const gradient = gradients[index % gradients.length];
+            const features = service.features
+              .split("|")
+              .map((f) => f.trim())
+              .filter(Boolean);
+
+            return (
+              <AnimatedSection
+                key={service.id}
+                animation="fade-up"
+                delay={index * 100}
               >
-                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <service.icon className="h-7 w-7 text-foreground" />
+                <div className="group gradient-border p-6 rounded-xl hover:scale-[1.02] transition-all duration-300 h-full hover:shadow-lg hover:shadow-primary/10">
+                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${gradient} mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
+                    <IconComponent className="h-7 w-7 text-foreground" />
+                  </div>
+
+                  <h3 className="font-display text-xl font-bold mb-2 group-hover:gradient-text transition-all">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-muted-foreground mb-4 text-sm">
+                    {service.description}
+                  </p>
+
+                  <ul className="space-y-2">
+                    {features.map((feature) => (
+                      <li key={feature} className="flex items-center text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2 group-hover:scale-150 transition-transform" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <h3 className="font-display text-xl font-bold mb-2 group-hover:gradient-text transition-all">
-                  {service.title}
-                </h3>
-                
-                <p className="text-muted-foreground mb-4 text-sm">
-                  {service.description}
-                </p>
-                
-                <ul className="space-y-2">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center text-sm text-muted-foreground">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </AnimatedSection>
-          ))}
+              </AnimatedSection>
+            );
+          })}
         </div>
       </div>
     </section>
