@@ -1,101 +1,45 @@
 import { useState } from "react";
-import { Play, ExternalLink, Eye, ArrowLeft } from "lucide-react";
+import { Play, ExternalLink, Eye, ArrowLeft, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AnimatedSection from "@/components/AnimatedSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+
+const categories = ["All", "YT Video", "YT Shorts", "Insta Reels", "Website"];
 
 interface PortfolioItem {
   id: string;
   title: string;
   category: string;
-  thumbnail: string;
-  videoUrl?: string;
+  thumbnail_url: string;
+  video_url: string;
   description: string;
-  views?: string;
-  client?: string;
+  views: string;
+  client: string;
+  active: boolean;
+  display_order: number;
 }
-
-const categories = ["All", "YT Video", "YT Shorts", "Insta Reels", "Website"];
-
-const portfolioItems: PortfolioItem[] = [
-  {
-    id: "1",
-    title: "Documentary Style Edit",
-    category: "YT Video",
-    thumbnail: "/placeholder.svg",
-    description: "Cinematic documentary editing with professional color grading and seamless transitions.",
-    views: "250K+",
-    client: "The Currency India Official",
-  },
-  {
-    id: "2",
-    title: "Viral Short Format",
-    category: "YT Shorts",
-    thumbnail: "/placeholder.svg",
-    description: "Fast-paced, hook-driven content optimized for maximum retention and engagement.",
-    views: "1.2M+",
-    client: "Startup Stories",
-  },
-  {
-    id: "3",
-    title: "Instagram Reel",
-    category: "Insta Reels",
-    thumbnail: "/placeholder.svg",
-    description: "Trendy reel with smooth transitions, trending audio, and engaging captions.",
-    views: "500K+",
-    client: "Sambodhi",
-  },
-  {
-    id: "4",
-    title: "Tutorial Video",
-    category: "YT Video",
-    thumbnail: "/placeholder.svg",
-    description: "Clear, educational content with animated graphics and step-by-step breakdown.",
-    views: "180K+",
-    client: "Shilpa Art House",
-  },
-  {
-    id: "5",
-    title: "Creator Portfolio Website",
-    category: "Website",
-    thumbnail: "/placeholder.svg",
-    description: "Modern, responsive portfolio website with contact forms and social integration.",
-    client: "V Filmy Steps",
-  },
-  {
-    id: "6",
-    title: "Product Showcase Reel",
-    category: "Insta Reels",
-    thumbnail: "/placeholder.svg",
-    description: "Premium product videography with smooth camera movements and lifestyle shots.",
-    views: "320K+",
-    client: "Homzyee Property Management",
-  },
-  {
-    id: "7",
-    title: "Trending YT Short",
-    category: "YT Shorts",
-    thumbnail: "/placeholder.svg",
-    description: "Viral short with trending audio, dynamic cuts, and engaging hooks.",
-    views: "800K+",
-    client: "Tech Reviews India",
-  },
-  {
-    id: "8",
-    title: "Business Landing Page",
-    category: "Website",
-    thumbnail: "/placeholder.svg",
-    description: "Professional landing page with lead capture forms and analytics integration.",
-    client: "Local Business Hub",
-  },
-];
 
 const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+
+  const { data: portfolioItems = [], isLoading } = useQuery({
+    queryKey: ["portfolio-items"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("portfolio_items")
+        .select("*")
+        .eq("active", true)
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data as PortfolioItem[];
+    },
+  });
 
   const filteredItems = activeCategory === "All"
     ? portfolioItems
@@ -111,7 +55,6 @@ const Portfolio = () => {
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-3xl" />
 
         <div className="container relative z-10 px-4">
-          {/* Back Button */}
           <Link 
             to="/" 
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
@@ -148,6 +91,20 @@ const Portfolio = () => {
             ))}
           </AnimatedSection>
 
+          {/* Loading */}
+          {isLoading && (
+            <div className="flex items-center justify-center h-32">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+            </div>
+          )}
+
+          {/* Empty State */}
+          {!isLoading && filteredItems.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-muted-foreground text-lg">No portfolio items yet. Check back soon!</p>
+            </div>
+          )}
+
           {/* Portfolio Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {filteredItems.map((item, index) => (
@@ -162,18 +119,20 @@ const Portfolio = () => {
                 >
                   {/* Thumbnail */}
                   <div className="relative aspect-video bg-gradient-to-br from-primary/20 to-accent/20 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Play className="h-6 w-6 text-foreground fill-foreground" />
+                    {item.thumbnail_url ? (
+                      <img src={item.thumbnail_url} alt={item.title} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Play className="h-6 w-6 text-foreground fill-foreground" />
+                        </div>
                       </div>
-                    </div>
-                    {/* Category badge */}
+                    )}
                     <div className="absolute top-3 left-3">
                       <span className="px-2 py-1 text-xs font-medium bg-background/80 backdrop-blur-sm rounded-full">
                         {item.category}
                       </span>
                     </div>
-                    {/* Views badge */}
                     {item.views && (
                       <div className="absolute bottom-3 right-3 flex items-center gap-1">
                         <Eye className="h-3 w-3 text-foreground/70" />
@@ -182,7 +141,6 @@ const Portfolio = () => {
                     )}
                   </div>
 
-                  {/* Content */}
                   <div className="p-4">
                     <h3 className="font-display font-bold mb-1 group-hover:text-primary transition-colors">
                       {item.title}
@@ -218,11 +176,16 @@ const Portfolio = () => {
             <DialogTitle className="font-display text-xl">{selectedItem?.title}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center">
-              <div className="text-center">
-                <Play className="h-12 w-12 text-primary mx-auto mb-2" />
-                <p className="text-muted-foreground text-sm">Video preview coming soon</p>
-              </div>
+            <div className="aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
+              {selectedItem?.video_url ? (
+                <video src={selectedItem.video_url} controls className="w-full h-full object-cover" />
+              ) : selectedItem?.thumbnail_url ? (
+                <img src={selectedItem.thumbnail_url} alt={selectedItem.title} className="w-full h-full object-cover" />
+              ) : (
+                <div className="flex items-center justify-center h-full">
+                  <Play className="h-12 w-12 text-primary mx-auto mb-2" />
+                </div>
+              )}
             </div>
             <div className="flex items-center gap-4 text-sm">
               <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">
