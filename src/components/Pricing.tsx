@@ -273,8 +273,8 @@ const Pricing = () => {
             Service Packages
           </span>
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-            Choose Your{" "}
-            <span className="gradient-text">Growth Plan</span>
+            Content{" "}
+            <span className="gradient-text">Marketing</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
             Flexible packages designed for creators at every stage of their journey
