@@ -48,7 +48,7 @@ const Hero = () => {
         <div className="max-w-5xl mx-auto text-center">
           {/* Logo */}
           <div className="mb-8 animate-slide-up">
-            <img src={rrLogo} alt="RR Creator Lab" className="w-28 h-28 md:w-36 md:h-36 mx-auto rounded-full object-cover shadow-2xl shadow-primary/20" />
+            <img src={rrLogo} alt="RR Creator Lab" className="w-36 h-36 md:w-44 md:h-44 lg:w-52 lg:h-52 mx-auto rounded-full object-cover shadow-2xl shadow-primary/20" />
           </div>
 
           {/* Badge */}
@@ -58,7 +58,7 @@ const Hero = () => {
           </div>
 
           {/* Main headline */}
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 animate-slide-up" style={{ animationDelay: "0.1s" }}>
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-slide-up" style={{ animationDelay: "0.1s" }}>
             Building Creators.
             <span className="block gradient-text">Scaling Reach.</span>
           </h1>
