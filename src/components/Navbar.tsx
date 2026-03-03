@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
+import rrLogo from "@/assets/rr-creator-lab-logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +25,8 @@ const Navbar = () => {
       <div className="container px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="font-display text-xl font-bold gradient-text">
+          <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold gradient-text">
+            <img src={rrLogo} alt="RR Creator Lab Logo" className="w-8 h-8 rounded-full object-cover" />
             RR Creator Lab
           </Link>
 
