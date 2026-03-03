@@ -3,6 +3,7 @@ import { ArrowRight, Play, Target, TrendingUp, Sparkles, Calendar, Settings } fr
 import { Link } from "react-router-dom";
 import { useAdminCheck } from "@/hooks/useAdminCheck";
 import { useEffect, useState } from "react";
+import rrLogo from "@/assets/rr-creator-lab-logo.png";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -45,8 +46,13 @@ const Hero = () => {
 
       <div className="container relative z-10 px-4 py-20">
         <div className="max-w-5xl mx-auto text-center">
+          {/* Logo */}
+          <div className="mb-8 animate-slide-up">
+            <img src={rrLogo} alt="RR Creator Lab" className="w-28 h-28 md:w-36 md:h-36 mx-auto rounded-full object-cover shadow-2xl shadow-primary/20" />
+          </div>
+
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8 animate-slide-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8 animate-slide-up" style={{ animationDelay: "0.05s" }}>
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-sm text-muted-foreground">Content Growth & Social Media Management Studio</span>
           </div>
