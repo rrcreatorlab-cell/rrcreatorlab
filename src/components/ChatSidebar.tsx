@@ -57,15 +57,18 @@ const ChatSidebar = () => {
     }
   }, [soundEnabled]);
 
-  // Load JotForm embed script
+  // Remove any JotForm auto-injected elements when component mounts
   useEffect(() => {
-    const existingScript = document.querySelector(`script[src*="jotfor.ms/agent/embedjs/${JOTFORM_AGENT_ID}"]`);
-    if (!existingScript) {
-      const script = document.createElement("script");
-      script.src = `https://cdn.jotfor.ms/agent/embedjs/${JOTFORM_AGENT_ID}/embed.js`;
-      script.async = true;
-      document.body.appendChild(script);
-    }
+    const removeJotformElements = () => {
+      document.querySelectorAll('[id*="jotform"], [class*="jotform-agent"]').forEach(el => {
+        if (!chatContainerRef.current?.contains(el)) {
+          el.remove();
+        }
+      });
+    };
+    removeJotformElements();
+    const timer = setTimeout(removeJotformElements, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   // Monitor for new messages and play sound
