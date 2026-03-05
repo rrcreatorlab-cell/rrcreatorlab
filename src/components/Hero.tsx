@@ -1,78 +1,169 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Target, TrendingUp, Sparkles, Calendar, Settings } from "lucide-react";
+import { ArrowRight, Calendar, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAdminCheck } from "@/hooks/useAdminCheck";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import rrLogo from "@/assets/rr-creator-lab-logo.png";
+import heroSlide1 from "@/assets/hero-slide-1.jpg";
+import heroSlide2 from "@/assets/hero-slide-2.jpg";
+import heroSlide3 from "@/assets/hero-slide-3.jpg";
+
+const slides = [
+  {
+    image: heroSlide1,
+    headline: "Building Creators.",
+    headlineAccent: "Scaling Reach.",
+    subtext:
+      "Helping creators and brands grow on YouTube and Instagram through strategy, consistency, and optimized execution.",
+    showButtons: true,
+  },
+  {
+    image: heroSlide2,
+    headline: "Turn Content",
+    headlineAccent: "Into Growth.",
+    subtext:
+      "Editing, strategy and social media management that scales your brand.",
+    showButtons: false,
+  },
+  {
+    image: heroSlide3,
+    headline: "Focus On Creating.",
+    headlineAccent: "We Handle The Growth.",
+    subtext:
+      "RR Creator Lab manages editing, posting and optimization.",
+    showButtons: false,
+  },
+];
 
 const Hero = () => {
-  const [scrollY, setScrollY] = useState(0);
+  const [current, setCurrent] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const { isAdmin } = useAdminCheck();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+  const goToSlide = useCallback(
+    (index: number) => {
+      if (index === current || isTransitioning) return;
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrent(index);
+        setIsTransitioning(false);
+      }, 600);
+    },
+    [current, isTransitioning]
+  );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+  // Auto-play
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrent((prev) => (prev + 1) % slides.length);
+        setIsTransitioning(false);
+      }, 600);
+    }, 5000);
+    return () => clearInterval(timer);
   }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Parallax animated background */}
-      <div 
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,hsl(175,80%,15%),transparent_50%)]"
-        style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-      />
-      <div 
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,hsl(280,80%,10%),transparent_40%)]"
-        style={{ transform: `translateY(${scrollY * 0.2}px)` }}
-      />
-      <div 
-        className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse-glow"
-        style={{ transform: `translateY(${scrollY * 0.5}px) translateX(${scrollY * 0.1}px)` }}
-      />
-      <div 
-        className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float"
-        style={{ transform: `translateY(${scrollY * 0.4}px) translateX(${-scrollY * 0.15}px)` }}
-      />
-      
-      {/* Grid pattern overlay with parallax */}
-      <div 
-        className="absolute inset-0 bg-[linear-gradient(hsl(220,20%,15%)_1px,transparent_1px),linear-gradient(90deg,hsl(220,20%,15%)_1px,transparent_1px)] bg-[size:60px_60px] opacity-20"
-        style={{ transform: `translateY(${scrollY * 0.1}px)` }}
-      />
+      {/* Slide backgrounds with ken burns */}
+      {slides.map((slide, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+          style={{ opacity: current === i && !isTransitioning ? 1 : 0 }}
+        >
+          <img
+            src={slide.image}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              animation: current === i ? "kenburns 8s ease-in-out forwards" : "none",
+            }}
+          />
+        </div>
+      ))}
 
+      {/* Overlay gradient for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/70 z-[1]" />
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(hsl(220,20%,15%)_1px,transparent_1px),linear-gradient(90deg,hsl(220,20%,15%)_1px,transparent_1px)] bg-[size:60px_60px] opacity-10 z-[2]" />
+
+      {/* Glow accents */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse z-[2]" />
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl z-[2]" />
+
+      {/* Content */}
       <div className="container relative z-10 px-4 py-20">
         <div className="max-w-5xl mx-auto text-center">
           {/* Logo */}
           <div className="mb-8 animate-slide-up">
-            <img src={rrLogo} alt="RR Creator Lab" className="w-36 h-36 md:w-44 md:h-44 lg:w-52 lg:h-52 mx-auto rounded-full object-cover shadow-2xl shadow-primary/20" />
+            <img
+              src={rrLogo}
+              alt="RR Creator Lab"
+              className="w-36 h-36 md:w-44 md:h-44 lg:w-52 lg:h-52 mx-auto rounded-full object-cover shadow-2xl shadow-primary/20"
+            />
           </div>
 
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8 animate-slide-up" style={{ animationDelay: "0.05s" }}>
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8"
+            style={{
+              opacity: isTransitioning ? 0 : 1,
+              transform: isTransitioning ? "translateY(12px)" : "translateY(0)",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+            }}
+          >
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm text-muted-foreground">Content Growth & Social Media Management Studio</span>
+            <span className="text-sm text-muted-foreground">
+              Content Growth & Social Media Management Studio
+            </span>
           </div>
 
-          {/* Main headline */}
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-            Building Creators.
-            <span className="block gradient-text">Scaling Reach.</span>
+          {/* Headline with fade animation */}
+          <h1
+            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
+            style={{
+              opacity: isTransitioning ? 0 : 1,
+              transform: isTransitioning ? "translateY(20px)" : "translateY(0)",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+            }}
+          >
+            {slides[current].headline}
+            <span className="block gradient-text">
+              {slides[current].headlineAccent}
+            </span>
           </h1>
 
-          {/* Subheadline */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            Helping creators and brands grow on YouTube and Instagram through strategy, 
-            consistency, and optimized execution.
+          {/* Subtext */}
+          <p
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            style={{
+              opacity: isTransitioning ? 0 : 1,
+              transform: isTransitioning ? "translateY(16px)" : "translateY(0)",
+              transition: "opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s",
+            }}
+          >
+            {slides[current].subtext}
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-slide-up" style={{ animationDelay: "0.3s" }}>
+          <div
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+            style={{
+              opacity: isTransitioning ? 0 : 1,
+              transform: isTransitioning ? "translateY(12px)" : "translateY(0)",
+              transition: "opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s",
+            }}
+          >
             <Button variant="hero" size="xl" asChild>
-              <a href="https://topmate.io/rishabh269/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://topmate.io/rishabh269/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Calendar className="mr-2 h-5 w-5" />
                 Book Free Consultation
               </a>
@@ -93,29 +184,28 @@ const Hero = () => {
             )}
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: "0.4s" }}>
-            <div className="glass-card rounded-xl p-6 text-center">
-              <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mx-auto mb-3">
-                <Target className="h-6 w-6 text-primary" />
-              </div>
-              <div className="text-3xl font-display font-bold gradient-text">Strategy</div>
-              <div className="text-sm text-muted-foreground">Data-backed growth plans</div>
-            </div>
-            <div className="glass-card rounded-xl p-6 text-center">
-              <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-accent/10 mx-auto mb-3">
-                <TrendingUp className="h-6 w-6 text-accent" />
-              </div>
-              <div className="text-3xl font-display font-bold gradient-text">Growth</div>
-              <div className="text-sm text-muted-foreground">Organic, optimized results</div>
-            </div>
-            <div className="glass-card rounded-xl p-6 text-center">
-              <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mx-auto mb-3">
-                <Sparkles className="h-6 w-6 text-primary" />
-              </div>
-              <div className="text-3xl font-display font-bold gradient-text">Execution</div>
-              <div className="text-sm text-muted-foreground">Clean & consistent delivery</div>
-            </div>
+          {/* Slide indicators */}
+          <div className="flex items-center justify-center gap-3">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goToSlide(i)}
+                className="group relative h-2 rounded-full transition-all duration-500 overflow-hidden"
+                style={{ width: current === i ? 40 : 12 }}
+                aria-label={`Go to slide ${i + 1}`}
+              >
+                <span className="absolute inset-0 rounded-full bg-muted-foreground/30" />
+                {current === i && (
+                  <span
+                    className="absolute inset-0 rounded-full bg-primary"
+                    style={{ animation: "progress 5s linear forwards" }}
+                  />
+                )}
+                {current !== i && (
+                  <span className="absolute inset-0 rounded-full bg-muted-foreground/50 group-hover:bg-muted-foreground/70 transition-colors" />
+                )}
+              </button>
+            ))}
           </div>
         </div>
       </div>
