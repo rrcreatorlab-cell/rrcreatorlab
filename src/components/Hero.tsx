@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Settings } from "lucide-react";
+import { ArrowRight, Calendar, Settings, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAdminCheck } from "@/hooks/useAdminCheck";
 import { useEffect, useState, useCallback } from "react";
@@ -7,6 +7,10 @@ import rrLogo from "@/assets/rr-creator-lab-logo.png";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
 import heroSlide2 from "@/assets/hero-slide-2.jpg";
 import heroSlide3 from "@/assets/hero-slide-3.jpg";
+import heroSlide4 from "@/assets/hero-slide-4.jpg";
+import heroSlide5 from "@/assets/hero-slide-5.jpg";
+import HeroParticles from "./HeroParticles";
+import HeroTrustBar from "./HeroTrustBar";
 
 const slides = [
   {
@@ -15,7 +19,6 @@ const slides = [
     headlineAccent: "Scaling Reach.",
     subtext:
       "Helping creators and brands grow on YouTube and Instagram through strategy, consistency, and optimized execution.",
-    showButtons: true,
   },
   {
     image: heroSlide2,
@@ -23,7 +26,6 @@ const slides = [
     headlineAccent: "Into Growth.",
     subtext:
       "Editing, strategy and social media management that scales your brand.",
-    showButtons: false,
   },
   {
     image: heroSlide3,
@@ -31,13 +33,27 @@ const slides = [
     headlineAccent: "We Handle The Growth.",
     subtext:
       "RR Creator Lab manages editing, posting and optimization.",
-    showButtons: false,
+  },
+  {
+    image: heroSlide4,
+    headline: "Strategy That",
+    headlineAccent: "Drives Results.",
+    subtext:
+      "Data-driven content planning and team collaboration to maximize your social media impact.",
+  },
+  {
+    image: heroSlide5,
+    headline: "Celebrate Every",
+    headlineAccent: "Milestone.",
+    subtext:
+      "From first 1K to 1M subscribers — we're with you at every step of your creator journey.",
   },
 ];
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [typedText, setTypedText] = useState("");
   const { isAdmin } = useAdminCheck();
 
   const goToSlide = useCallback(
@@ -52,6 +68,24 @@ const Hero = () => {
     [current, isTransitioning]
   );
 
+  const goNext = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+      setIsTransitioning(false);
+    }, 600);
+  }, [isTransitioning]);
+
+  const goPrev = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+      setIsTransitioning(false);
+    }, 600);
+  }, [isTransitioning]);
+
   // Auto-play
   useEffect(() => {
     const timer = setInterval(() => {
@@ -62,6 +96,22 @@ const Hero = () => {
       }, 600);
     }, 5000);
     return () => clearInterval(timer);
+  }, []);
+
+  // Typing animation for the badge
+  useEffect(() => {
+    const text = "Content Growth & Social Media Management Studio";
+    setTypedText("");
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i <= text.length) {
+        setTypedText(text.slice(0, i));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 40);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -91,9 +141,36 @@ const Hero = () => {
       {/* Grid pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(hsl(220,20%,15%)_1px,transparent_1px),linear-gradient(90deg,hsl(220,20%,15%)_1px,transparent_1px)] bg-[size:60px_60px] opacity-10 z-[2]" />
 
+      {/* Particles */}
+      <HeroParticles />
+
       {/* Glow accents */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse z-[2]" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl z-[2]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse-glow z-[2]" />
+
+      {/* Floating decorative elements */}
+      <div className="absolute top-[15%] right-[10%] w-3 h-3 rounded-full bg-primary/40 animate-float z-[4]" />
+      <div className="absolute top-[25%] left-[8%] w-2 h-2 rounded-full bg-accent/40 animate-float z-[4]" style={{ animationDelay: "2s" }} />
+      <div className="absolute bottom-[30%] right-[15%] w-4 h-4 rounded-full bg-primary/20 animate-float z-[4]" style={{ animationDelay: "4s" }} />
+      <div className="absolute top-[40%] left-[15%] w-2 h-2 rounded-full bg-accent/30 animate-float z-[4]" style={{ animationDelay: "1s" }} />
+      <div className="absolute bottom-[40%] left-[5%] w-3 h-3 rounded-full bg-primary/30 animate-float z-[4]" style={{ animationDelay: "3s" }} />
+
+      {/* Navigation arrows */}
+      <button
+        onClick={goPrev}
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card flex items-center justify-center text-foreground/70 hover:text-foreground hover:scale-110 transition-all duration-300 group"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" />
+      </button>
+      <button
+        onClick={goNext}
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card flex items-center justify-center text-foreground/70 hover:text-foreground hover:scale-110 transition-all duration-300 group"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
+      </button>
 
       {/* Content */}
       <div className="container relative z-10 px-4 py-20">
@@ -107,7 +184,7 @@ const Hero = () => {
             />
           </div>
 
-          {/* Badge */}
+          {/* Badge with typing animation */}
           <div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8"
             style={{
@@ -118,7 +195,8 @@ const Hero = () => {
           >
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-sm text-muted-foreground">
-              Content Growth & Social Media Management Studio
+              {typedText}
+              <span className="inline-block w-0.5 h-4 bg-primary/70 ml-0.5 animate-pulse align-middle" />
             </span>
           </div>
 
@@ -209,6 +287,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Trust bar at bottom */}
+      <HeroTrustBar />
     </section>
   );
 };
