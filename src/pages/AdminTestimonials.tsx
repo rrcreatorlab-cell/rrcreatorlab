@@ -62,6 +62,7 @@ const AdminTestimonials = () => {
     featured: true,
     company: "",
     image_url: "",
+    website_url: "",
   });
 
   useEffect(() => {
