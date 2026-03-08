@@ -25,11 +25,21 @@ const iconMap: Record<string, LucideIcon> = {
   zap: Zap,
 };
 
+type PricingTab = 'content-marketing' | 'additional' | 'yt-management' | 'one-time';
+
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<number | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
+  const [activeTab, setActiveTab] = useState<PricingTab>('content-marketing');
+
+  const tabs: { id: PricingTab; label: string; icon: LucideIcon }[] = [
+    { id: 'content-marketing', label: 'Content Marketing', icon: Sparkles },
+    { id: 'additional', label: 'Additional Packages', icon: Scissors },
+    { id: 'yt-management', label: 'YT Management', icon: Youtube },
+    { id: 'one-time', label: 'One-Time Services', icon: Zap },
+  ];
 
   // Fetch pricing plans from database
   const { data: dbPricingPlans = [] } = useQuery({
