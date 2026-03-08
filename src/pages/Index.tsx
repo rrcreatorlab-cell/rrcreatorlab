@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
 import StatsCounter from "@/components/StatsCounter";
 import GrowthShowcase from "@/components/GrowthShowcase";
-import GrowthVisuals from "@/components/GrowthVisuals";
+
 import Services from "@/components/Services";
 import Pricing from "@/components/Pricing";
 import Process from "@/components/Process";
@@ -27,7 +27,7 @@ const Index = () => {
       <ClientLogos />
       <StatsCounter />
       <GrowthShowcase />
-      <GrowthVisuals />
+      
       <Services />
       <Pricing />
       <Process />
