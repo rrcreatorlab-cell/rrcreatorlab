@@ -206,7 +206,7 @@ const AdminTestimonials = () => {
 
   const cancelEdit = () => {
     setEditingId(null);
-    setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "" });
+    setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "", website_url: "" });
   };
 
   const renderStars = (rating: number, interactive = false, onSelect?: (star: number) => void) => (
