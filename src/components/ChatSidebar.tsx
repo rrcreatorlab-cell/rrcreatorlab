@@ -206,7 +206,7 @@ const ChatSidebar = () => {
                 <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md shadow-primary/20">
                   <Bot className="w-4.5 h-4.5 text-primary-foreground" />
                 </div>
-                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-card shadow-sm shadow-emerald-400/50" />
+                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-accent rounded-full border-2 border-card shadow-sm shadow-accent/50" />
               </div>
               <div className="flex flex-col">
                 <span className="font-semibold text-sm text-foreground leading-tight tracking-tight">Sam</span>
