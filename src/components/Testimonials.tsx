@@ -64,6 +64,7 @@ const Testimonials = () => {
       rating: 5,
       review: "RR Creator Lab helped us grow from 8 to 4.17K subscribers! Their strategic approach to content and analytics-driven optimization made all the difference.",
       created_at: "",
+      website_url: "https://www.youtube.com/@TheCurrencyIndiaOfficial",
     },
     {
       id: "static-2",
@@ -72,6 +73,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Our channel grew from 28 to 473 subscribers with their expert guidance. The team understands educational content perfectly and delivers quality edits.",
       created_at: "",
+      website_url: "https://www.youtube.com/@sambodhimechanicalengineer6342",
     },
     {
       id: "static-3",
@@ -80,6 +82,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Amazing creative team! They enhanced our art content beautifully and helped us reach a wider audience. Highly professional and timely delivery.",
       created_at: "",
+      website_url: "https://www.youtube.com/@ShilpaArtHouse",
     },
     {
       id: "static-4",
@@ -88,6 +91,7 @@ const Testimonials = () => {
       rating: 5,
       review: "The team at RR Creator Lab understands the startup ecosystem perfectly. Our content quality and engagement improved dramatically after partnering with them.",
       created_at: "",
+      website_url: "https://www.youtube.com/@StartupStories",
     },
     {
       id: "static-5",
@@ -96,6 +100,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Outstanding editing and creative direction! They brought our vision to life with professional quality that rivals top production houses.",
       created_at: "",
+      website_url: "https://www.youtube.com/@VFilmySteps",
     },
     {
       id: "static-6",
@@ -104,6 +109,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Excellent service for our property showcase videos. The editing quality and turnaround time exceeded our expectations. Great team to work with!",
       created_at: "",
+      website_url: "https://www.youtube.com/@Homzyee",
     },
     {
       id: "static-7",
@@ -112,6 +118,7 @@ const Testimonials = () => {
       rating: 5,
       review: "RR Creator Lab transformed my channel completely! My subscriber count doubled in just 3 months. Their editing quality and strategy are top-notch.",
       created_at: "",
+      website_url: "",
     },
     {
       id: "static-8",
@@ -120,6 +127,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Amazing thumbnails and video edits! My click-through rate improved significantly. The team is responsive and delivers quality work on time.",
       created_at: "",
+      website_url: "",
     },
   ];
 
