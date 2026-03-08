@@ -760,8 +760,10 @@ const Pricing = () => {
             </DialogContent>
           </Dialog>
         </div>
+        )}
 
-        {/* YT Management Section */}
+        {/* ===== YT MANAGEMENT TAB ===== */}
+        {activeTab === 'yt-management' && (
         <div className="mt-20 max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 text-red-400 text-sm font-medium mb-4">
