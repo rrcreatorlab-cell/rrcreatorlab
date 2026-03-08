@@ -12,7 +12,7 @@ import Founder from "@/components/Founder";
 import Testimonials from "@/components/Testimonials";
 import BookingSection from "@/components/BookingSection";
 import FAQ from "@/components/FAQ";
-import Newsletter from "@/components/Newsletter";
+
 import Footer from "@/components/Footer";
 import ChatSidebar from "@/components/ChatSidebar";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -36,7 +36,7 @@ const Index = () => {
       <Testimonials />
       <BookingSection />
       <FAQ />
-      <Newsletter />
+      
       <Footer />
       <ChatSidebar />
       <ScrollToTop />
