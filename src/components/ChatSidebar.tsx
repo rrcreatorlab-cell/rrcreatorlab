@@ -211,7 +211,7 @@ const ChatSidebar = () => {
               <div className="flex flex-col">
                 <span className="font-semibold text-sm text-foreground leading-tight tracking-tight">Sam</span>
                 <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                   <span className="text-[10px] text-muted-foreground leading-tight">Online now</span>
                 </div>
               </div>
