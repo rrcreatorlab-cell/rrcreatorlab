@@ -404,12 +404,9 @@ const Testimonials = () => {
               animation="scale"
               delay={index * 100}
             >
-              <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 group h-full">
-                {/* Quote Icon */}
-                <Quote className="w-10 h-10 text-primary/30 mb-4 group-hover:text-primary/50 transition-colors" />
-
+              <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 group h-full flex flex-col">
                 {/* Review Text */}
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-muted-foreground mb-6 leading-relaxed flex-1">
                   "{testimonial.review}"
                 </p>
 
@@ -420,13 +417,23 @@ const Testimonials = () => {
 
                 {/* Author */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold shrink-0">
                     {getInitials(testimonial.name)}
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h4 className="font-bold text-foreground">{testimonial.name}</h4>
                     <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                   </div>
+                  {testimonial.website_url && (
+                    <a
+                      href={testimonial.website_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto shrink-0 text-xs text-primary hover:text-accent transition-colors flex items-center gap-1 border border-primary/30 rounded-full px-3 py-1 hover:bg-primary/10"
+                    >
+                      Visit <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
                 </div>
               </div>
             </AnimatedSection>
