@@ -50,10 +50,10 @@ const Navbar = () => {
         {/* Slide-down Navigation Menu */}
         <div
           className="overflow-hidden transition-all duration-300 ease-in-out"
-          style={{ maxHeight: isOpen ? "400px" : "0", opacity: isOpen ? 1 : 0 }}
+          style={{ maxHeight: isOpen ? "600px" : "0", opacity: isOpen ? 1 : 0 }}
         >
           <div className="py-4 border-t border-border/50">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               {navLinks.map((link) =>
                 link.isPage ? (
                   <Link
@@ -75,9 +75,11 @@ const Navbar = () => {
                   </a>
                 )
               )}
-              <Button variant="hero" size="sm" className="mt-2 w-fit" asChild>
-                <Link to="/lets-connect" onClick={() => setIsOpen(false)}>Get Started</Link>
-              </Button>
+              <div className="pt-3 pb-2">
+                <Button variant="hero" size="sm" className="w-full" asChild>
+                  <Link to="/lets-connect" onClick={() => setIsOpen(false)}>Get Started</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
