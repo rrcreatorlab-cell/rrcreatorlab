@@ -54,7 +54,7 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button & Theme Toggle */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <ThemeToggle />
             <Button variant="hero" size="sm" asChild>
               <Link to="/lets-connect">Get Started</Link>
