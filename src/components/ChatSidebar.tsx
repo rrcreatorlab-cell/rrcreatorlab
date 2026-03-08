@@ -6,22 +6,39 @@ const JOTFORM_AGENT_ID = "019b8a9ef4a2706a97010c77b5fad0244ed8";
 
 type SizeMode = "small" | "medium" | "large";
 
-const createNotificationSound = () => {
+const createSound = (type: "notification" | "open") => {
   const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-  const playSound = () => {
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-    oscillator.frequency.setValueAtTime(600, audioContext.currentTime + 0.1);
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime + 0.2);
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.3);
+  return () => {
+    if (type === "notification") {
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      osc.frequency.setValueAtTime(800, audioContext.currentTime);
+      osc.frequency.setValueAtTime(600, audioContext.currentTime + 0.1);
+      osc.frequency.setValueAtTime(800, audioContext.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+      osc.start(audioContext.currentTime);
+      osc.stop(audioContext.currentTime + 0.3);
+    } else {
+      // Gentle ascending chime
+      const t = audioContext.currentTime;
+      [523.25, 659.25, 783.99].forEach((freq, i) => {
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.type = "sine";
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.frequency.setValueAtTime(freq, t + i * 0.08);
+        gain.gain.setValueAtTime(0, t + i * 0.08);
+        gain.gain.linearRampToValueAtTime(0.15, t + i * 0.08 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + i * 0.08 + 0.25);
+        osc.start(t + i * 0.08);
+        osc.stop(t + i * 0.08 + 0.25);
+      });
+    }
   };
-  return playSound;
 };
 
 const ChatSidebar = () => {
@@ -35,9 +52,11 @@ const ChatSidebar = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const playSoundRef = useRef<(() => void) | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
+  const playOpenSoundRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    playSoundRef.current = createNotificationSound();
+    playSoundRef.current = createSound("notification");
+    playOpenSoundRef.current = createSound("open");
   }, []);
 
   // Show tooltip after 3 seconds if chat hasn't been opened
@@ -147,7 +166,7 @@ const ChatSidebar = () => {
 
       {/* Floating Chat Button */}
       <button
-        onClick={() => { setIsOpen(!isOpen); setShowTooltip(false); }}
+        onClick={() => { if (!isOpen && soundEnabled && playOpenSoundRef.current) { try { playOpenSoundRef.current(); } catch(e) {} } setIsOpen(!isOpen); setShowTooltip(false); }}
         onMouseEnter={() => !isOpen && setShowTooltip(false)}
         className={`fixed bottom-6 right-6 z-[9999] group transition-all duration-500 ease-out ${
           isOpen ? "" : ""
