@@ -27,7 +27,7 @@ const Index = () => {
       
       
       <Services />
-      <Pricing />
+      
       <Process />
       <WhyUs />
       <WhoWeWorkWith />

@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Services", href: isHomePage ? "#services" : "/#services" },
-    { name: "Pricing", href: isHomePage ? "#pricing" : "/#pricing" },
+    { name: "Pricing", href: "/pricing", isPage: true },
     { name: "Success Stories", href: "/success-stories", isPage: true },
     { name: "Portfolio", href: "/portfolio", isPage: true },
     { name: "Blog", href: "/blog", isPage: true },
