@@ -915,8 +915,10 @@ const Pricing = () => {
             </div>
           </div>
         </div>
+        )}
 
-        {/* One-Time Services Section */}
+        {/* ===== ONE-TIME SERVICES TAB ===== */}
+        {activeTab === 'one-time' && (
         <div className="mt-20 max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
