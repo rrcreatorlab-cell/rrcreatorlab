@@ -126,7 +126,7 @@ const ChatSidebar = () => {
             <div className="relative">
               <Bot className="w-5 h-5 text-primary-foreground" />
               {(showPulse || hasNewMessage) && (
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-primary animate-pulse" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full border-2 border-primary animate-pulse bg-accent" />
               )}
             </div>
             <span className="font-semibold text-sm text-primary-foreground tracking-wide">
