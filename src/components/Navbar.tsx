@@ -30,54 +30,29 @@ const Navbar = () => {
             RR Creator Lab
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) =>
-              link.isPage ? (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ) : (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.name}
-                </a>
-              )
-            )}
-          </div>
-
-          {/* CTA Button & Theme Toggle */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Right side: Theme Toggle + Menu Button */}
+          <div className="flex items-center gap-3">
             <ThemeToggle />
-            <Button variant="hero" size="sm" asChild>
-              <Link to="/lets-connect">Get Started</Link>
-            </Button>
+            <button
+              className="p-2 rounded-lg hover:bg-muted/50 transition-colors"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden py-4 border-t border-border/50">
+        {/* Slide-down Navigation Menu */}
+        <div
+          className="overflow-hidden transition-all duration-300 ease-in-out"
+          style={{ maxHeight: isOpen ? "400px" : "0", opacity: isOpen ? 1 : 0 }}
+        >
+          <div className="py-4 border-t border-border/50">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) =>
                 link.isPage ? (
@@ -100,12 +75,12 @@ const Navbar = () => {
                   </a>
                 )
               )}
-              <Button variant="hero" size="sm" className="mt-2" asChild>
+              <Button variant="hero" size="sm" className="mt-2 w-fit" asChild>
                 <Link to="/lets-connect" onClick={() => setIsOpen(false)}>Get Started</Link>
               </Button>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
