@@ -16,6 +16,7 @@ import Auth from "./pages/Auth";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Portfolio from "./pages/Portfolio";
+import PricingPage from "./pages/PricingPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminHero from "./pages/AdminHero";
 import AdminServices from "./pages/AdminServices";
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/pricing" element={<PricingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/hero" element={<AdminHero />} />
             <Route path="/admin/services" element={<AdminServices />} />
