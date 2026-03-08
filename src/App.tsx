@@ -16,6 +16,7 @@ import Auth from "./pages/Auth";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Portfolio from "./pages/Portfolio";
+import PricingPage from "./pages/PricingPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminHero from "./pages/AdminHero";
 import AdminServices from "./pages/AdminServices";
