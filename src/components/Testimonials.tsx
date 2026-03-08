@@ -31,6 +31,7 @@ interface Testimonial {
   rating: number;
   review: string;
   created_at: string;
+  website_url?: string;
 }
 
 interface FormErrors {
