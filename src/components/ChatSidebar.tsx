@@ -133,8 +133,8 @@ const ChatSidebar = () => {
               Ask Sam
             </span>
             {hasNewMessage && (
-              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
-                <span className="w-2 h-2 bg-white rounded-full animate-ping" />
+              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-destructive rounded-full flex items-center justify-center">
+                <span className="w-2 h-2 bg-destructive-foreground rounded-full animate-ping" />
               </span>
             )}
           </>
