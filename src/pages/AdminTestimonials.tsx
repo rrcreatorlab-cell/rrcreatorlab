@@ -145,6 +145,7 @@ const AdminTestimonials = () => {
           featured: formData.featured,
           company: formData.company.trim(),
           image_url: formData.image_url.trim(),
+          website_url: formData.website_url.trim(),
         })
         .eq("id", id);
 
