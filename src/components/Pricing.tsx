@@ -681,8 +681,11 @@ const Pricing = () => {
             )}
           </DialogContent>
         </Dialog>
+          </>
+        )}
 
-        {/* Additional Packages */}
+        {/* ===== ADDITIONAL PACKAGES TAB ===== */}
+        {activeTab === 'additional' && (
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium">
