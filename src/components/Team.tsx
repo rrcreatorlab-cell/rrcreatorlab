@@ -141,19 +141,6 @@ const Team = () => {
           })}
         </div>
 
-        <AnimatedSection className="text-center mt-16">
-          <div className="glass-card inline-block rounded-2xl px-8 py-6 border border-border/50">
-            <p className="text-muted-foreground mb-2">Want to join our creative team?</p>
-            <a
-              href="mailto:rrcreatorlab@gmail.com?subject=Portfolio%20Submission%20-%20Joining%20RR%20Creator%20Lab"
-              target="_blank" rel="noopener noreferrer"
-              onClick={(e) => { e.preventDefault(); window.open('mailto:rrcreatorlab@gmail.com?subject=Portfolio%20Submission%20-%20Joining%20RR%20Creator%20Lab', '_blank'); }}
-              className="text-primary hover:text-accent transition-colors font-medium"
-            >
-              Send us your portfolio →
-            </a>
-          </div>
-        </AnimatedSection>
       </div>
     </section>
   );
