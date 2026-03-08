@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Star, StarHalf, Quote, Send, MessageSquarePlus, CheckCircle2 } from "lucide-react";
+import { Star, StarHalf, Send, MessageSquarePlus, CheckCircle2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,6 +31,7 @@ interface Testimonial {
   rating: number;
   review: string;
   created_at: string;
+  website_url?: string;
 }
 
 interface FormErrors {
@@ -63,6 +64,7 @@ const Testimonials = () => {
       rating: 5,
       review: "RR Creator Lab helped us grow from 8 to 4.17K subscribers! Their strategic approach to content and analytics-driven optimization made all the difference.",
       created_at: "",
+      website_url: "https://www.youtube.com/@TheCurrencyIndiaOfficial",
     },
     {
       id: "static-2",
@@ -71,6 +73,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Our channel grew from 28 to 473 subscribers with their expert guidance. The team understands educational content perfectly and delivers quality edits.",
       created_at: "",
+      website_url: "https://www.youtube.com/@sambodhimechanicalengineer6342",
     },
     {
       id: "static-3",
@@ -79,6 +82,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Amazing creative team! They enhanced our art content beautifully and helped us reach a wider audience. Highly professional and timely delivery.",
       created_at: "",
+      website_url: "https://www.youtube.com/@ShilpaArtHouse",
     },
     {
       id: "static-4",
@@ -87,6 +91,7 @@ const Testimonials = () => {
       rating: 5,
       review: "The team at RR Creator Lab understands the startup ecosystem perfectly. Our content quality and engagement improved dramatically after partnering with them.",
       created_at: "",
+      website_url: "https://www.youtube.com/@StartupStories",
     },
     {
       id: "static-5",
@@ -95,6 +100,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Outstanding editing and creative direction! They brought our vision to life with professional quality that rivals top production houses.",
       created_at: "",
+      website_url: "https://www.youtube.com/@VFilmySteps",
     },
     {
       id: "static-6",
@@ -103,6 +109,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Excellent service for our property showcase videos. The editing quality and turnaround time exceeded our expectations. Great team to work with!",
       created_at: "",
+      website_url: "https://www.youtube.com/@Homzyee",
     },
     {
       id: "static-7",
@@ -111,6 +118,7 @@ const Testimonials = () => {
       rating: 5,
       review: "RR Creator Lab transformed my channel completely! My subscriber count doubled in just 3 months. Their editing quality and strategy are top-notch.",
       created_at: "",
+      website_url: "",
     },
     {
       id: "static-8",
@@ -119,6 +127,7 @@ const Testimonials = () => {
       rating: 5,
       review: "Amazing thumbnails and video edits! My click-through rate improved significantly. The team is responsive and delivers quality work on time.",
       created_at: "",
+      website_url: "",
     },
   ];
 
@@ -395,12 +404,9 @@ const Testimonials = () => {
               animation="scale"
               delay={index * 100}
             >
-              <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 group h-full">
-                {/* Quote Icon */}
-                <Quote className="w-10 h-10 text-primary/30 mb-4 group-hover:text-primary/50 transition-colors" />
-
+              <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 group h-full flex flex-col">
                 {/* Review Text */}
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-muted-foreground mb-6 leading-relaxed flex-1">
                   "{testimonial.review}"
                 </p>
 
@@ -411,13 +417,23 @@ const Testimonials = () => {
 
                 {/* Author */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold shrink-0">
                     {getInitials(testimonial.name)}
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h4 className="font-bold text-foreground">{testimonial.name}</h4>
                     <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                   </div>
+                  {testimonial.website_url && (
+                    <a
+                      href={testimonial.website_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto shrink-0 text-xs text-primary hover:text-accent transition-colors flex items-center gap-1 border border-primary/30 rounded-full px-3 py-1 hover:bg-primary/10"
+                    >
+                      Visit <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
                 </div>
               </div>
             </AnimatedSection>

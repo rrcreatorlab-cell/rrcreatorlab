@@ -1,0 +1,1 @@
+ALTER TABLE public.testimonials ADD COLUMN website_url TEXT DEFAULT '';

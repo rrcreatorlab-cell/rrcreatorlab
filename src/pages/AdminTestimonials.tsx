@@ -42,6 +42,7 @@ interface Testimonial {
   featured: boolean;
   company: string;
   image_url: string;
+  website_url: string;
   created_at: string;
 }
 
@@ -61,6 +62,7 @@ const AdminTestimonials = () => {
     featured: true,
     company: "",
     image_url: "",
+    website_url: "",
   });
 
   useEffect(() => {
@@ -108,12 +110,13 @@ const AdminTestimonials = () => {
         featured: formData.featured,
         company: formData.company.trim(),
         image_url: formData.image_url.trim(),
+        website_url: formData.website_url.trim(),
       });
 
       if (error) throw error;
 
       toast({ title: "Success", description: "Testimonial added successfully." });
-      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "" });
+      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "", website_url: "" });
       setIsAddDialogOpen(false);
       fetchAllTestimonials();
     } catch (error) {
@@ -142,6 +145,7 @@ const AdminTestimonials = () => {
           featured: formData.featured,
           company: formData.company.trim(),
           image_url: formData.image_url.trim(),
+          website_url: formData.website_url.trim(),
         })
         .eq("id", id);
 
@@ -149,7 +153,7 @@ const AdminTestimonials = () => {
 
       toast({ title: "Success", description: "Testimonial updated successfully." });
       setEditingId(null);
-      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "" });
+      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "", website_url: "" });
       fetchAllTestimonials();
     } catch (error) {
       console.error("Error updating testimonial:", error);
@@ -199,12 +203,13 @@ const AdminTestimonials = () => {
       featured: testimonial.featured,
       company: testimonial.company || "",
       image_url: testimonial.image_url || "",
+      website_url: testimonial.website_url || "",
     });
   };
 
   const cancelEdit = () => {
     setEditingId(null);
-    setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "" });
+    setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "", website_url: "" });
   };
 
   const renderStars = (rating: number, interactive = false, onSelect?: (star: number) => void) => (
@@ -293,6 +298,14 @@ const AdminTestimonials = () => {
                   onCheckedChange={(checked) => setFormData({ ...formData, featured: checked })}
                 />
                 <Label>Featured (visible on site)</Label>
+              </div>
+              <div>
+                <Label>Website / Channel URL</Label>
+                <Input
+                  value={formData.website_url}
+                  onChange={(e) => setFormData({ ...formData, website_url: e.target.value })}
+                  placeholder="https://youtube.com/@channel"
+                />
               </div>
               <div>
                 <Label>Photo</Label>

@@ -388,6 +388,7 @@ export type Database = {
           rating: number
           review: string
           role: string
+          website_url: string | null
         }
         Insert: {
           company?: string
@@ -399,6 +400,7 @@ export type Database = {
           rating: number
           review: string
           role: string
+          website_url?: string | null
         }
         Update: {
           company?: string
@@ -410,6 +412,7 @@ export type Database = {
           rating?: number
           review?: string
           role?: string
+          website_url?: string | null
         }
         Relationships: []
       }
