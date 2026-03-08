@@ -112,32 +112,22 @@ const ChatSidebar = () => {
       {/* Floating Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-[9999] group flex items-center gap-2.5 rounded-full transition-all duration-500 ease-out ${
+        className={`fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 ease-out ${
           isOpen
-            ? "h-12 w-12 bg-destructive/90 hover:bg-destructive shadow-lg shadow-destructive/25 justify-center"
-            : "h-13 pl-4 pr-5 bg-gradient-to-r from-primary to-accent shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 hover:scale-105"
+            ? "bg-destructive/90 hover:bg-destructive shadow-lg shadow-destructive/25"
+            : "bg-gradient-to-br from-primary to-accent shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 hover:scale-110"
         }`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
         {isOpen ? (
           <X className="w-5 h-5 text-destructive-foreground" />
         ) : (
-          <>
-            <div className="relative">
-              <Bot className="w-5 h-5 text-primary-foreground" />
-              {(showPulse || hasNewMessage) && (
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full border-2 border-primary animate-pulse bg-accent" />
-              )}
-            </div>
-            <span className="font-semibold text-sm text-primary-foreground tracking-wide">
-              Ask Sam
-            </span>
-            {hasNewMessage && (
-              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-destructive rounded-full flex items-center justify-center">
-                <span className="w-2 h-2 bg-destructive-foreground rounded-full animate-ping" />
-              </span>
+          <div className="relative">
+            <MessageCircle className="w-6 h-6 text-primary-foreground" />
+            {(showPulse || hasNewMessage) && (
+              <span className="absolute -top-1.5 -right-1.5 w-3 h-3 rounded-full border-2 border-primary animate-pulse bg-accent" />
             )}
-          </>
+          </div>
         )}
       </button>
 
