@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Star, StarHalf, Quote, Send, MessageSquarePlus, CheckCircle2 } from "lucide-react";
+import { Star, StarHalf, Send, MessageSquarePlus, CheckCircle2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
