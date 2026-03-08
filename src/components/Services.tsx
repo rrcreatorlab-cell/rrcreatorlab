@@ -1,18 +1,12 @@
-import { Target, Youtube, Instagram, Scissors, BarChart3, Calendar, Sparkles, TrendingUp, LucideIcon } from "lucide-react";
+import { useState } from "react";
+import { Target, Youtube, Instagram, Scissors, BarChart3, Calendar, Sparkles, TrendingUp, LucideIcon, ChevronDown } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { useParallax } from "@/hooks/useParallax";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
 const iconMap: Record<string, LucideIcon> = {
-  Target,
-  Youtube,
-  Instagram,
-  Scissors,
-  BarChart3,
-  Calendar,
-  Sparkles,
-  TrendingUp,
+  Target, Youtube, Instagram, Scissors, BarChart3, Calendar, Sparkles, TrendingUp,
 };
 
 const gradients = [
@@ -40,6 +34,60 @@ interface ServiceRow {
   display_order: number;
 }
 
+const ServiceCard = ({ service, index }: { service: ServiceRow; index: number }) => {
+  const [expanded, setExpanded] = useState(false);
+  const IconComponent = iconMap[service.icon] || Sparkles;
+  const gradient = gradients[index % gradients.length];
+  const features = service.features
+    .split("|")
+    .map((f) => f.trim())
+    .filter(Boolean);
+
+  return (
+    <AnimatedSection animation="fade-up" delay={index * 100}>
+      <div
+        className="group gradient-border rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 cursor-pointer"
+        onClick={() => setExpanded((prev) => !prev)}
+      >
+        {/* Always visible: icon, title, toggle */}
+        <div className="flex items-center gap-4 p-5">
+          <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
+            <IconComponent className="h-6 w-6 text-foreground" />
+          </div>
+          <h3 className="font-display text-lg font-bold flex-1 group-hover:gradient-text transition-all">
+            {service.title}
+          </h3>
+          <ChevronDown
+            className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+          />
+        </div>
+
+        {/* Expandable details */}
+        <div
+          className="overflow-hidden transition-all duration-300 ease-in-out"
+          style={{ maxHeight: expanded ? "500px" : "0", opacity: expanded ? 1 : 0 }}
+        >
+          <div className="px-5 pb-5 pt-0">
+            <p className="text-muted-foreground mb-4 text-sm">
+              {service.description}
+            </p>
+            {features.length > 0 && (
+              <ul className="space-y-2">
+                {features.map((feature) => (
+                  <li key={feature} className="flex items-center text-sm text-muted-foreground">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2 flex-shrink-0" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+};
+
 const Services = () => {
   const { scrollY } = useParallax();
 
@@ -58,7 +106,6 @@ const Services = () => {
 
   return (
     <section className="relative py-24 overflow-hidden" id="services">
-      {/* Background elements */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" style={{ transform: `translateY(${scrollY * 0.08}px)` }} />
       <div className="absolute top-1/4 right-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" style={{ transform: `translateY(${scrollY * -0.06}px)` }} />
 
@@ -77,45 +124,9 @@ const Services = () => {
         </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => {
-            const IconComponent = iconMap[service.icon] || Sparkles;
-            const gradient = gradients[index % gradients.length];
-            const features = service.features
-              .split("|")
-              .map((f) => f.trim())
-              .filter(Boolean);
-
-            return (
-              <AnimatedSection
-                key={service.id}
-                animation="fade-up"
-                delay={index * 100}
-              >
-                <div className="group gradient-border p-6 rounded-xl hover:scale-[1.02] transition-all duration-300 h-full hover:shadow-lg hover:shadow-primary/10">
-                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${gradient} mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
-                    <IconComponent className="h-7 w-7 text-foreground" />
-                  </div>
-
-                  <h3 className="font-display text-xl font-bold mb-2 group-hover:gradient-text transition-all">
-                    {service.title}
-                  </h3>
-
-                  <p className="text-muted-foreground mb-4 text-sm">
-                    {service.description}
-                  </p>
-
-                  <ul className="space-y-2">
-                    {features.map((feature) => (
-                      <li key={feature} className="flex items-center text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2 group-hover:scale-150 transition-transform" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </AnimatedSection>
-            );
-          })}
+          {services.map((service, index) => (
+            <ServiceCard key={service.id} service={service} index={index} />
+          ))}
         </div>
       </div>
     </section>
