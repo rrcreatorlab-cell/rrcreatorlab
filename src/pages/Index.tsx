@@ -24,7 +24,7 @@ const Index = () => {
       <Hero />
       <ClientLogos />
       <StatsCounter />
-      <GrowthShowcase />
+      
       
       <Services />
       <Pricing />
