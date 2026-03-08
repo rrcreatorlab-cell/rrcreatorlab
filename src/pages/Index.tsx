@@ -27,7 +27,7 @@ const Index = () => {
       <ClientLogos />
       <StatsCounter />
       <GrowthShowcase />
-      <GrowthVisuals />
+      
       <Services />
       <Pricing />
       <Process />
