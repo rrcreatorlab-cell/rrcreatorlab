@@ -52,9 +52,11 @@ const ChatSidebar = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const playSoundRef = useRef<(() => void) | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
+  const playOpenSoundRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    playSoundRef.current = createNotificationSound();
+    playSoundRef.current = createSound("notification");
+    playOpenSoundRef.current = createSound("open");
   }, []);
 
   // Show tooltip after 3 seconds if chat hasn't been opened
