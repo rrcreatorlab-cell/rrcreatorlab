@@ -300,6 +300,14 @@ const AdminTestimonials = () => {
                 <Label>Featured (visible on site)</Label>
               </div>
               <div>
+                <Label>Website / Channel URL</Label>
+                <Input
+                  value={formData.website_url}
+                  onChange={(e) => setFormData({ ...formData, website_url: e.target.value })}
+                  placeholder="https://youtube.com/@channel"
+                />
+              </div>
+              <div>
                 <Label>Photo</Label>
                 <ImageUpload
                   value={formData.image_url}
