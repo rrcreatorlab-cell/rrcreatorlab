@@ -115,7 +115,7 @@ const AdminTestimonials = () => {
       if (error) throw error;
 
       toast({ title: "Success", description: "Testimonial added successfully." });
-      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "" });
+      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "", website_url: "" });
       setIsAddDialogOpen(false);
       fetchAllTestimonials();
     } catch (error) {
