@@ -282,14 +282,39 @@ const Pricing = () => {
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Service Packages
           </span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-            Content{" "}
-            <span className="gradient-text">Marketing</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-            Flexible packages designed for creators at every stage of their journey
-          </p>
-          
+         {/* Tab Navigation */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {tabs.map((tab) => {
+              const TabIcon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    activeTab === tab.id
+                      ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105'
+                      : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/50'
+                  }`}
+                >
+                  <TabIcon className="w-4 h-4" />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ===== CONTENT MARKETING TAB ===== */}
+        {activeTab === 'content-marketing' && (
+          <>
+          <div className="text-center mb-10">
+            <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              Content <span className="gradient-text">Marketing</span>
+            </h3>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
+              Flexible packages designed for creators at every stage of their journey
+            </p>
+
           {/* Pricing Toggle */}
           <div className="flex flex-col items-center gap-4">
             <div className="flex items-center gap-4">
@@ -346,7 +371,7 @@ const Pricing = () => {
               </button>
             </div>
           </div>
-        </div>
+          </div>
 
         {/* Pricing Cards View */}
         {viewMode === 'cards' && (
