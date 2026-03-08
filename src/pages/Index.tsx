@@ -36,7 +36,7 @@ const Index = () => {
       <Testimonials />
       <BookingSection />
       <FAQ />
-      <Newsletter />
+      
       <Footer />
       <ChatSidebar />
       <ScrollToTop />
