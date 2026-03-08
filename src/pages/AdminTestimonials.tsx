@@ -201,6 +201,7 @@ const AdminTestimonials = () => {
       featured: testimonial.featured,
       company: testimonial.company || "",
       image_url: testimonial.image_url || "",
+      website_url: testimonial.website_url || "",
     });
   };
 
