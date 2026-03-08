@@ -990,6 +990,7 @@ const Pricing = () => {
             })}
           </div>
         </div>
+        )}
       </div>
     </section>
   );
