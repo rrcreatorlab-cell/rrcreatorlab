@@ -2,8 +2,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
 import StatsCounter from "@/components/StatsCounter";
-import GrowthShowcase from "@/components/GrowthShowcase";
-
 import Services from "@/components/Services";
 import Pricing from "@/components/Pricing";
 import Process from "@/components/Process";
