@@ -1,33 +1,26 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { MessageCircle, X, Maximize2, Minimize2, Square, Volume2, VolumeX, ArrowLeft } from "lucide-react";
+import { MessageCircle, X, Maximize2, Minimize2, Square, Volume2, VolumeX, Home, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const JOTFORM_AGENT_ID = "019b8a9ef4a2706a97010c77b5fad0244ed8";
 
 type SizeMode = "small" | "medium" | "large";
 
-// Create notification sound using Web Audio API
 const createNotificationSound = () => {
   const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-  
   const playSound = () => {
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
-    
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
-    
     oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
     oscillator.frequency.setValueAtTime(600, audioContext.currentTime + 0.1);
     oscillator.frequency.setValueAtTime(800, audioContext.currentTime + 0.2);
-    
     gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-    
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.3);
   };
-  
   return playSound;
 };
 
@@ -41,29 +34,20 @@ const ChatSidebar = () => {
   const playSoundRef = useRef<(() => void) | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
 
-  // Initialize notification sound
   useEffect(() => {
     playSoundRef.current = createNotificationSound();
   }, []);
 
-  // Play notification sound
   const playNotification = useCallback(() => {
     if (soundEnabled && playSoundRef.current) {
-      try {
-        playSoundRef.current();
-      } catch (e) {
-        console.log("Audio playback failed:", e);
-      }
+      try { playSoundRef.current(); } catch (e) { console.log("Audio playback failed:", e); }
     }
   }, [soundEnabled]);
 
-  // Remove any JotForm auto-injected elements when component mounts
   useEffect(() => {
     const removeJotformElements = () => {
       document.querySelectorAll('[id*="jotform"], [class*="jotform-agent"]').forEach(el => {
-        if (!chatContainerRef.current?.contains(el)) {
-          el.remove();
-        }
+        if (!chatContainerRef.current?.contains(el)) el.remove();
       });
     };
     removeJotformElements();
@@ -71,182 +55,148 @@ const ChatSidebar = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Monitor for new messages and play sound
   useEffect(() => {
     if (!isOpen) return;
-
     const checkForNewMessages = () => {
-      const chatContainer = document.querySelector('[class*="jotform"]') || 
-                           document.querySelector('iframe[src*="jotform"]');
-      
+      const chatContainer = document.querySelector('[class*="jotform"]') || document.querySelector('iframe[src*="jotform"]');
       if (chatContainer) {
-        // Set up mutation observer to detect DOM changes (new messages)
-        if (observerRef.current) {
-          observerRef.current.disconnect();
-        }
-
+        if (observerRef.current) observerRef.current.disconnect();
         observerRef.current = new MutationObserver((mutations) => {
           mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length > 0) {
-              // New content detected - likely a new message
-              if (!document.hasFocus() || !isOpen) {
-                setHasNewMessage(true);
-                playNotification();
-              }
+            if (mutation.addedNodes.length > 0 && (!document.hasFocus() || !isOpen)) {
+              setHasNewMessage(true);
+              playNotification();
             }
           });
         });
-
-        observerRef.current.observe(document.body, {
-          childList: true,
-          subtree: true,
-        });
+        observerRef.current.observe(document.body, { childList: true, subtree: true });
       }
     };
-
     const timer = setTimeout(checkForNewMessages, 1000);
-
-    return () => {
-      clearTimeout(timer);
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
+    return () => { clearTimeout(timer); observerRef.current?.disconnect(); };
   }, [isOpen, playNotification]);
 
   useEffect(() => {
-    if (isOpen) {
-      setShowPulse(false);
-      setHasNewMessage(false);
-    }
+    if (isOpen) { setShowPulse(false); setHasNewMessage(false); }
   }, [isOpen]);
 
+  const closeChat = () => { setIsOpen(false); setSizeMode("small"); };
+
   const cycleSize = () => {
-    setSizeMode((prev) => {
-      if (prev === "small") return "medium";
-      if (prev === "medium") return "large";
-      return "small";
-    });
+    setSizeMode((prev) => prev === "small" ? "medium" : prev === "medium" ? "large" : "small");
   };
 
   const getSizeClasses = () => {
     switch (sizeMode) {
-      case "small":
-        return "bottom-4 right-4 w-[340px] h-[480px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]";
-      case "medium":
-        return "bottom-4 right-4 w-[420px] h-[550px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]";
-      case "large":
-        return "bottom-4 right-4 w-[600px] h-[80vh] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]";
+      case "small": return "bottom-20 right-4 w-[360px] h-[500px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)]";
+      case "medium": return "bottom-20 right-4 w-[440px] h-[580px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)]";
+      case "large": return "bottom-20 right-4 w-[600px] h-[80vh] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)]";
     }
   };
 
   const getSizeIcon = () => {
     switch (sizeMode) {
-      case "small":
-        return <Maximize2 className="w-4 h-4" />;
-      case "medium":
-        return <Square className="w-4 h-4" />;
-      case "large":
-        return <Minimize2 className="w-4 h-4" />;
+      case "small": return <Maximize2 className="w-3.5 h-3.5" />;
+      case "medium": return <Square className="w-3.5 h-3.5" />;
+      case "large": return <Minimize2 className="w-3.5 h-3.5" />;
     }
   };
 
-  const getSizeLabel = () => {
-    switch (sizeMode) {
-      case "small":
-        return "Expand";
-      case "medium":
-        return "Full";
-      case "large":
-        return "Compact";
-    }
+  const scrollToTop = () => {
+    closeChat();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <>
-      {/* Chat Toggle Button */}
-      {!isOpen && (
-        <Button
-          onClick={() => setIsOpen(true)}
-          className={`fixed bottom-6 right-6 z-[9999] h-12 px-4 rounded-full shadow-lg flex items-center gap-2 ${
-            showPulse || hasNewMessage ? "animate-pulse" : ""
-          }`}
-          aria-label="Open chat"
-        >
-          <MessageCircle className="w-5 h-5" />
-          <span className="font-medium text-sm">Chat</span>
-          {hasNewMessage && (
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping" />
-          )}
-        </Button>
-      )}
+      {/* Floating Chat Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`fixed bottom-6 right-6 z-[9999] group flex items-center gap-2.5 rounded-full transition-all duration-500 ease-out ${
+          isOpen
+            ? "h-12 w-12 bg-destructive/90 hover:bg-destructive shadow-lg shadow-destructive/25 justify-center"
+            : "h-13 pl-4 pr-5 bg-gradient-to-r from-primary to-accent shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 hover:scale-105"
+        }`}
+        aria-label={isOpen ? "Close chat" : "Open chat"}
+      >
+        {isOpen ? (
+          <X className="w-5 h-5 text-destructive-foreground" />
+        ) : (
+          <>
+            <div className="relative">
+              <Bot className="w-5 h-5 text-primary-foreground" />
+              {(showPulse || hasNewMessage) && (
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full border-2 border-primary animate-pulse bg-accent" />
+              )}
+            </div>
+            <span className="font-semibold text-sm text-primary-foreground tracking-wide">
+              Ask Sam
+            </span>
+            {hasNewMessage && (
+              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-destructive rounded-full flex items-center justify-center">
+                <span className="w-2 h-2 bg-destructive-foreground rounded-full animate-ping" />
+              </span>
+            )}
+          </>
+        )}
+      </button>
 
       {/* Chat Panel */}
       {isOpen && (
         <div
           ref={chatContainerRef}
-          className={`fixed z-[9999] bg-card border border-border shadow-2xl flex flex-col transition-all duration-300 ease-out rounded-2xl ${getSizeClasses()}`}
+          className={`fixed z-[9998] flex flex-col transition-all duration-300 ease-out rounded-2xl overflow-hidden 
+            border border-border/50 shadow-2xl shadow-black/20 backdrop-blur-sm
+            animate-in slide-in-from-bottom-4 fade-in duration-300
+            ${getSizeClasses()}`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/50 rounded-t-2xl">
-            <div className="flex items-center gap-2">
-              {/* Back button - prominent for easy access */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-7 w-7 hover:bg-primary/10"
-                onClick={() => {
-                  setIsOpen(false);
-                  setSizeMode("small");
-                }}
-                aria-label="Back to website"
-              >
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
-              <MessageCircle className="w-4 h-4 text-primary" />
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <span className="font-medium text-sm text-foreground">Chat with Sam</span>
+          <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 border-b border-border/50 backdrop-blur-md">
+            <div className="flex items-center gap-2.5">
+              <div className="relative">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                  <Bot className="w-4 h-4 text-primary-foreground" />
+                </div>
+                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-accent rounded-full border-2 border-background" />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-semibold text-sm text-foreground leading-tight">Sam</span>
+                <span className="text-[10px] text-muted-foreground leading-tight">AI Assistant • Online</span>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              {/* Sound toggle button */}
+            <div className="flex items-center gap-0.5">
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-7 w-7"
+                className="h-7 w-7 rounded-full hover:bg-muted/80"
                 onClick={() => setSoundEnabled(!soundEnabled)}
-                aria-label={soundEnabled ? "Mute notifications" : "Enable notifications"}
+                aria-label={soundEnabled ? "Mute" : "Unmute"}
               >
-                {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                {soundEnabled ? <Volume2 className="w-3.5 h-3.5 text-muted-foreground" /> : <VolumeX className="w-3.5 h-3.5 text-muted-foreground" />}
               </Button>
-              {/* Size toggle button */}
               <Button
                 variant="ghost"
-                size="sm"
-                className="h-7 px-2 text-xs gap-1"
+                size="icon"
+                className="h-7 w-7 rounded-full hover:bg-muted/80"
                 onClick={cycleSize}
-                aria-label={getSizeLabel()}
+                aria-label="Resize"
               >
                 {getSizeIcon()}
-                <span className="hidden sm:inline">{getSizeLabel()}</span>
               </Button>
-              {/* Close button */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-7 w-7"
-                onClick={() => {
-                  setIsOpen(false);
-                  setSizeMode("small");
-                }}
-                aria-label="Close chat"
+                className="h-7 w-7 rounded-full hover:bg-muted/80"
+                onClick={scrollToTop}
+                aria-label="Go to homepage"
               >
-                <X className="w-4 h-4" />
+                <Home className="w-3.5 h-3.5 text-muted-foreground" />
               </Button>
             </div>
           </div>
 
           {/* Chat iframe */}
-          <div className="flex-1 overflow-hidden rounded-b-2xl">
+          <div className="flex-1 overflow-hidden bg-card">
             <iframe
               src={`https://agent.jotform.com/${JOTFORM_AGENT_ID}`}
               title="Chat with RR Creator Lab"
