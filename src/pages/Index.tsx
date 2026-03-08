@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
 import StatsCounter from "@/components/StatsCounter";
 import Services from "@/components/Services";
-import Pricing from "@/components/Pricing";
+
 import Process from "@/components/Process";
 import WhyUs from "@/components/WhyUs";
 import WhoWeWorkWith from "@/components/WhoWeWorkWith";
