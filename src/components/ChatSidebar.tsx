@@ -166,7 +166,7 @@ const ChatSidebar = () => {
 
       {/* Floating Chat Button */}
       <button
-        onClick={() => { setIsOpen(!isOpen); setShowTooltip(false); }}
+        onClick={() => { if (!isOpen && soundEnabled && playOpenSoundRef.current) { try { playOpenSoundRef.current(); } catch(e) {} } setIsOpen(!isOpen); setShowTooltip(false); }}
         onMouseEnter={() => !isOpen && setShowTooltip(false)}
         className={`fixed bottom-6 right-6 z-[9999] group transition-all duration-500 ease-out ${
           isOpen ? "" : ""
