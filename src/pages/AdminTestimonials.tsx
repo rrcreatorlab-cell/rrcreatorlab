@@ -42,6 +42,7 @@ interface Testimonial {
   featured: boolean;
   company: string;
   image_url: string;
+  website_url: string;
   created_at: string;
 }
 
