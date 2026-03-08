@@ -278,10 +278,16 @@ const Pricing = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Service Packages
           </span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
+            Our <span className="gradient-text">Pricing</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
+            Choose the perfect package for your creative journey
+          </p>
          {/* Tab Navigation */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             {tabs.map((tab) => {
