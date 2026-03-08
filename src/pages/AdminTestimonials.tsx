@@ -151,7 +151,7 @@ const AdminTestimonials = () => {
 
       toast({ title: "Success", description: "Testimonial updated successfully." });
       setEditingId(null);
-      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "" });
+      setFormData({ name: "", role: "", rating: 5, review: "", featured: true, company: "", image_url: "", website_url: "" });
       fetchAllTestimonials();
     } catch (error) {
       console.error("Error updating testimonial:", error);
