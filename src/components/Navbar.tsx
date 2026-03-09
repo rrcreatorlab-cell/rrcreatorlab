@@ -11,6 +11,7 @@ const Navbar = () => {
   const isHomePage = location.pathname === "/";
 
   const navLinks = [
+    { name: "Home", href: "/", isPage: true },
     { name: "Services", href: isHomePage ? "#services" : "/#services" },
     { name: "Pricing", href: "/pricing", isPage: true },
     { name: "Success Stories", href: "/success-stories", isPage: true },
