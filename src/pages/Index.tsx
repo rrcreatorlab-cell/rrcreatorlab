@@ -38,7 +38,7 @@ const Index = () => {
       <FAQ />
       
       <Footer />
-      
+      <ChatSidebar />
       <ScrollToTop />
     </div>
   );
