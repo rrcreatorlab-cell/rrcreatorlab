@@ -184,57 +184,45 @@ const ChatSidebar = () => {
                 </div>
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-accent rounded-full border-2 border-card shadow-sm shadow-accent/50" />
               </div>
-              <div className="flex flex-col">
-                <span className="font-semibold text-sm text-foreground leading-tight tracking-tight">Sam</span>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                  <span className="text-[10px] text-muted-foreground leading-tight">Online now</span>
-                </div>
+            <div className="flex flex-col">
+              <span className="font-semibold text-sm text-foreground leading-tight tracking-tight">Sam</span>
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                <span className="text-[10px] text-muted-foreground leading-tight">Online now</span>
               </div>
             </div>
-            <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
-                onClick={() => setSoundEnabled(!soundEnabled)}
-                aria-label={soundEnabled ? "Mute" : "Unmute"}
-              >
-                {soundEnabled 
-                  ? <Volume2 className="w-3.5 h-3.5 text-muted-foreground" /> 
-                  : <VolumeX className="w-3.5 h-3.5 text-muted-foreground" />
-                }
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
-                onClick={cycleSize}
-                aria-label="Resize"
-              >
-                {getSizeIcon()}
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
-                onClick={scrollToTop}
-                aria-label="Go to homepage"
-              >
-                <Home className="w-3.5 h-3.5 text-muted-foreground" />
-              </Button>
-              <div className="w-px h-5 bg-border/50 mx-0.5" />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full hover:bg-destructive/10 hover:text-destructive transition-colors"
-                onClick={closeChat}
-                aria-label="Close chat"
-              >
-                <X className="w-3.5 h-3.5" />
-              </Button>
-            </div>
           </div>
+          <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
+              onClick={cycleSize}
+              aria-label="Resize"
+            >
+              {getSizeIcon()}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
+              onClick={scrollToTop}
+              aria-label="Go to homepage"
+            >
+              <Home className="w-3.5 h-3.5 text-muted-foreground" />
+            </Button>
+            <div className="w-px h-5 bg-border/50 mx-0.5" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full hover:bg-destructive/10 hover:text-destructive transition-colors"
+              onClick={closeChat}
+              aria-label="Close chat"
+            >
+              <X className="w-3.5 h-3.5" />
+            </Button>
+          </div>
+        </div>
 
           {/* Loading state */}
           {!iframeLoaded && (
