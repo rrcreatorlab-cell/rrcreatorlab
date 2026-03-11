@@ -34,44 +34,6 @@ const ChatSidebar = () => {
     }
   }, [showTooltip]);
 
-  const playNotification = useCallback(() => {
-    if (soundEnabled && playSoundRef.current) {
-      try { playSoundRef.current(); } catch (e) { console.log("Audio playback failed:", e); }
-    }
-  }, [soundEnabled]);
-
-  useEffect(() => {
-    const removeJotformElements = () => {
-      document.querySelectorAll('[id*="jotform"], [class*="jotform-agent"]').forEach(el => {
-        if (!chatContainerRef.current?.contains(el)) el.remove();
-      });
-    };
-    removeJotformElements();
-    const timer = setTimeout(removeJotformElements, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const checkForNewMessages = () => {
-      const chatContainer = document.querySelector('[class*="jotform"]') || document.querySelector('iframe[src*="jotform"]');
-      if (chatContainer) {
-        if (observerRef.current) observerRef.current.disconnect();
-        observerRef.current = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length > 0 && (!document.hasFocus() || !isOpen)) {
-              setHasNewMessage(true);
-              playNotification();
-            }
-          });
-        });
-        observerRef.current.observe(document.body, { childList: true, subtree: true });
-      }
-    };
-    const timer = setTimeout(checkForNewMessages, 1000);
-    return () => { clearTimeout(timer); observerRef.current?.disconnect(); };
-  }, [isOpen, playNotification]);
-
   useEffect(() => {
     if (isOpen) { setShowPulse(false); setHasNewMessage(false); }
   }, [isOpen]);
