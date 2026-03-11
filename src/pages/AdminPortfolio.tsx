@@ -174,8 +174,12 @@ const AdminPortfolio = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Video URL (optional)</Label>
-                  <Input value={formData.video_url} onChange={(e) => setFormData({ ...formData, video_url: e.target.value })} placeholder="https://..." />
+                  <Label>Video (optional)</Label>
+                  <VideoUpload
+                    value={formData.video_url}
+                    onChange={(url) => setFormData({ ...formData, video_url: url })}
+                    folder="portfolio-videos"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label>Description</Label>
