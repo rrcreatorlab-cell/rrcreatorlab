@@ -14,7 +14,7 @@ import BookingSection from "@/components/BookingSection";
 import FAQ from "@/components/FAQ";
 
 import Footer from "@/components/Footer";
-
+import ChatSidebar from "@/components/ChatSidebar";
 import ScrollToTop from "@/components/ScrollToTop";
 
 const Index = () => {
@@ -38,7 +38,7 @@ const Index = () => {
       <FAQ />
       
       <Footer />
-      
+      <ChatSidebar />
       <ScrollToTop />
     </div>
   );
