@@ -1,63 +1,20 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { MessageCircle, X, Maximize2, Minimize2, Square, Volume2, VolumeX, Home, Bot, Sparkles } from "lucide-react";
+import { MessageCircle, X, Maximize2, Minimize2, Square, Home, Bot, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const JOTFORM_AGENT_ID = "019b8a9ef4a2706a97010c77b5fad0244ed8";
 
 type SizeMode = "small" | "medium" | "large";
 
-const createSound = (type: "notification" | "open") => {
-  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-  return () => {
-    if (type === "notification") {
-      const osc = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-      osc.connect(gain);
-      gain.connect(audioContext.destination);
-      osc.frequency.setValueAtTime(800, audioContext.currentTime);
-      osc.frequency.setValueAtTime(600, audioContext.currentTime + 0.1);
-      osc.frequency.setValueAtTime(800, audioContext.currentTime + 0.2);
-      gain.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-      osc.start(audioContext.currentTime);
-      osc.stop(audioContext.currentTime + 0.3);
-    } else {
-      // Gentle ascending chime
-      const t = audioContext.currentTime;
-      [523.25, 659.25, 783.99].forEach((freq, i) => {
-        const osc = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        osc.type = "sine";
-        osc.connect(gain);
-        gain.connect(audioContext.destination);
-        osc.frequency.setValueAtTime(freq, t + i * 0.08);
-        gain.gain.setValueAtTime(0, t + i * 0.08);
-        gain.gain.linearRampToValueAtTime(0.15, t + i * 0.08 + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + i * 0.08 + 0.25);
-        osc.start(t + i * 0.08);
-        osc.stop(t + i * 0.08 + 0.25);
-      });
-    }
-  };
-};
-
 const ChatSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [sizeMode, setSizeMode] = useState<SizeMode>("small");
   const [showPulse, setShowPulse] = useState(true);
-  const [soundEnabled, setSoundEnabled] = useState(true);
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const playSoundRef = useRef<(() => void) | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
-  const playOpenSoundRef = useRef<(() => void) | null>(null);
-
-  useEffect(() => {
-    playSoundRef.current = createSound("notification");
-    playOpenSoundRef.current = createSound("open");
-  }, []);
 
   // Show tooltip after 3 seconds if chat hasn't been opened
   useEffect(() => {
@@ -76,44 +33,6 @@ const ChatSidebar = () => {
       return () => clearTimeout(timer);
     }
   }, [showTooltip]);
-
-  const playNotification = useCallback(() => {
-    if (soundEnabled && playSoundRef.current) {
-      try { playSoundRef.current(); } catch (e) { console.log("Audio playback failed:", e); }
-    }
-  }, [soundEnabled]);
-
-  useEffect(() => {
-    const removeJotformElements = () => {
-      document.querySelectorAll('[id*="jotform"], [class*="jotform-agent"]').forEach(el => {
-        if (!chatContainerRef.current?.contains(el)) el.remove();
-      });
-    };
-    removeJotformElements();
-    const timer = setTimeout(removeJotformElements, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const checkForNewMessages = () => {
-      const chatContainer = document.querySelector('[class*="jotform"]') || document.querySelector('iframe[src*="jotform"]');
-      if (chatContainer) {
-        if (observerRef.current) observerRef.current.disconnect();
-        observerRef.current = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length > 0 && (!document.hasFocus() || !isOpen)) {
-              setHasNewMessage(true);
-              playNotification();
-            }
-          });
-        });
-        observerRef.current.observe(document.body, { childList: true, subtree: true });
-      }
-    };
-    const timer = setTimeout(checkForNewMessages, 1000);
-    return () => { clearTimeout(timer); observerRef.current?.disconnect(); };
-  }, [isOpen, playNotification]);
 
   useEffect(() => {
     if (isOpen) { setShowPulse(false); setHasNewMessage(false); }
@@ -166,7 +85,7 @@ const ChatSidebar = () => {
 
       {/* Floating Chat Button */}
       <button
-        onClick={() => { if (!isOpen && soundEnabled && playOpenSoundRef.current) { try { playOpenSoundRef.current(); } catch(e) {} } setIsOpen(!isOpen); setShowTooltip(false); }}
+        onClick={() => { setIsOpen(!isOpen); setShowTooltip(false); }}
         onMouseEnter={() => !isOpen && setShowTooltip(false)}
         className={`fixed bottom-6 right-6 z-[9999] group transition-all duration-500 ease-out ${
           isOpen ? "" : ""
@@ -227,57 +146,45 @@ const ChatSidebar = () => {
                 </div>
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-accent rounded-full border-2 border-card shadow-sm shadow-accent/50" />
               </div>
-              <div className="flex flex-col">
-                <span className="font-semibold text-sm text-foreground leading-tight tracking-tight">Sam</span>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                  <span className="text-[10px] text-muted-foreground leading-tight">Online now</span>
-                </div>
+            <div className="flex flex-col">
+              <span className="font-semibold text-sm text-foreground leading-tight tracking-tight">Sam</span>
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                <span className="text-[10px] text-muted-foreground leading-tight">Online now</span>
               </div>
             </div>
-            <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
-                onClick={() => setSoundEnabled(!soundEnabled)}
-                aria-label={soundEnabled ? "Mute" : "Unmute"}
-              >
-                {soundEnabled 
-                  ? <Volume2 className="w-3.5 h-3.5 text-muted-foreground" /> 
-                  : <VolumeX className="w-3.5 h-3.5 text-muted-foreground" />
-                }
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
-                onClick={cycleSize}
-                aria-label="Resize"
-              >
-                {getSizeIcon()}
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
-                onClick={scrollToTop}
-                aria-label="Go to homepage"
-              >
-                <Home className="w-3.5 h-3.5 text-muted-foreground" />
-              </Button>
-              <div className="w-px h-5 bg-border/50 mx-0.5" />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full hover:bg-destructive/10 hover:text-destructive transition-colors"
-                onClick={closeChat}
-                aria-label="Close chat"
-              >
-                <X className="w-3.5 h-3.5" />
-              </Button>
-            </div>
           </div>
+          <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
+              onClick={cycleSize}
+              aria-label="Resize"
+            >
+              {getSizeIcon()}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full hover:bg-muted/60 transition-colors"
+              onClick={scrollToTop}
+              aria-label="Go to homepage"
+            >
+              <Home className="w-3.5 h-3.5 text-muted-foreground" />
+            </Button>
+            <div className="w-px h-5 bg-border/50 mx-0.5" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full hover:bg-destructive/10 hover:text-destructive transition-colors"
+              onClick={closeChat}
+              aria-label="Close chat"
+            >
+              <X className="w-3.5 h-3.5" />
+            </Button>
+          </div>
+        </div>
 
           {/* Loading state */}
           {!iframeLoaded && (
