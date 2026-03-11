@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import ImageUpload from "@/components/admin/ImageUpload";
+import VideoUpload from "@/components/admin/VideoUpload";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 
@@ -173,8 +174,12 @@ const AdminPortfolio = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Video URL (optional)</Label>
-                  <Input value={formData.video_url} onChange={(e) => setFormData({ ...formData, video_url: e.target.value })} placeholder="https://..." />
+                  <Label>Video (optional)</Label>
+                  <VideoUpload
+                    value={formData.video_url}
+                    onChange={(url) => setFormData({ ...formData, video_url: url })}
+                    folder="portfolio-videos"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label>Description</Label>
