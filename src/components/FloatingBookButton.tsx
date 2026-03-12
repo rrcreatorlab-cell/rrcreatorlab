@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 const FloatingBookButton = () => {
   return (
     <a
-      href="https://topmate.io/rishabh269/"
+      href="https://topmate.io/rrcreatorlab"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 left-6 z-50 group"

@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 const LetsConnect = () => {
   const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSc7w7_crTXDPXa1Rz_2OOkAX7k_5jq88dEdLr8KiiaICcGh5g/viewform?usp=header";
-  const topmateUrl = "https://topmate.io/rishabh269/";
+  const topmateUrl = "https://topmate.io/rrcreatorlab";
 
   const contactMethods = [
     {
