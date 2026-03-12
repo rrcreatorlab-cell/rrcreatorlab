@@ -160,7 +160,7 @@ const Portfolio = () => {
           {/* CTA */}
           <AnimatedSection delay={400} className="text-center mt-12">
             <Button variant="gradient" size="xl" asChild>
-              <a href="https://topmate.io/rishabh269/" target="_blank" rel="noopener noreferrer">
+              <a href="https://topmate.io/rrcreatorlab" target="_blank" rel="noopener noreferrer">
                 Get Similar Results
                 <ExternalLink className="ml-2 h-4 w-4" />
               </a>
@@ -205,7 +205,7 @@ const Portfolio = () => {
               </p>
             )}
             <Button variant="gradient" className="w-full" asChild>
-              <a href="https://topmate.io/rishabh269/" target="_blank" rel="noopener noreferrer">
+              <a href="https://topmate.io/rrcreatorlab" target="_blank" rel="noopener noreferrer">
                 Get Similar Results
               </a>
             </Button>

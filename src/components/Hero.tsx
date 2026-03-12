@@ -238,7 +238,7 @@ const Hero = () => {
           >
             <Button variant="hero" size="xl" asChild>
               <a
-                href="https://topmate.io/rishabh269/"
+                href="https://topmate.io/rrcreatorlab"
                 target="_blank"
                 rel="noopener noreferrer"
               >

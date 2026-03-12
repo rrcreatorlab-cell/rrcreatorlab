@@ -11,7 +11,7 @@ const benefits = [
 ];
 
 const BookingSection = () => {
-  const bookingUrl = "https://topmate.io/rishabh269/";
+  const bookingUrl = "https://topmate.io/rrcreatorlab";
   const { scrollY } = useParallax();
 
   return (
