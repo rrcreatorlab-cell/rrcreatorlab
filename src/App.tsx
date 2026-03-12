@@ -41,7 +41,6 @@ const App = () => (
         <BrowserRouter>
           <ScrollProgress />
           <CursorGlow />
-          <FloatingBookButton />
           <BackToTop />
           <SocialProofToast />
           <Routes>
