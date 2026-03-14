@@ -47,6 +47,11 @@ const SuccessStories = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Success Stories"
+        description="Real results from real creators. See how RR Creator Lab helped YouTube and Instagram channels grow their audience and reach."
+        canonical="/success-stories"
+      />
       <Navbar />
       
       <main className="pt-24 pb-16">
