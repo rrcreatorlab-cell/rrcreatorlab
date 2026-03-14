@@ -37,6 +37,11 @@ const LetsConnect = () => {
   ];
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Let's Connect"
+        description="Get in touch with RR Creator Lab for YouTube management, Instagram growth, and content strategy consultations."
+        canonical="/lets-connect"
+      />
       <Navbar />
       
       <main className="pt-24 pb-16">
