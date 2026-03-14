@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import AnimatedSection from "@/components/AnimatedSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -47,6 +48,11 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Portfolio"
+        description="Explore our best YouTube videos, Shorts, and Instagram Reels created for creators and brands. See real results from RR Creator Lab."
+        canonical="/portfolio"
+      />
       <Navbar />
       
       {/* Hero Section */}

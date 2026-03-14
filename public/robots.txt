@@ -12,3 +12,7 @@ Disallow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /auth
+
+Sitemap: https://rrcreatorlab.com/sitemap.xml

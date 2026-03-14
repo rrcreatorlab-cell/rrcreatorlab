@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
@@ -20,6 +21,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO canonical="/" />
       <Navbar />
       <Hero />
       <ClientLogos />
