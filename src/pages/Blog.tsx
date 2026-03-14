@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { blogPosts, categoryColors } from "@/data/blogPosts";
 
 const Blog = () => {
@@ -16,6 +17,11 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Blog"
+        description="Tips, strategies, and insights on YouTube growth, Instagram marketing, and content creation from RR Creator Lab."
+        canonical="/blog"
+      />
       <Navbar />
       
       {/* Hero Section */}

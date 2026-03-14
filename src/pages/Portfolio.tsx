@@ -48,6 +48,11 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Portfolio"
+        description="Explore our best YouTube videos, Shorts, and Instagram Reels created for creators and brands. See real results from RR Creator Lab."
+        canonical="/portfolio"
+      />
       <Navbar />
       
       {/* Hero Section */}
