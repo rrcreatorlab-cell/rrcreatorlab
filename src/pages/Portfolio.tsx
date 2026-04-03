@@ -125,7 +125,7 @@ const Portfolio = () => {
                   onClick={() => setSelectedItem(item)}
                 >
                   {/* Thumbnail */}
-                  <div className="relative aspect-video bg-gradient-to-br from-primary/20 to-accent/20 overflow-hidden">
+                  <div className={`relative ${item.aspect_ratio === '9:16' ? 'aspect-[9/16]' : 'aspect-video'} bg-gradient-to-br from-primary/20 to-accent/20 overflow-hidden`}>
                     {item.thumbnail_url ? (
                       <img src={item.thumbnail_url} alt={item.title} className="w-full h-full object-cover" />
                     ) : (
@@ -140,12 +140,6 @@ const Portfolio = () => {
                         {item.category}
                       </span>
                     </div>
-                    {item.views && (
-                      <div className="absolute bottom-3 right-3 flex items-center gap-1">
-                        <Eye className="h-3 w-3 text-foreground/70" />
-                        <span className="text-xs text-foreground/70">{item.views}</span>
-                      </div>
-                    )}
                   </div>
 
                   <div className="p-4">
