@@ -43,6 +43,7 @@ const emptyForm = {
   aspect_ratio: "16:9",
   active: true,
   display_order: 0,
+  gallery_urls: [] as string[],
 };
 
 const AdminPortfolio = () => {
