@@ -189,7 +189,7 @@ const AdminPortfolio = () => {
                     folder="portfolio"
                   />
                 </div>
-                {formData.category !== "Website" && (
+                {formData.category !== "Website" && formData.category !== "UGC Model Pics" && (
                   <div className="space-y-2">
                     <Label>Video (optional)</Label>
                     <VideoUpload
@@ -197,6 +197,33 @@ const AdminPortfolio = () => {
                       onChange={(url) => setFormData({ ...formData, video_url: url })}
                       folder="portfolio-videos"
                     />
+                  </div>
+                )}
+                {formData.category === "UGC Model Pics" && (
+                  <div className="space-y-2">
+                    <Label>Gallery Images (slideshow)</Label>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {formData.gallery_urls.map((url, i) => (
+                        <div key={i} className="relative">
+                          <img src={url} alt={`Gallery ${i + 1}`} className="w-16 h-16 rounded object-cover border border-border" />
+                          <Button
+                            type="button"
+                            size="icon"
+                            variant="destructive"
+                            className="absolute -top-1 -right-1 h-5 w-5"
+                            onClick={() => setFormData({ ...formData, gallery_urls: formData.gallery_urls.filter((_, idx) => idx !== i) })}
+                          >
+                            ×
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                    <ImageUpload
+                      value=""
+                      onChange={(url) => setFormData({ ...formData, gallery_urls: [...formData.gallery_urls, url] })}
+                      folder="portfolio-gallery"
+                    />
+                    <p className="text-xs text-muted-foreground">Upload multiple images one by one for the slideshow</p>
                   </div>
                 )}
                 <div className="space-y-2">
