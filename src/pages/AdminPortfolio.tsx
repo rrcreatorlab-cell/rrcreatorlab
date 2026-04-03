@@ -128,6 +128,7 @@ const AdminPortfolio = () => {
       aspect_ratio: item.aspect_ratio,
       active: item.active,
       display_order: item.display_order,
+      gallery_urls: item.gallery_urls || [],
     });
     setIsOpen(true);
   };
