@@ -15,7 +15,7 @@ import VideoUpload from "@/components/admin/VideoUpload";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 
-const categoryOptions = ["YT Video", "YT Shorts", "Insta Reels", "Website"];
+const categoryOptions = ["YT Video", "YT Shorts", "Insta Reels", "Website", "UGC Model Videos", "UGC Model Pics"];
 
 interface PortfolioItem {
   id: string;
