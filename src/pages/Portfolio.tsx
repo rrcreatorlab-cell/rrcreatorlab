@@ -177,7 +177,7 @@ const Portfolio = () => {
             <DialogTitle className="font-display text-xl">{selectedItem?.title}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <div className="aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
+            <div className={`${selectedItem?.aspect_ratio === '9:16' ? 'aspect-[9/16] max-h-[60vh] mx-auto' : 'aspect-video'} rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20`}>
               {selectedItem?.video_url ? (
                 <video src={selectedItem.video_url} controls className="w-full h-full object-cover" />
               ) : selectedItem?.thumbnail_url ? (
@@ -192,11 +192,6 @@ const Portfolio = () => {
               <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">
                 {selectedItem?.category}
               </span>
-              {selectedItem?.views && (
-                <span className="flex items-center gap-1 text-muted-foreground">
-                  <Eye className="h-4 w-4" /> {selectedItem.views} views
-                </span>
-              )}
             </div>
             <p className="text-muted-foreground">{selectedItem?.description}</p>
             {selectedItem?.client && (
@@ -204,6 +199,11 @@ const Portfolio = () => {
                 <span className="text-muted-foreground">Client:</span>{" "}
                 <span className="text-primary">{selectedItem.client}</span>
               </p>
+            )}
+            {selectedItem?.website_url && (
+              <a href={selectedItem.website_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+                <ExternalLink className="h-3 w-3" /> Visit Website
+              </a>
             )}
             <Button variant="gradient" className="w-full" asChild>
               <a href="https://topmate.io/rrcreatorlab" target="_blank" rel="noopener noreferrer">
