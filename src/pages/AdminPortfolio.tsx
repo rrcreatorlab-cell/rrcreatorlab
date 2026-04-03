@@ -169,6 +169,16 @@ const AdminPortfolio = () => {
                   </Select>
                 </div>
                 <div className="space-y-2">
+                  <Label>Aspect Ratio</Label>
+                  <Select value={formData.aspect_ratio} onValueChange={(v) => setFormData({ ...formData, aspect_ratio: v })}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="16:9">16:9 (Landscape)</SelectItem>
+                      <SelectItem value="9:16">9:16 (Portrait)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
                   <Label>Thumbnail</Label>
                   <ImageUpload
                     value={formData.thumbnail_url}
@@ -190,12 +200,12 @@ const AdminPortfolio = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Views (e.g. 250K+)</Label>
-                    <Input value={formData.views} onChange={(e) => setFormData({ ...formData, views: e.target.value })} />
-                  </div>
-                  <div className="space-y-2">
                     <Label>Client</Label>
                     <Input value={formData.client} onChange={(e) => setFormData({ ...formData, client: e.target.value })} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Website URL (optional)</Label>
+                    <Input value={formData.website_url} onChange={(e) => setFormData({ ...formData, website_url: e.target.value })} placeholder="https://..." />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
