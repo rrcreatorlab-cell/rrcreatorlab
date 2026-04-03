@@ -1,0 +1,1 @@
+ALTER TABLE public.portfolio_items ADD COLUMN gallery_urls text[] NOT NULL DEFAULT '{}'::text[];

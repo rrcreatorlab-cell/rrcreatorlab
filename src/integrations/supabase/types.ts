@@ -158,6 +158,7 @@ export type Database = {
           created_at: string
           description: string
           display_order: number
+          gallery_urls: string[]
           id: string
           thumbnail_url: string
           title: string
@@ -173,6 +174,7 @@ export type Database = {
           created_at?: string
           description?: string
           display_order?: number
+          gallery_urls?: string[]
           id?: string
           thumbnail_url?: string
           title: string
@@ -188,6 +190,7 @@ export type Database = {
           created_at?: string
           description?: string
           display_order?: number
+          gallery_urls?: string[]
           id?: string
           thumbnail_url?: string
           title?: string

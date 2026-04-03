@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, ExternalLink, ArrowLeft } from "lucide-react";
+import { Play, ExternalLink, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
-const categories = ["All", "YT Video", "YT Shorts", "Insta Reels", "Website"];
+const categories = ["All", "YT Video", "YT Shorts", "Insta Reels", "Website", "UGC Model Videos", "UGC Model Pics"];
 
 interface PortfolioItem {
   id: string;
@@ -24,11 +24,13 @@ interface PortfolioItem {
   aspect_ratio: string;
   active: boolean;
   display_order: number;
+  gallery_urls: string[];
 }
 
 const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   const { data: portfolioItems = [], isLoading } = useQuery({
     queryKey: ["portfolio-items"],
@@ -171,23 +173,63 @@ const Portfolio = () => {
       </section>
 
       {/* Detail Modal */}
-      <Dialog open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
+      <Dialog open={!!selectedItem} onOpenChange={() => { setSelectedItem(null); setGalleryIndex(0); }}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="font-display text-xl">{selectedItem?.title}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <div className={`${selectedItem?.aspect_ratio === '9:16' ? 'aspect-[9/16] max-h-[60vh] mx-auto' : 'aspect-video'} rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20`}>
-              {selectedItem?.video_url ? (
-                <video src={selectedItem.video_url} controls className="w-full h-full object-cover" />
-              ) : selectedItem?.thumbnail_url ? (
-                <img src={selectedItem.thumbnail_url} alt={selectedItem.title} className="w-full h-full object-cover" />
-              ) : (
-                <div className="flex items-center justify-center h-full">
-                  <Play className="h-12 w-12 text-primary mx-auto mb-2" />
-                </div>
-              )}
-            </div>
+            {/* Gallery slideshow for UGC Model Pics */}
+            {selectedItem?.category === "UGC Model Pics" && selectedItem.gallery_urls?.length > 0 ? (
+              <div className="relative rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
+                <img
+                  src={selectedItem.gallery_urls[galleryIndex]}
+                  alt={`${selectedItem.title} - ${galleryIndex + 1}`}
+                  className="w-full aspect-[4/5] object-cover"
+                />
+                {selectedItem.gallery_urls.length > 1 && (
+                  <>
+                    <Button
+                      size="icon"
+                      variant="glass"
+                      className="absolute left-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full"
+                      onClick={() => setGalleryIndex((prev) => (prev - 1 + selectedItem.gallery_urls.length) % selectedItem.gallery_urls.length)}
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="glass"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full"
+                      onClick={() => setGalleryIndex((prev) => (prev + 1) % selectedItem.gallery_urls.length)}
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                      {selectedItem.gallery_urls.map((_, i) => (
+                        <button
+                          key={i}
+                          className={`w-2 h-2 rounded-full transition-colors ${i === galleryIndex ? 'bg-primary' : 'bg-foreground/30'}`}
+                          onClick={() => setGalleryIndex(i)}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <div className={`${selectedItem?.aspect_ratio === '9:16' ? 'aspect-[9/16] max-h-[60vh] mx-auto' : 'aspect-video'} rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20`}>
+                {selectedItem?.video_url ? (
+                  <video src={selectedItem.video_url} controls className="w-full h-full object-cover" />
+                ) : selectedItem?.thumbnail_url ? (
+                  <img src={selectedItem.thumbnail_url} alt={selectedItem.title} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="flex items-center justify-center h-full">
+                    <Play className="h-12 w-12 text-primary mx-auto mb-2" />
+                  </div>
+                )}
+              </div>
+            )}
             <div className="flex items-center gap-4 text-sm">
               <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">
                 {selectedItem?.category}
