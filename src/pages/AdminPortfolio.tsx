@@ -29,6 +29,7 @@ interface PortfolioItem {
   aspect_ratio: string;
   active: boolean;
   display_order: number;
+  gallery_urls: string[];
 }
 
 const emptyForm = {
