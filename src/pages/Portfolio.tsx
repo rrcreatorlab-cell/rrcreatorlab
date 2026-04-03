@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, ExternalLink, ArrowLeft } from "lucide-react";
+import { Play, ExternalLink, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
-const categories = ["All", "YT Video", "YT Shorts", "Insta Reels", "Website"];
+const categories = ["All", "YT Video", "YT Shorts", "Insta Reels", "Website", "UGC Model Videos", "UGC Model Pics"];
 
 interface PortfolioItem {
   id: string;
@@ -24,6 +24,7 @@ interface PortfolioItem {
   aspect_ratio: string;
   active: boolean;
   display_order: number;
+  gallery_urls: string[];
 }
 
 const Portfolio = () => {
