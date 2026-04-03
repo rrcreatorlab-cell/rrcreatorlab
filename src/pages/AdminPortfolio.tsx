@@ -37,8 +37,9 @@ const emptyForm = {
   thumbnail_url: "",
   video_url: "",
   description: "",
-  views: "",
   client: "",
+  website_url: "",
+  aspect_ratio: "16:9",
   active: true,
   display_order: 0,
 };
