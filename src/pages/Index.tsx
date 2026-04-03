@@ -25,7 +25,7 @@ const Index = () => {
       <Navbar />
       <Hero />
       <ClientLogos />
-      <StatsCounter />
+      <MissionBanner />
       
       
       <Services />
