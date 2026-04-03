@@ -30,6 +30,7 @@ interface PortfolioItem {
 const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   const { data: portfolioItems = [], isLoading } = useQuery({
     queryKey: ["portfolio-items"],
