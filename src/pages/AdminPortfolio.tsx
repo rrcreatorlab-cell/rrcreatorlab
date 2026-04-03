@@ -121,8 +121,9 @@ const AdminPortfolio = () => {
       thumbnail_url: item.thumbnail_url,
       video_url: item.video_url,
       description: item.description,
-      views: item.views,
       client: item.client,
+      website_url: item.website_url,
+      aspect_ratio: item.aspect_ratio,
       active: item.active,
       display_order: item.display_order,
     });
