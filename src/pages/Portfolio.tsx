@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, ExternalLink, Eye, ArrowLeft, ImageIcon } from "lucide-react";
+import { Play, ExternalLink, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import AnimatedSection from "@/components/AnimatedSection";
