@@ -186,14 +186,16 @@ const AdminPortfolio = () => {
                     folder="portfolio"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label>Video (optional)</Label>
-                  <VideoUpload
-                    value={formData.video_url}
-                    onChange={(url) => setFormData({ ...formData, video_url: url })}
-                    folder="portfolio-videos"
-                  />
-                </div>
+                {formData.category !== "Website" && (
+                  <div className="space-y-2">
+                    <Label>Video (optional)</Label>
+                    <VideoUpload
+                      value={formData.video_url}
+                      onChange={(url) => setFormData({ ...formData, video_url: url })}
+                      folder="portfolio-videos"
+                    />
+                  </div>
+                )}
                 <div className="space-y-2">
                   <Label>Description</Label>
                   <Textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
