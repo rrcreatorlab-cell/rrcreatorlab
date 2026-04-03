@@ -19,8 +19,9 @@ interface PortfolioItem {
   thumbnail_url: string;
   video_url: string;
   description: string;
-  views: string;
   client: string;
+  website_url: string;
+  aspect_ratio: string;
   active: boolean;
   display_order: number;
 }
