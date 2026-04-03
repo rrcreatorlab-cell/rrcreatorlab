@@ -152,6 +152,7 @@ export type Database = {
       portfolio_items: {
         Row: {
           active: boolean
+          aspect_ratio: string
           category: string
           client: string
           created_at: string
@@ -162,10 +163,11 @@ export type Database = {
           title: string
           updated_at: string
           video_url: string
-          views: string
+          website_url: string
         }
         Insert: {
           active?: boolean
+          aspect_ratio?: string
           category?: string
           client?: string
           created_at?: string
@@ -176,10 +178,11 @@ export type Database = {
           title: string
           updated_at?: string
           video_url?: string
-          views?: string
+          website_url?: string
         }
         Update: {
           active?: boolean
+          aspect_ratio?: string
           category?: string
           client?: string
           created_at?: string
@@ -190,7 +193,7 @@ export type Database = {
           title?: string
           updated_at?: string
           video_url?: string
-          views?: string
+          website_url?: string
         }
         Relationships: []
       }
