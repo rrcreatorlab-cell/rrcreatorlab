@@ -2,7 +2,7 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
-import StatsCounter from "@/components/StatsCounter";
+import MissionBanner from "@/components/MissionBanner";
 import Services from "@/components/Services";
 
 import Process from "@/components/Process";
@@ -25,7 +25,7 @@ const Index = () => {
       <Navbar />
       <Hero />
       <ClientLogos />
-      <StatsCounter />
+      <MissionBanner />
       
       
       <Services />
