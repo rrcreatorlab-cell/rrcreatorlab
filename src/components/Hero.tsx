@@ -117,22 +117,31 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Slide backgrounds with ken burns */}
-      {slides.map((slide, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-700 ease-in-out"
-          style={{ opacity: current === i && !isTransitioning ? 1 : 0 }}
-        >
-          <img
-            src={slide.image}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{
-              animation: current === i ? "kenburns 8s ease-in-out forwards" : "none",
-            }}
-          />
-        </div>
-      ))}
+      {slides.map((slide, i) => {
+        const isActive = current === i;
+        const shouldLoad = isActive || i === (current + 1) % slides.length;
+        return (
+          <div
+            key={i}
+            className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+            style={{ opacity: isActive && !isTransitioning ? 1 : 0 }}
+          >
+            {shouldLoad && (
+              <img
+                src={slide.image}
+                alt=""
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={i === 0 ? "high" : "low"}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{
+                  animation: isActive ? "kenburns 8s ease-in-out forwards" : "none",
+                }}
+              />
+            )}
+          </div>
+        );
+      })}
 
       {/* Overlay gradient for readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90 z-[1]" />
@@ -178,6 +187,10 @@ const Hero = () => {
             <img
               src={rrLogo}
               alt="RR Creator Lab"
+              fetchPriority="high"
+              decoding="async"
+              width={208}
+              height={208}
               className="w-36 h-36 md:w-44 md:h-44 lg:w-52 lg:h-52 mx-auto rounded-full object-cover shadow-2xl shadow-primary/20"
             />
           </div>
