@@ -138,8 +138,6 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90 z-[1]" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/70 z-[1]" />
 
-      {/* Grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(hsl(220,20%,15%)_1px,transparent_1px),linear-gradient(90deg,hsl(220,20%,15%)_1px,transparent_1px)] bg-[size:60px_60px] opacity-10 z-[2]" />
 
       {/* Particles */}
       <HeroParticles />

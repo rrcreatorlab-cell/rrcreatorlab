@@ -55,7 +55,14 @@
 
       gtag('config', 'G-Y685JKYY31');
     </script>
-  </head>
+
+    <!-- Default to light theme -->
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme') || 'light';
+        if (t === 'light') document.documentElement.classList.add('light');
+      })();
+    </script>
 
   <body>
     <div id="root"></div>
