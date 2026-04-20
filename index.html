@@ -9,6 +9,16 @@
     <link rel="canonical" href="https://rrcreatorlab.com" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
+    <!-- Security headers (best-effort via meta tags) -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+
+    <!-- Performance: preconnect / dns-prefetch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rrcreatorlab.com" />
