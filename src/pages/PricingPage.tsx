@@ -1,5 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Pricing from "@/components/Pricing";
+import Courses from "@/components/Courses";
+import DigitalServices from "@/components/DigitalServices";
+import ComboPackages from "@/components/ComboPackages";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import SEO from "@/components/SEO";
@@ -15,6 +18,9 @@ const PricingPage = () => {
       <Navbar />
       <div className="pt-20">
         <Pricing />
+        <Courses />
+        <DigitalServices />
+        <ComboPackages />
       </div>
       <Footer />
       <ScrollToTop />
