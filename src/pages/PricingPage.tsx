@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Pricing from "@/components/Pricing";
 import Courses from "@/components/Courses";
@@ -8,6 +10,22 @@ import ScrollToTop from "@/components/ScrollToTop";
 import SEO from "@/components/SEO";
 
 const PricingPage = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) return;
+    const id = hash.replace("#", "");
+    // Wait for sections to mount, then scroll with navbar offset
+    const t = setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }, 100);
+    return () => clearTimeout(t);
+  }, [hash]);
+
   return (
     <div className="min-h-screen bg-background">
       <SEO
