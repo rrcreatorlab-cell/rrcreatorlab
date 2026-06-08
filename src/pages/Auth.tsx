@@ -8,8 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Mail, Lock, Loader2, KeyRound } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
-const SIGNUP_CODE = "Rishi@123";
+import { supabase } from "@/integrations/supabase/client";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -54,14 +53,28 @@ const Auth = () => {
       return;
     }
 
-    // Validate signup code for new registrations
-    if (!isLogin && signupCode !== SIGNUP_CODE) {
-      toast({
-        title: "Invalid signup code",
-        description: "Please enter a valid signup code to create an account.",
-        variant: "destructive",
-      });
-      return;
+    // Validate signup code for new registrations server-side
+    if (!isLogin) {
+      try {
+        const { data, error } = await supabase.functions.invoke("validate-signup-code", {
+          body: { code: signupCode },
+        });
+        if (error || !data?.valid) {
+          toast({
+            title: "Invalid signup code",
+            description: "Please enter a valid signup code to create an account.",
+            variant: "destructive",
+          });
+          return;
+        }
+      } catch {
+        toast({
+          title: "Verification failed",
+          description: "Could not verify the signup code. Try again.",
+          variant: "destructive",
+        });
+        return;
+      }
     }
 
     setIsSubmitting(true);
