@@ -6,6 +6,9 @@ import MissionBanner from "@/components/MissionBanner";
 import Services from "@/components/Services";
 
 import Process from "@/components/Process";
+import Courses from "@/components/Courses";
+import DigitalServices from "@/components/DigitalServices";
+import ComboPackages from "@/components/ComboPackages";
 import WhyUs from "@/components/WhyUs";
 import WhoWeWorkWith from "@/components/WhoWeWorkWith";
 import Team from "@/components/Team";
@@ -31,6 +34,9 @@ const Index = () => {
       <Services />
       
       <Process />
+      <Courses />
+      <DigitalServices />
+      <ComboPackages />
       <WhyUs />
       <Team />
       <Founder />
