@@ -1,4 +1,4 @@
-import { Check, GraduationCap, Youtube, Sparkles, Bot } from "lucide-react";
+import { Check, GraduationCap, Youtube, Sparkles, Bot, ArrowUp } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { Button } from "@/components/ui/button";
 
