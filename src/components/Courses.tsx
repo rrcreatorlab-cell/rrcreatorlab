@@ -1,4 +1,4 @@
-import { Check, GraduationCap, Youtube, Sparkles, Bot } from "lucide-react";
+import { Check, GraduationCap, Youtube, Sparkles, Bot, ArrowUp } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { Button } from "@/components/ui/button";
 
@@ -140,6 +140,23 @@ const Courses = () => {
             );
           })}
         </div>
+
+        <AnimatedSection className="mt-12 text-center">
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => {
+              const el = document.getElementById("pricing");
+              if (el) {
+                const y = el.getBoundingClientRect().top + window.scrollY - 80;
+                window.scrollTo({ top: y, behavior: "smooth" });
+              }
+            }}
+          >
+            <ArrowUp className="w-4 h-4 mr-2" />
+            Back to Pricing
+          </Button>
+        </AnimatedSection>
       </div>
     </section>
   );
