@@ -2,9 +2,12 @@ import { MessageCircle, Lightbulb, Rocket, FileText, BarChart3 } from "lucide-re
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "./AnimatedSection";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
+const iconCycle = [MessageCircle, BarChart3, Rocket, FileText, Lightbulb];
 
-const steps = [
+const defaultSteps = [
   {
     number: "01",
     icon: MessageCircle,
@@ -32,6 +35,29 @@ const steps = [
 ];
 
 const Process = () => {
+  const { data: dbSteps } = useQuery({
+    queryKey: ["process_steps"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("process_steps")
+        .select("*")
+        .eq("active", true)
+        .order("step_number", { ascending: true });
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const steps =
+    dbSteps && dbSteps.length > 0
+      ? dbSteps.map((s, i) => ({
+          number: String(s.step_number).padStart(2, "0"),
+          icon: iconCycle[i % iconCycle.length],
+          title: s.step_title,
+          description: s.step_description,
+        }))
+      : defaultSteps;
+
   return (
     <section className="relative py-24 overflow-hidden" id="process">
 
