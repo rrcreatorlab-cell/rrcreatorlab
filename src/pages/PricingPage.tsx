@@ -5,6 +5,7 @@ import Pricing from "@/components/Pricing";
 import Courses from "@/components/Courses";
 import DigitalServices from "@/components/DigitalServices";
 import ComboPackages from "@/components/ComboPackages";
+import PerformancePackages from "@/components/PerformancePackages";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import SEO from "@/components/SEO";
@@ -38,6 +39,7 @@ const PricingPage = () => {
         <Pricing />
         <Courses />
         <DigitalServices />
+        <PerformancePackages />
         <ComboPackages />
       </div>
       <Footer />
