@@ -3,6 +3,8 @@ import { ArrowRight, Calendar, Settings, ChevronLeft, ChevronRight } from "lucid
 import { Link } from "react-router-dom";
 import { useAdminCheck } from "@/hooks/useAdminCheck";
 import { useEffect, useState, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import rrLogo from "@/assets/rr-creator-lab-logo.png";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
 import heroSlide2 from "@/assets/hero-slide-2.jpg";
@@ -12,7 +14,7 @@ import heroSlide5 from "@/assets/hero-slide-5.jpg";
 import HeroParticles from "./HeroParticles";
 import HeroTrustBar from "./HeroTrustBar";
 
-const slides = [
+const defaultSlides = [
   {
     image: heroSlide1,
     headline: "Building Creators.",
@@ -56,6 +58,35 @@ const Hero = () => {
   const [typedText, setTypedText] = useState("");
   const { isAdmin } = useAdminCheck();
 
+  const { data: heroData } = useQuery({
+    queryKey: ["hero_section"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("hero_section")
+        .select("*")
+        .limit(1)
+        .maybeSingle();
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  // Override slide 1's text with admin-editable values while keeping the rest of the slider intact
+  const slides = defaultSlides.map((s, i) =>
+    i === 0 && heroData
+      ? {
+          ...s,
+          headline: heroData.heading_line_1 || s.headline,
+          headlineAccent: heroData.heading_line_2 || s.headlineAccent,
+          subtext: heroData.subtitle || s.subtext,
+        }
+      : s
+  );
+
+  const badgeText = heroData?.badge_text || "Content Growth & Social Media Management Studio";
+  const primaryCta = heroData?.primary_cta_text || "Book Free Consultation";
+  const secondaryCta = heroData?.secondary_cta_text || "Get Started";
+
   const goToSlide = useCallback(
     (index: number) => {
       if (index === current || isTransitioning) return;
@@ -65,7 +96,7 @@ const Hero = () => {
         setIsTransitioning(false);
       }, 600);
     },
-    [current, isTransitioning]
+    [current, isTransitioning, slides.length]
   );
 
   const goNext = useCallback(() => {
@@ -75,7 +106,7 @@ const Hero = () => {
       setCurrent((prev) => (prev + 1) % slides.length);
       setIsTransitioning(false);
     }, 600);
-  }, [isTransitioning]);
+  }, [isTransitioning, slides.length]);
 
   const goPrev = useCallback(() => {
     if (isTransitioning) return;
@@ -84,7 +115,7 @@ const Hero = () => {
       setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
       setIsTransitioning(false);
     }, 600);
-  }, [isTransitioning]);
+  }, [isTransitioning, slides.length]);
 
   // Auto-play
   useEffect(() => {
@@ -96,11 +127,11 @@ const Hero = () => {
       }, 600);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   // Typing animation for the badge
   useEffect(() => {
-    const text = "Content Growth & Social Media Management Studio";
+    const text = badgeText;
     setTypedText("");
     let i = 0;
     const interval = setInterval(() => {
@@ -112,7 +143,7 @@ const Hero = () => {
       }
     }, 40);
     return () => clearInterval(interval);
-  }, []);
+  }, [badgeText]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -254,12 +285,12 @@ const Hero = () => {
                 rel="noopener noreferrer"
               >
                 <Calendar className="mr-2 h-5 w-5" />
-                Book Free Consultation
+                {primaryCta}
               </a>
             </Button>
             <Button variant="glass" size="xl" asChild>
               <Link to="/lets-connect">
-                Get Started
+                {secondaryCta}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
