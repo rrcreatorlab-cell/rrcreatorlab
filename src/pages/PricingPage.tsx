@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import Pricing from "@/components/Pricing";
 import Courses from "@/components/Courses";
 import DigitalServices from "@/components/DigitalServices";
-import ComboPackages from "@/components/ComboPackages";
 import PerformancePackages from "@/components/PerformancePackages";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -40,7 +39,6 @@ const PricingPage = () => {
         <Courses />
         <DigitalServices />
         <PerformancePackages />
-        <ComboPackages />
       </div>
       <Footer />
       <ScrollToTop />
