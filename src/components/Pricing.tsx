@@ -13,16 +13,6 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
-const iconMap: Record<string, LucideIcon> = {
-  sparkles: Sparkles,
-  star: Star,
-  crown: Crown,
-  globe: Globe,
-  bot: Bot,
-  package: Package,
-  bar_chart: BarChart3,
-  zap: Zap,
-};
 
 type PricingTab = 'content-marketing' | 'additional' | 'yt-management' | 'one-time';
 
