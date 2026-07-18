@@ -42,19 +42,6 @@ const Pricing = () => {
     },
   });
 
-  // Fetch one-time services from database
-  const { data: dbOneTimeServices = [] } = useQuery({
-    queryKey: ["one_time_services"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("one_time_services")
-        .select("*")
-        .eq("active", true)
-        .order("display_order", { ascending: true });
-      if (error) throw error;
-      return data;
-    },
-  });
 
   // Transform database plans into display format
   const monthlyDbPlans = dbPricingPlans.filter(p => p.duration === 'Monthly');
@@ -199,21 +186,6 @@ const Pricing = () => {
 
   const plans = isYearly ? yearlyPlans : monthlyPlans;
 
-  // Transform one-time services from database
-  const oneTimeServices = dbOneTimeServices.length > 0
-    ? dbOneTimeServices.map((service, index) => {
-        const iconOptions: LucideIcon[] = [Globe, Bot, Zap, Package, BarChart3];
-        const colorOptions = ["primary", "accent", "primary", "emerald-400", "cyan-400"];
-        return {
-          name: service.name,
-          price: formatPrice(service.price_min, service.price_max),
-          description: service.description || "",
-          highlight: service.highlight,
-          icon: iconOptions[index % iconOptions.length],
-          color: colorOptions[index % colorOptions.length],
-        };
-      })
-    : [];
 
   const editingPackages = [
     {
