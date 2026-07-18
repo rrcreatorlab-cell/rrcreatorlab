@@ -1,5 +1,4 @@
-import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, Globe, Bot, Zap, Youtube, BookOpen, Package, Play, BarChart3, LucideIcon } from "lucide-react";
-import levelUpVideo from "@/assets/level-up-creators.mp4";
+import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
