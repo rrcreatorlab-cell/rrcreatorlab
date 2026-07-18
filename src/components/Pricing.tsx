@@ -1,5 +1,4 @@
-import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, Globe, Bot, Zap, Youtube, BookOpen, Package, Play, BarChart3, LucideIcon } from "lucide-react";
-import levelUpVideo from "@/assets/level-up-creators.mp4";
+import { Check, Star, Sparkles, Scissors, Video, Crown, Eye, LayoutGrid, Table, X, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -14,18 +13,8 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
-const iconMap: Record<string, LucideIcon> = {
-  sparkles: Sparkles,
-  star: Star,
-  crown: Crown,
-  globe: Globe,
-  bot: Bot,
-  package: Package,
-  bar_chart: BarChart3,
-  zap: Zap,
-};
 
-type PricingTab = 'content-marketing' | 'additional' | 'yt-management' | 'one-time';
+type PricingTab = 'content-marketing' | 'additional';
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
@@ -37,8 +26,6 @@ const Pricing = () => {
   const tabs: { id: PricingTab; label: string; icon: LucideIcon }[] = [
     { id: 'content-marketing', label: 'Content Marketing', icon: Sparkles },
     { id: 'additional', label: 'Additional Packages', icon: Scissors },
-    { id: 'yt-management', label: 'YT Management', icon: Youtube },
-    { id: 'one-time', label: 'One-Time Services', icon: Zap },
   ];
 
   // Fetch pricing plans from database
@@ -55,19 +42,6 @@ const Pricing = () => {
     },
   });
 
-  // Fetch one-time services from database
-  const { data: dbOneTimeServices = [] } = useQuery({
-    queryKey: ["one_time_services"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("one_time_services")
-        .select("*")
-        .eq("active", true)
-        .order("display_order", { ascending: true });
-      if (error) throw error;
-      return data;
-    },
-  });
 
   // Transform database plans into display format
   const monthlyDbPlans = dbPricingPlans.filter(p => p.duration === 'Monthly');
@@ -212,21 +186,6 @@ const Pricing = () => {
 
   const plans = isYearly ? yearlyPlans : monthlyPlans;
 
-  // Transform one-time services from database
-  const oneTimeServices = dbOneTimeServices.length > 0
-    ? dbOneTimeServices.map((service, index) => {
-        const iconOptions: LucideIcon[] = [Globe, Bot, Zap, Package, BarChart3];
-        const colorOptions = ["primary", "accent", "primary", "emerald-400", "cyan-400"];
-        return {
-          name: service.name,
-          price: formatPrice(service.price_min, service.price_max),
-          description: service.description || "",
-          highlight: service.highlight,
-          icon: iconOptions[index % iconOptions.length],
-          color: colorOptions[index % colorOptions.length],
-        };
-      })
-    : [];
 
   const editingPackages = [
     {
@@ -768,235 +727,6 @@ const Pricing = () => {
         </div>
         )}
 
-        {/* ===== YT MANAGEMENT TAB ===== */}
-        {activeTab === 'yt-management' && (
-        <div className="mt-20 max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 text-red-400 text-sm font-medium mb-4">
-              <Youtube className="w-4 h-4" />
-              YT Management
-            </span>
-            <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              YouTube <span className="text-red-400">Growth Services</span>
-            </h3>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Learn, manage, and scale your YouTube channel with our specialized services
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* YT Complete Teaching */}
-            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-red-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in">
-              <div className="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6">
-                <BookOpen className="w-7 h-7 text-red-400" />
-              </div>
-              <h4 className="text-xl font-bold mb-2">YT Complete Teaching</h4>
-              <div className="mb-4">
-                <span className="text-2xl font-bold text-red-400">₹2,999</span>
-                <span className="text-muted-foreground text-sm ml-2">one-time</span>
-              </div>
-              <p className="text-muted-foreground text-sm mb-4">
-                Webinar + One-to-one sessions for complete YouTube mastery
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-red-400 flex-shrink-0" />
-                  <span>2-hour comprehensive webinar</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-red-400 flex-shrink-0" />
-                  <span>1-on-1 strategy call (30 mins)</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-red-400 flex-shrink-0" />
-                  <span>Lifetime access to recordings</span>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full border-red-400/50 text-red-400 hover:bg-red-400 hover:text-white transition-all duration-300" asChild>
-                <Link to="/lets-connect">Get Started</Link>
-              </Button>
-            </div>
-
-            {/* Toolkit 6 Months */}
-            <div className="glass-card rounded-2xl p-8 border border-border/50 hover:border-orange-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in" style={{ animationDelay: '100ms' }}>
-              <div className="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6">
-                <Package className="w-7 h-7 text-orange-400" />
-              </div>
-              <h4 className="text-xl font-bold mb-2">Toolkit (6 Months)</h4>
-              <div className="mb-4">
-                <span className="text-2xl font-bold text-orange-400">₹2,499</span>
-                <span className="text-muted-foreground text-sm ml-2">for 6 months</span>
-              </div>
-              <p className="text-muted-foreground text-sm mb-4">
-                Templates, systems, and creator resources bundle
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                  <span>Content calendar templates</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                  <span>Script writing frameworks</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                  <span>6 months of updates</span>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full border-orange-400/50 text-orange-400 hover:bg-orange-400 hover:text-white transition-all duration-300" asChild>
-                <Link to="/lets-connect">Get Started</Link>
-              </Button>
-            </div>
-
-            {/* Toolkit Yearly - Best Value */}
-            <div className="relative glass-card rounded-2xl p-8 border-2 border-orange-400 bg-gradient-to-b from-orange-500/10 to-orange-500/5 shadow-lg shadow-orange-400/20 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-orange-400/30 transition-all duration-500 animate-fade-in" style={{ animationDelay: '200ms' }}>
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-orange-400 text-white text-sm font-medium">
-                  <Star className="w-4 h-4 fill-current" />
-                  Best Value
-                </span>
-              </div>
-              <div className="w-14 h-14 rounded-2xl bg-orange-500/20 flex items-center justify-center mb-6">
-                <Package className="w-7 h-7 text-orange-400" />
-              </div>
-              <h4 className="text-xl font-bold mb-2">Toolkit (Yearly)</h4>
-              <div className="mb-4">
-                <span className="text-2xl font-bold text-orange-400">₹3,999</span>
-                <span className="text-muted-foreground text-sm ml-2">per year</span>
-              </div>
-              <p className="text-muted-foreground text-sm mb-4">
-                Full year access with priority support included!
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
-                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                  <span>Everything in 6-month plan</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
-                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                  <span>Full year of updates</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
-                  <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                  <span>Priority support</span>
-                </div>
-              </div>
-              <Button className="w-full bg-orange-400 hover:bg-orange-500 text-white transition-all duration-300 hover:scale-105" asChild>
-                <Link to="/lets-connect">Get Started</Link>
-              </Button>
-            </div>
-          </div>
-
-          {/* Video Promo for Toolkit */}
-          <div className="mt-12 max-w-3xl mx-auto">
-            <div className="glass-card rounded-2xl p-6 border border-orange-400/30 bg-gradient-to-r from-orange-500/5 to-red-500/5">
-              <div className="flex flex-col lg:flex-row items-center gap-6">
-                <div className="relative w-full lg:w-auto aspect-[9/16] max-h-[400px] rounded-xl overflow-hidden shadow-lg shadow-orange-400/20">
-                  <video
-                    src={levelUpVideo}
-                    className="w-full h-full object-cover"
-                    controls
-                    poster=""
-                    preload="metadata"
-                  >
-                    Your browser does not support the video tag.
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-                </div>
-                <div className="flex-1 text-center lg:text-left">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-400/10 text-orange-400 text-xs font-medium mb-3">
-                    <Play className="w-3 h-3" />
-                    Toolkit Preview
-                  </div>
-                  <h4 className="text-xl font-bold mb-2">Level Up Your Content Game</h4>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    See how our toolkit helps creators streamline their workflow and grow faster
-                  </p>
-                  <Button className="bg-orange-400 hover:bg-orange-500 text-white" asChild>
-                    <Link to="/lets-connect">Get the Toolkit</Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        )}
-
-        {/* ===== ONE-TIME SERVICES TAB ===== */}
-        {activeTab === 'one-time' && (
-        <div className="mt-20 max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-              <Zap className="w-4 h-4" />
-              One-Time Services
-            </span>
-            <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              Quick Setup <span className="gradient-text">Solutions</span>
-            </h3>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Made for creators & brands • One-time setup • No monthly charges
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {oneTimeServices.map((service, index) => {
-              const ServiceIcon = service.icon;
-              const isHighlight = service.highlight;
-              return (
-                <div
-                  key={index}
-                  className={`relative glass-card rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl animate-fade-in ${
-                    isHighlight
-                      ? "border-2 border-primary bg-gradient-to-b from-primary/10 to-primary/5 shadow-lg shadow-primary/20 hover:shadow-primary/30"
-                      : "border border-border/50 hover:border-primary/50"
-                  }`}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  {isHighlight && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                      <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-primary text-primary-foreground text-sm font-medium">
-                        <Star className="w-4 h-4 fill-current" />
-                        Best Value
-                      </span>
-                    </div>
-                  )}
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${
-                    isHighlight ? "bg-primary/20" : "bg-primary/10"
-                  }`}>
-                    <ServiceIcon className={`w-7 h-7 text-primary`} />
-                  </div>
-                  <h4 className="text-xl font-bold mb-2">{service.name}</h4>
-                  <div className="mb-4">
-                    <span className={`text-2xl font-bold text-primary`}>{service.price}</span>
-                    <span className="text-muted-foreground text-sm ml-2">one-time</span>
-                  </div>
-                  <p className="text-muted-foreground text-sm mb-6">
-                    {service.description}
-                  </p>
-                  <div className="space-y-2 mb-6">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Check className={`w-4 h-4 text-primary flex-shrink-0`} />
-                      <span>One-time setup</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Check className={`w-4 h-4 text-primary flex-shrink-0`} />
-                      <span>No monthly charges</span>
-                    </div>
-                  </div>
-                  <Button
-                    variant={isHighlight ? "default" : "outline"}
-                    className="w-full transition-all duration-300 hover:scale-105"
-                    asChild
-                  >
-                    <Link to="/lets-connect">Get Started</Link>
-                  </Button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        )}
       </div>
     </section>
   );
