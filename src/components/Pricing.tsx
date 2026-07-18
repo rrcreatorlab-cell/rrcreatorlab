@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 
 
-type PricingTab = 'content-marketing' | 'additional' | 'yt-management' | 'one-time';
+type PricingTab = 'content-marketing' | 'additional';
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
@@ -26,8 +26,6 @@ const Pricing = () => {
   const tabs: { id: PricingTab; label: string; icon: LucideIcon }[] = [
     { id: 'content-marketing', label: 'Content Marketing', icon: Sparkles },
     { id: 'additional', label: 'Additional Packages', icon: Scissors },
-    { id: 'yt-management', label: 'YT Management', icon: Youtube },
-    { id: 'one-time', label: 'One-Time Services', icon: Zap },
   ];
 
   // Fetch pricing plans from database
