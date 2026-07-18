@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Pricing from "@/components/Pricing";
 import Courses from "@/components/Courses";
-import DigitalServices from "@/components/DigitalServices";
 import PerformancePackages from "@/components/PerformancePackages";
+import Others from "@/components/Others";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import SEO from "@/components/SEO";
@@ -37,8 +37,8 @@ const PricingPage = () => {
       <div className="pt-20">
         <Pricing />
         <Courses />
-        <DigitalServices />
         <PerformancePackages />
+        <Others />
       </div>
       <Footer />
       <ScrollToTop />
