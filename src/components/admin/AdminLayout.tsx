@@ -32,7 +32,6 @@ const navItems = [
   { name: "FAQs", href: "/admin/faqs", icon: HelpCircle },
   { name: "Trusted Creators", href: "/admin/clients", icon: Users },
   { name: "Portfolio", href: "/admin/portfolio", icon: Image },
-  { name: "Others", href: "/admin/others", icon: LayoutDashboard },
 ];
 
 const AdminLayout = ({ children, title }: AdminLayoutProps) => {
