@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Pricing from "@/components/Pricing";
-import Courses from "@/components/Courses";
 import PerformancePackages from "@/components/PerformancePackages";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -35,7 +34,6 @@ const PricingPage = () => {
       <Navbar />
       <div className="pt-20">
         <Pricing />
-        <Courses />
         <PerformancePackages />
       </div>
       <Footer />

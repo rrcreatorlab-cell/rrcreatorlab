@@ -6,7 +6,6 @@ import MissionBanner from "@/components/MissionBanner";
 import Services from "@/components/Services";
 
 import Process from "@/components/Process";
-import CoursesList from "@/components/CoursesList";
 import WhyUs from "@/components/WhyUs";
 import WhoWeWorkWith from "@/components/WhoWeWorkWith";
 import Team from "@/components/Team";
@@ -30,7 +29,6 @@ const Index = () => {
       
       
       <Services />
-      <CoursesList />
       <Process />
       <WhyUs />
       <Team />
