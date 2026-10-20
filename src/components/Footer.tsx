@@ -87,7 +87,7 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><a href="#services" className="hover:text-primary transition-colors">Services</a></li>
-              <li><a href="#process" className="hover:text-primary transition-colors">Alevoor Technologies</a></li>
+              <li><a href="#process" className="hover:text-primary transition-colors">Parent Company: Alevoor Technologies</a></li>
               <li><a href="#why-us" className="hover:text-primary transition-colors">Why Choose Us</a></li>
               <li><a href="#clients" className="hover:text-primary transition-colors">Who We Work With</a></li>
               <li><a href="#contact" className="hover:text-primary transition-colors">Contact</a></li>
