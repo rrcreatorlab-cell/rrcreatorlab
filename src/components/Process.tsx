@@ -1,125 +1,61 @@
-import { MessageCircle, Lightbulb, Rocket, FileText, BarChart3 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ArrowRight, Building2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "./AnimatedSection";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
 
-const iconCycle = [MessageCircle, BarChart3, Rocket, FileText, Lightbulb];
-
-const defaultSteps = [
-  {
-    number: "01",
-    icon: MessageCircle,
-    title: "Client Onboarding",
-    description: "Fill out our simple form and share your goals. We learn about your content, audience, and vision for growth.",
-  },
-  {
-    number: "02",
-    icon: BarChart3,
-    title: "Strategy & Analytics Review",
-    description: "We analyze your channel performance and develop a customized growth strategy tailored to your niche.",
-  },
-  {
-    number: "03",
-    icon: Rocket,
-    title: "Editing + Uploading",
-    description: "Our team handles professional editing, optimization, and strategic uploading to maximize reach.",
-  },
-  {
-    number: "04",
-    icon: FileText,
-    title: "Weekly / Monthly Growth Report",
-    description: "Receive detailed performance reports with insights, analytics, and actionable recommendations.",
-  },
+const offerings = [
+  "Banking software",
+  "Billing software",
+  "E-commerce software",
+  "Account management services",
 ];
 
-const Process = () => {
-  const { data: dbSteps } = useQuery({
-    queryKey: ["process_steps"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("process_steps")
-        .select("*")
-        .eq("active", true)
-        .order("step_number", { ascending: true });
-      if (error) throw error;
-      return data;
-    },
-  });
-
-  const steps =
-    dbSteps && dbSteps.length > 0
-      ? dbSteps.map((s, i) => ({
-          number: String(s.step_number).padStart(2, "0"),
-          icon: iconCycle[i % iconCycle.length],
-          title: s.step_title,
-          description: s.step_description,
-        }))
-      : defaultSteps;
-
-  return (
-    <section className="relative py-24 overflow-hidden" id="process">
-
-
-      <div className="container relative z-10 px-4">
-        <AnimatedSection className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary mb-4">
-            Our Process
-          </span>
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            How It
-            <span className="gradient-text"> Works</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            A simple, transparent process designed to deliver consistent results.
-          </p>
+const Process = () => (
+  <section className="relative overflow-hidden py-20 md:py-24" id="process">
+    <div className="container relative z-10 px-4">
+      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+        <AnimatedSection animation="fade-right">
+          <div className="sister-company-panel flex min-h-[320px] flex-col items-center justify-center rounded-xl px-6 py-12 text-center text-primary-foreground shadow-lg md:min-h-[360px]">
+            <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-xl border border-primary-foreground/60 font-display text-3xl font-bold">
+              AT
+            </div>
+            <p className="font-display text-3xl font-bold md:text-4xl">Alevoor Technologies</p>
+            <p className="mt-3 text-base text-primary-foreground/90">Software &amp; technology studio</p>
+          </div>
         </AnimatedSection>
 
-        <div className="max-w-4xl mx-auto">
-          {steps.map((step, index) => (
-            <AnimatedSection
-              key={step.number}
-              animation={index % 2 === 0 ? "fade-right" : "fade-left"}
-              delay={index * 150}
-            >
-              <div className="relative flex items-start gap-6 pb-12 last:pb-0">
-                {/* Connecting line */}
-                {index < steps.length - 1 && (
-                  <div className="absolute left-7 top-16 w-0.5 h-full bg-gradient-to-b from-primary/50 to-transparent" />
-                )}
+        <AnimatedSection animation="fade-left" delay={120}>
+          <div>
+            <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
+              <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+              Sister Company
+            </span>
+            <h2 className="mb-5 font-display text-3xl font-bold leading-tight md:text-4xl">
+              Meet our technology powerhouse, <span className="gradient-text">Alevoor Technologies</span>
+            </h2>
+            <p className="mb-6 text-base leading-7 text-muted-foreground">
+              While RR Creator Lab helps brands tell their story, Alevoor Technologies builds practical software for the businesses behind them.
+            </p>
 
-                {/* Step number/icon */}
-                <div className="relative flex-shrink-0">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                    <step.icon className="h-6 w-6 text-foreground" />
-                  </div>
-                  <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-card border-2 border-primary flex items-center justify-center text-xs font-bold">
-                    {step.number.replace("0", "")}
-                  </div>
-                </div>
+            <ul className="mb-8 space-y-3">
+              {offerings.map((offering) => (
+                <li key={offering} className="flex items-start gap-3 text-foreground">
+                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                  <span>{offering}</span>
+                </li>
+              ))}
+            </ul>
 
-                {/* Content */}
-                <div className="glass-card rounded-xl p-6 flex-1 hover:scale-[1.01] transition-all duration-300">
-                  <h3 className="font-display text-xl font-bold mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm">{step.description}</p>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-
-        {/* CTA Button */}
-        <div className="text-center mt-12">
-          <Link to="/lets-connect">
-            <Button variant="gradient" size="xl">
-              Get Started
+            <Button variant="gradient" size="lg" asChild>
+              <a href="https://alevoortechnologies.lovable.app" target="_blank" rel="noopener noreferrer">
+                Explore Alevoor Technologies
+                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+              </a>
             </Button>
-          </Link>
-        </div>
+          </div>
+        </AnimatedSection>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Process;

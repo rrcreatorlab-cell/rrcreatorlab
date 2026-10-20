@@ -38,6 +38,7 @@
 
     /* Custom tokens */
     --gradient-primary: linear-gradient(135deg, hsl(175, 80%, 50%) 0%, hsl(200, 100%, 60%) 50%, hsl(280, 80%, 60%) 100%);
+    --gradient-sister-company: linear-gradient(135deg, hsl(36 100% 52%) 0%, hsl(10 85% 62%) 100%);
     --gradient-hero: radial-gradient(ellipse at 50% 0%, hsl(175, 80%, 20%) 0%, transparent 50%);
     --gradient-card: linear-gradient(135deg, hsl(220, 20%, 12%) 0%, hsl(220, 20%, 8%) 100%);
     --glow-primary: 0 0 60px hsl(175, 80%, 50%, 0.3);
@@ -75,6 +76,7 @@
     --border: 220 20% 18%;
     --input: 220 20% 18%;
     --ring: 175 80% 50%;
+    --gradient-sister-company: linear-gradient(135deg, hsl(36 100% 52%) 0%, hsl(10 85% 62%) 100%);
     --sidebar-background: 220 20% 6%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 175 80% 50%;
@@ -107,6 +109,7 @@
     --input: 220 15% 85%;
     --ring: 175 80% 40%;
     --gradient-primary: linear-gradient(135deg, hsl(175, 80%, 40%) 0%, hsl(200, 90%, 50%) 50%, hsl(280, 70%, 50%) 100%);
+    --gradient-sister-company: linear-gradient(135deg, hsl(36 100% 52%) 0%, hsl(10 85% 62%) 100%);
     --gradient-hero: radial-gradient(ellipse at 50% 0%, hsl(175, 80%, 90%) 0%, transparent 50%);
     --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(220, 15%, 96%) 100%);
     --glow-primary: 0 0 40px hsl(175, 80%, 40%, 0.2);
@@ -167,6 +170,10 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .sister-company-panel {
+    background: var(--gradient-sister-company);
   }
 
   .glass-card {
