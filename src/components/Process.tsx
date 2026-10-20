@@ -14,9 +14,9 @@ const Process = () => (
     <div className="container relative z-10 px-4">
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
         <AnimatedSection animation="fade-right">
-          <div className="flex min-h-[320px] flex-col items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent px-6 py-12 text-center text-primary-foreground shadow-lg md:min-h-[360px]">
-            <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-xl border border-primary-foreground/60">
-              <Building2 className="h-10 w-10" aria-hidden="true" />
+          <div className="sister-company-panel flex min-h-[320px] flex-col items-center justify-center rounded-xl px-6 py-12 text-center text-primary-foreground shadow-lg md:min-h-[360px]">
+            <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-xl border border-primary-foreground/60 font-display text-3xl font-bold">
+              AT
             </div>
             <p className="font-display text-3xl font-bold md:text-4xl">Alevoor Technologies</p>
             <p className="mt-3 text-base text-primary-foreground/90">Software &amp; technology studio</p>
